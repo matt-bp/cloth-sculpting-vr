@@ -40,6 +40,12 @@ namespace Presenters
 
         private void Update()
         {
+            if (LoadedModels.Measurement is null)
+            {
+                timeLabel.text = "Time Measurement model not setup.";
+                return;
+            }
+
             LoadedModels.Measurement.IncrementTime();
         }
 
