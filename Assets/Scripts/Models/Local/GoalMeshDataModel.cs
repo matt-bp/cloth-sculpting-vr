@@ -22,7 +22,7 @@ namespace Models.Local
             {
                 var goalMesh = new Dictionary<string, object>
                 {
-                    { "verts", userGeneratedMesh.Value.vertices.Take(2).Select(v => v.x).ToList() }
+                    { "verts", userGeneratedMesh.Value.vertices.Take(2).Select(v => (v.x, v.y, v.z)).ToList() }
                 };
                 
                 overallData.Add(MakeGoalKey(userGeneratedMesh.Key), goalMesh);

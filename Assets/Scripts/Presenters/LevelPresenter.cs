@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Events;
 using Models.Local;
 using TMPro;
@@ -12,10 +13,12 @@ namespace Presenters
         [Header("View")]
         [SerializeField] private TMP_Text timeLabel;
         [SerializeField] private MeshFilter currentCloth;
+        [SerializeField] private MeshFilter goalMesh;
         
         [Header("Model")]
         [SerializeField] private TaskResultModel taskResultModel;
         [SerializeField] private GoalMeshDataModel goalMeshDataModel;
+        [SerializeField] private GoalMeshModel goalMeshModel;
         
         private void OnEnable()
         {
@@ -40,7 +43,12 @@ namespace Presenters
 
         private void Start()
         {
-            goalMeshDataModel.LoadFromDisk();
+            var goals = goalMeshDataModel.LoadFromDisk();
+
+            goalMeshModel.SetGoals(goals);
+            
+            // Communicate with view to show current goal mesh!
+            // currentGoalMesh.sharedMesh = goalMeshModel.GoalMeshes.First().Value;
         }
 
         private void OnTimeUpdate(double dt)
