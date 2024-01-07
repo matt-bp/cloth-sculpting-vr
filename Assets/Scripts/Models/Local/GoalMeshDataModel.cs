@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Models.Local
             var model = GetComponent<TaskResultModel>();
 
             var overallData = new Dictionary<string, object>();
-            
+
             overallData.Add("num_goals", model.UserGeneratedMeshes.Count);
 
             // For each user generated mesh, serialize it to a file
@@ -22,12 +23,13 @@ namespace Models.Local
             {
                 var goalMesh = new Dictionary<string, object>
                 {
-                    { "verts", userGeneratedMesh.Value.vertices.Take(2).Select(v => (v.x, v.y, v.z)).ToList() }
+                    { "verts", userGeneratedMesh.Value.vertices.Select(VectorToTuple).ToArray() },
+                    { "tris", userGeneratedMesh.Value.triangles },
                 };
-                
+
                 overallData.Add(MakeGoalKey(userGeneratedMesh.Key), goalMesh);
             }
-            
+
             var filename = "goal_task_1.dat";
 
             DictionaryFileHelper.WriteToFile(overallData, filename);
@@ -36,7 +38,7 @@ namespace Models.Local
         public Dictionary<int, Mesh> LoadFromDisk()
         {
             var results = new Dictionary<int, Mesh>();
-            
+
             var filename = "goal_task_1.dat";
 
             if (!DictionaryFileHelper.LoadFromDisk(filename, out var data))
@@ -53,15 +55,30 @@ namespace Models.Local
                 Debug.Assert(data.ContainsKey(MakeGoalKey(i)));
                 var d2 = (Dictionary<string, object>)data[MakeGoalKey(i)];
                 Debug.Assert(d2.ContainsKey("verts"));
-                var verts = (List<(float, float, float)>)d2["verts"];
-                Debug.Log($"Size is: {verts.Count}");
+                var vertices = (((float, float, float)[])d2["verts"]).Select(TupleToVector).ToArray();
+                Debug.Log($"Size is: {vertices.Length}, {vertices[0]}");
                 
+                var triangles = (int[])d2["tris"];
+
+                var mesh = new Mesh
+                {
+                    name = $"Imported {i}",
+                    vertices = vertices,
+                    triangles = triangles
+                };
+                
+                mesh.RecalculateNormals();
+
                 // Reconstruct meshes here, and add them to something?
+                results.Add(i, mesh);
             }
 
             return results;
         }
 
         private string MakeGoalKey(int i) => $"goal_{i}";
+
+        private (float, float, float) VectorToTuple(Vector3 v) => (v.x, v.y, v.z);
+        private Vector3 TupleToVector((float, float, float) t) => new Vector3(t.Item1, t.Item2, t.Item3);
     }
 }

@@ -4,6 +4,7 @@ using Events;
 using Models.Local;
 using TMPro;
 using UnityEngine;
+using Wright.Library.Mesh;
 using Wright.Library.Messages;
 
 namespace Presenters
@@ -46,9 +47,10 @@ namespace Presenters
             var goals = goalMeshDataModel.LoadFromDisk();
 
             goalMeshModel.SetGoals(goals);
-            
+
+            if (!goalMeshModel.GoalMeshes.Any()) return;
             // Communicate with view to show current goal mesh!
-            // currentGoalMesh.sharedMesh = goalMeshModel.GoalMeshes.First().Value;
+            goalMesh.sharedMesh = goalMeshModel.GoalMeshes.First().Value;
         }
 
         private void OnTimeUpdate(double dt)
@@ -69,8 +71,11 @@ namespace Presenters
 
         public void OnSubmitClicked()
         {
+            var copy = MeshCopier.MakeCopy(currentCloth.sharedMesh);
+            copy.vertices = copy.vertices.Select(v => currentCloth.transform.TransformPoint(v)).ToArray();
+            
             // Save add generated mesh to the data model
-            taskResultModel.AddUserGeneratedMesh(0, currentCloth.sharedMesh);
+            taskResultModel.AddUserGeneratedMesh(0, copy);
             
             // Save corresponding reference mesh to the data model
             goalMeshDataModel.SaveToDisk();
