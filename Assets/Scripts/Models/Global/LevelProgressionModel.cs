@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Wright.Library.Messages;
 
-namespace Models
+namespace Models.Global
 {
     public class LevelProgressionModel : MonoBehaviour
     {

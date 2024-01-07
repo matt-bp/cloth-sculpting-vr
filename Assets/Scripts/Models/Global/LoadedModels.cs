@@ -1,8 +1,9 @@
 using Events;
+using Models.Global;
 using UnityEngine;
 using Wright.Library.Messages;
 
-namespace Models
+namespace Models.Global
 {
     [RequireComponent(typeof(LevelProgressionModel))]
     [RequireComponent(typeof(TaskMeasurementModel))]

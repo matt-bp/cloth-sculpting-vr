@@ -1,6 +1,7 @@
 using System;
 using Events;
-using Models;
+using Models.Global;
+using Models.Local;
 using TMPro;
 using UnityEngine;
 using Wright.Library.Messages;
@@ -11,6 +12,9 @@ namespace Presenters
     {
         [Header("View")]
         [SerializeField] private TMP_Text timeLabel;
+        [SerializeField] private TaskResultModel taskResultModel;
+        [SerializeField] private MeshFilter currentCloth;
+        [SerializeField] private GoalMeshExportModel goalMeshExportModel;
         
         private void OnEnable()
         {
@@ -51,7 +55,20 @@ namespace Presenters
 
         public void OnSubmitClicked()
         {
-            Messenger.Broadcast(PresenterToModel.SUBMITTED);
+            // Save add generated mesh to the data model
+            taskResultModel.AddUserGeneratedMesh(1, currentCloth.sharedMesh);
+            
+            // Save corresponding reference mesh to the data model
+            goalMeshExportModel.SaveMeshesToDisk();
+            
+            // Compute differences between the two meshes, save that to the data model as well
+
+            // Call data export model
+            
+            // Submit for each 
+
+            Debug.Log("Submitted!");
+            // Messenger.Broadcast(PresenterToModel.SUBMITTED);
         }
     }
 }

@@ -7,7 +7,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Wright.Library.File;
 
-namespace Models
+namespace Models.Global
 {
     public class DataExportModel : MonoBehaviour
     {

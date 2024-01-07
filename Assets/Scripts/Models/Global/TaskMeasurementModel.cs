@@ -2,7 +2,7 @@ using Events;
 using UnityEngine;
 using Wright.Library.Messages;
 
-namespace Models
+namespace Models.Global
 {
     public class TaskMeasurementModel : MonoBehaviour
     {
