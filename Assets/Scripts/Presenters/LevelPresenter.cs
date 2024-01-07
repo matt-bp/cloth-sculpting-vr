@@ -51,6 +51,7 @@ namespace Presenters
             if (!goalMeshModel.GoalMeshes.Any()) return;
             // Communicate with view to show current goal mesh!
             goalMesh.sharedMesh = goalMeshModel.GoalMeshes.First().Value;
+            goalMesh.GetComponent<MeshRenderer>().enabled = true;
         }
 
         private void OnTimeUpdate(double dt)
