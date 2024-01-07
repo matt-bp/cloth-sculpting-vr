@@ -583,9 +583,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeLabel: {fileID: 1004868545}
-  taskResultModel: {fileID: 1938778325}
   currentCloth: {fileID: 1588292479}
-  goalMeshExportModel: {fileID: 1938778324}
+  taskResultModel: {fileID: 1938778325}
+  goalMeshDataModel: {fileID: 1938778324}
 --- !u!4 &736199768
 Transform:
   m_ObjectHideFlags: 0

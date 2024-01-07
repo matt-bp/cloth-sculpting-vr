@@ -11,9 +11,11 @@ namespace Presenters
     {
         [Header("View")]
         [SerializeField] private TMP_Text timeLabel;
-        [SerializeField] private TaskResultModel taskResultModel;
         [SerializeField] private MeshFilter currentCloth;
-        [SerializeField] private GoalMeshExportModel goalMeshExportModel;
+        
+        [Header("Model")]
+        [SerializeField] private TaskResultModel taskResultModel;
+        [SerializeField] private GoalMeshDataModel goalMeshDataModel;
         
         private void OnEnable()
         {
@@ -36,6 +38,11 @@ namespace Presenters
             // LoadedModels.Measurement.ResetTime();
         }
 
+        private void Start()
+        {
+            goalMeshDataModel.LoadFromDisk();
+        }
+
         private void OnTimeUpdate(double dt)
         {
             timeLabel.text = $"Time is now: {TimeSpan.FromSeconds(dt):mm\\:ss}";
@@ -55,10 +62,10 @@ namespace Presenters
         public void OnSubmitClicked()
         {
             // Save add generated mesh to the data model
-            taskResultModel.AddUserGeneratedMesh(1, currentCloth.sharedMesh);
+            taskResultModel.AddUserGeneratedMesh(0, currentCloth.sharedMesh);
             
             // Save corresponding reference mesh to the data model
-            goalMeshExportModel.SaveMeshesToDisk();
+            goalMeshDataModel.SaveToDisk();
             
             // Compute differences between the two meshes, save that to the data model as well
 

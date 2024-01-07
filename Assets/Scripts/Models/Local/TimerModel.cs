@@ -20,7 +20,6 @@ namespace Models.Local
 
         public void IncrementTime()
         {
-            Cloth c;
             ElapsedTimeSeconds += Time.deltaTime;
             _timeSinceLastUpdate += Time.deltaTime;
 
