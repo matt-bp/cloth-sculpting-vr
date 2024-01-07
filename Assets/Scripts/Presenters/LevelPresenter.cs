@@ -1,6 +1,5 @@
 using System;
 using Events;
-using Models.Global;
 using Models.Local;
 using TMPro;
 using UnityEngine;
@@ -34,7 +33,7 @@ namespace Presenters
         {
             Debug.Log($"Using input {input} for the task.");
             
-            LoadedModels.Measurement.ResetTime();
+            // LoadedModels.Measurement.ResetTime();
         }
 
         private void OnTimeUpdate(double dt)
@@ -44,13 +43,13 @@ namespace Presenters
 
         private void Update()
         {
-            if (LoadedModels.Measurement is null)
-            {
-                timeLabel.text = "Time Measurement model not setup.";
-                return;
-            }
-
-            LoadedModels.Measurement.IncrementTime();
+            // if (LoadedModels.Measurement is null)
+            // {
+            //     timeLabel.text = "Time Measurement model not setup.";
+            //     return;
+            // }
+            //
+            // LoadedModels.Measurement.IncrementTime();
         }
 
         public void OnSubmitClicked()
