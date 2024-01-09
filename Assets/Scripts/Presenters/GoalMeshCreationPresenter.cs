@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Models.Local;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Presenters
 
         [Header("Model")] [SerializeField] private CreationModeModel creationModeModel;
         [SerializeField] private TMP_Text currentModeLabel;
+        [SerializeField] private GoalMeshCreationModel goalMeshCreationModel;
 
         private void Start()
         {
@@ -20,33 +22,30 @@ namespace Presenters
             currentModeLabel.text = "Goals";
         }
 
-        public void OnAddGoalMesh()
+        public void OnTimeChanged(string newTime)
+        {
+            if (!float.TryParse(newTime, out var value)) return;
+
+            Debug.Log($"New time: {value}");
+            goalMeshCreationModel.SetTime(value);
+        }
+
+        public void OnExport()
+        {
+            Debug.Log("Going to export");
+        }
+
+        public void OnAdd()
         {
             if (!creationModeModel.CreatingGoals) return;
+
+            var copy = MeshCopier.MakeCopy(currentCloth.sharedMesh);
+            copy.vertices = copy.vertices
+                .Select(v => currentCloth.transform.TransformPoint(v)).ToArray();
+
+            goalMeshCreationModel.AddGoalMeshAtCurrentTime(copy);
             
-            // var copy = MeshCopier.MakeCopy(currentCloth.sharedMesh);
-            // copy.vertices = copy.vertices
-            //     .Select(v => currentCloth.transform.TransformPoint(v)).ToArray();
-            //
-            //
-            // if (creationModeModel.CreatingGoals)
-            // {
-            //     
-            // }
-                // Save add generated mesh to the data model
-                // taskResultModel.AddUserGeneratedMesh(0, copy);
-
-            // Save corresponding reference mesh to the data model
-            // goalMeshDataModel.SaveToDisk();
-
-            // Compute differences between the two meshes, save that to the data model as well
-
-            // Call data export model
-
-            // Submit for each 
-
-            Debug.Log("Added! (NOT)");
-            // Messenger.Broadcast(PresenterToModel.SUBMITTED);
+            Debug.Log("Added!");
         }
     }
 }
