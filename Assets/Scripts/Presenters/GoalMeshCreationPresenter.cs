@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using Models.Local;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Wright.Library.Mesh;
 
 namespace Presenters
@@ -46,6 +47,8 @@ namespace Presenters
             goalMeshCreationModel.AddGoalMeshAtCurrentTime(copy);
             
             Debug.Log("Added!");
+            
+            // Update visualization of goal positions here
         }
     }
 }
