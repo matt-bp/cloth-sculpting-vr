@@ -11,16 +11,14 @@ namespace Presenters
 {
     public class LevelPresenter : MonoBehaviour
     {
-        [Header("View")]
-        [SerializeField] private TMP_Text timeLabel;
+        [Header("View")] [SerializeField] private TMP_Text timeLabel;
         [SerializeField] private MeshFilter currentCloth;
         [SerializeField] private MeshFilter goalMesh;
-        
-        [Header("Model")]
-        [SerializeField] private TaskResultModel taskResultModel;
+
+        [Header("Model")] [SerializeField] private TaskResultModel taskResultModel;
         [SerializeField] private GoalMeshDataModel goalMeshDataModel;
         [SerializeField] private GoalMeshModel goalMeshModel;
-        
+
         private void OnEnable()
         {
             Debug.Log("LP Enable");
@@ -38,7 +36,7 @@ namespace Presenters
         private void OnUsingInput(string input)
         {
             Debug.Log($"Using input {input} for the task.");
-            
+
             // LoadedModels.Measurement.ResetTime();
         }
 
@@ -74,17 +72,17 @@ namespace Presenters
         {
             var copy = MeshCopier.MakeCopy(currentCloth.sharedMesh);
             copy.vertices = copy.vertices.Select(v => currentCloth.transform.TransformPoint(v)).ToArray();
-            
+
             // Save add generated mesh to the data model
             taskResultModel.AddUserGeneratedMesh(0, copy);
-            
+
             // Save corresponding reference mesh to the data model
             goalMeshDataModel.SaveToDisk();
-            
+
             // Compute differences between the two meshes, save that to the data model as well
 
             // Call data export model
-            
+
             // Submit for each 
 
             Debug.Log("Submitted!");
