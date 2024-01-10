@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Wright.Library.GoalMeshes;
@@ -8,6 +9,7 @@ namespace Models.Local
     {
         public float Time { get; private set; }
         public List<MeshesTimePair> GoalMeshes { get; } = new();
+        public event Action OnMeshAdded;
 
         public void AddGoalMeshAtCurrentTime(Mesh goalMesh)
         {
@@ -16,6 +18,8 @@ namespace Models.Local
                 Time = Time,
                 Mesh = goalMesh
             });
+
+            OnMeshAdded?.Invoke();
         }
 
         public void SetTime(float newTime)

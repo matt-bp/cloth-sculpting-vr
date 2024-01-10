@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Models.Local;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Wright.Library.Mesh;
@@ -11,7 +13,10 @@ namespace Presenters
 {
     public class GoalMeshCreationPresenter : MonoBehaviour
     {
+        [Header("Prefabs")] [SerializeField] private GameObject goalMeshPrefab;
+
         [Header("View")] [SerializeField] private MeshFilter currentCloth;
+        private List<GameObject> _visualizedGoalMeshes = new();
 
         [Header("Model")] [SerializeField] private CreationModeModel creationModeModel;
         [SerializeField] private TMP_Text currentModeLabel;
@@ -21,6 +26,8 @@ namespace Presenters
         {
             currentModeLabel.canvas.enabled = creationModeModel.CreatingGoals;
             currentModeLabel.text = "Goals";
+
+            goalMeshCreationModel.OnMeshAdded += HandleMeshAdded;
         }
 
         public void OnTimeChanged(string newTime)
@@ -33,7 +40,7 @@ namespace Presenters
 
         public void OnExport()
         {
-            Debug.Log("Going to export");
+            Debug.Log("Going to export (NOT IMPLEMENTED YET)");
         }
 
         public void OnAdd()
@@ -45,10 +52,29 @@ namespace Presenters
                 .Select(v => currentCloth.transform.TransformPoint(v)).ToArray();
 
             goalMeshCreationModel.AddGoalMeshAtCurrentTime(copy);
-            
-            Debug.Log("Added!");
-            
-            // Update visualization of goal positions here
+        }
+
+        private void HandleMeshAdded()
+        {
+            // Update visualization
+            VisualizeGoalMeshes(goalMeshCreationModel.GoalMeshes.Select(p => p.Mesh));
+        }
+
+        private void VisualizeGoalMeshes(IEnumerable<Mesh> meshes)
+        {
+            foreach (var meshObject in _visualizedGoalMeshes)
+            {
+                Destroy(meshObject);
+            }
+
+            _visualizedGoalMeshes = new List<GameObject>();
+
+            foreach (var mesh in meshes)
+            {
+                var instance = Instantiate(goalMeshPrefab);
+                instance.GetComponent<MeshFilter>().sharedMesh = mesh;
+                _visualizedGoalMeshes.Add(instance);
+            }
         }
     }
 }

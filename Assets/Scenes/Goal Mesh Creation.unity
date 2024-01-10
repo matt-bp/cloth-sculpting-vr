@@ -1107,6 +1107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a57d3fe5744c268fb34ca6f3b2c24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goalMeshPrefab: {fileID: 8499759806808130600, guid: 15dd0fc8513a17f4bbd40c990b4875e9, type: 3}
   currentCloth: {fileID: 1588292479}
   creationModeModel: {fileID: 1938778327}
   currentModeLabel: {fileID: 307060601}

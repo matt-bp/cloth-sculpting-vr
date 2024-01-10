@@ -11,12 +11,6 @@ namespace Models.Local
         public void SetGoals(Dictionary<int, Mesh> goals)
         {
             GoalMeshes = goals;
-
-            OnShow += Console.WriteLine;
-
-            OnShow?.Invoke("hi");
         }
-
-        public event Action<string> OnShow;
     }
 }
