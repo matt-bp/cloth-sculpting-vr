@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Events;
 using Models.Local;
@@ -14,10 +15,11 @@ namespace Presenters
         [Header("View")] [SerializeField] private TMP_Text timeLabel;
         [SerializeField] private MeshFilter currentCloth;
         [SerializeField] private MeshFilter goalMesh;
+        [SerializeField] private TMP_Text statusLabel;
 
         [Header("Model")] [SerializeField] private TaskResultModel taskResultModel;
-        [SerializeField] private GoalMeshDataModel goalMeshDataModel;
         [SerializeField] private GoalMeshModel goalMeshModel;
+        [SerializeField] private GoalMeshDataModel goalDataModel;
 
         private void OnEnable()
         {
@@ -42,14 +44,25 @@ namespace Presenters
 
         private void Start()
         {
-            var goals = goalMeshDataModel.LoadFromDisk();
+            goalDataModel.OnMeshesFound += HandleGoalMeshesFound;
+            goalDataModel.OnMeshesMissing += HandleGoalMeshesMissing;
+            
+            goalDataModel.LoadFromDisk(1);
+        }
 
-            goalMeshModel.SetGoals(goals);
-
+        private void HandleGoalMeshesFound(Dictionary<int, Mesh> meshes)
+        {
+            goalMeshModel.GoalMeshes = meshes;
+            
             if (!goalMeshModel.GoalMeshes.Any()) return;
-            // Communicate with view to show current goal mesh!
+
             goalMesh.sharedMesh = goalMeshModel.GoalMeshes.First().Value;
             goalMesh.GetComponent<MeshRenderer>().enabled = true;
+        }
+
+        private void HandleGoalMeshesMissing()
+        {
+            statusLabel.text = "Goal meshes are missing :)";
         }
 
         private void OnTimeUpdate(double dt)
@@ -77,7 +90,7 @@ namespace Presenters
             taskResultModel.AddUserGeneratedMesh(0, copy);
 
             // Save corresponding reference mesh to the data model
-            goalMeshDataModel.SaveToDisk();
+            // goalMeshDataModel.SaveToDisk();
 
             // Compute differences between the two meshes, save that to the data model as well
 

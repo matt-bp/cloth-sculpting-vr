@@ -21,7 +21,8 @@ namespace Presenters
         [Header("Model")] [SerializeField] private CreationModeModel creationModeModel;
         [SerializeField] private TMP_Text currentModeLabel;
         [SerializeField] private GoalMeshCreationModel goalMeshCreationModel;
-
+        [SerializeField] private GoalMeshCreationDataModel dataModel;
+        
         private void Start()
         {
             currentModeLabel.canvas.enabled = creationModeModel.CreatingGoals;
@@ -40,7 +41,7 @@ namespace Presenters
 
         public void OnExport()
         {
-            Debug.Log("Going to export (NOT IMPLEMENTED YET)");
+            dataModel.SaveToDisk();
         }
 
         public void OnAdd()

@@ -1112,6 +1112,7 @@ MonoBehaviour:
   creationModeModel: {fileID: 1938778327}
   currentModeLabel: {fileID: 307060601}
   goalMeshCreationModel: {fileID: 1938778328}
+  dataModel: {fileID: 1938778324}
 --- !u!1 &862574075
 GameObject:
   m_ObjectHideFlags: 0

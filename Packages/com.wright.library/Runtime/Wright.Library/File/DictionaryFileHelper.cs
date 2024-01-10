@@ -31,7 +31,7 @@ namespace Wright.Library.File
             
             if (!System.IO.File.Exists(fullFilename))
             {
-                Debug.Log("No saved game");
+                Debug.Log($"No saved game at {fullFilename}");
                 return false;
             }
 
