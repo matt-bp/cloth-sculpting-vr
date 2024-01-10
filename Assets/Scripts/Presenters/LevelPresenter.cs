@@ -86,20 +86,17 @@ namespace Presenters
             var copy = MeshCopier.MakeCopy(currentCloth.sharedMesh);
             copy.vertices = copy.vertices.Select(v => currentCloth.transform.TransformPoint(v)).ToArray();
 
+            // Compute differences between the two meshes, save that to the data model as well
+            
             // Save add generated mesh to the data model
+            // Also save out goal mesh (just in case)
             taskResultModel.AddUserGeneratedMesh(0, copy);
 
-            // Save corresponding reference mesh to the data model
-            // goalMeshDataModel.SaveToDisk();
-
-            // Compute differences between the two meshes, save that to the data model as well
-
-            // Call data export model
-
-            // Submit for each 
-
-            Debug.Log("Submitted!");
-            // Messenger.Broadcast(PresenterToModel.SUBMITTED);
+            Debug.Log("Added to task result model! (still things to do here");
+            
+            // Get next goal mesh!
+            
+            // if all goal meshes are done, signal to move onto the next task!
         }
     }
 }
