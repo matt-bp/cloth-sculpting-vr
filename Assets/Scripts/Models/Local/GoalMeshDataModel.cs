@@ -17,7 +17,7 @@ namespace Models.Local
         {
             var results = new Dictionary<int, Mesh>();
         
-            var filename = $"task_{task}.dat";
+            var filename = $"tasks/task_{task}.dat";
         
             if (!DictionaryFileHelper.LoadFromDisk(filename, out var data))
             {
