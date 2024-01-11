@@ -1,36 +1,43 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using Models.Global;
+using System.Linq;
 using UnityEngine;
 using Wright.Library.File;
+using static Models.Local.GoalMeshCreationDataModel;
 
 namespace Models.Local
 {
     [RequireComponent(typeof(TaskResultModel))]
     public class DataExportModel : MonoBehaviour
     {
-        private TaskResultModel _taskResultModel;
-
-        private void Start()
-        {
-            _taskResultModel = GetComponent<TaskResultModel>();
-        }
-
         public void SaveResults()
         {
-            throw new NotImplementedException("NOPE!");
-            // var filename = "game"; // needs to change
-            // var datedFilename = FilenameSanitizer.Sanitize($"{filename}_{DateTime.Now}.dat");
-            // var fullFilename = Path.Combine(Application.persistentDataPath, datedFilename);
-            // Debug.Log($"Saving file to {fullFilename}");
-            //
-            // var gameState = new Dictionary<string, object> { { "time", 1.0 } };
-            //
-            // using var stream = File.Create(fullFilename);
-            // var formatter = new BinaryFormatter();
-            // formatter.Serialize(stream, gameState);
+            var model = GetComponent<TaskResultModel>();
+            
+            var overallData = new Dictionary<string, object>
+            {
+                { "num_meshes", model.UserGeneratedMeshes.Count },
+                { "time", 1058 }
+            };
+
+            foreach (var (key, result) in model.UserGeneratedMeshes)
+            {
+                var goalMesh = new Dictionary<string, object>
+                {
+                    { "verts", result.Mesh.vertices.Select(VectorToTuple).ToArray() },
+                    { "tris", result.Mesh.triangles },
+                    { "e_error", result.EuclideanError },
+                    { "a_error", result.AngularError }
+                };
+
+                overallData.Add(MakeGoalKey(key), goalMesh);
+            }
+
+            var id = Guid.NewGuid();
+            Debug.Log($"Id is {id}");
+            var filename = $"new_results_{id}.dat";
+
+            DictionaryFileHelper.WriteToFile(overallData, filename);
         }
     }
 }

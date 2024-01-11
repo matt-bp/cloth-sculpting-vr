@@ -8,7 +8,7 @@ namespace Presenters
     {
         public void OnExitClicked()
         {
-            Messenger.Broadcast(PresenterToModel.EXITING_GAME);
+            // Messenger.Broadcast(PresenterToModel.EXITING_GAME);
             
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

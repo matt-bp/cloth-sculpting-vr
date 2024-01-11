@@ -626,6 +626,7 @@ MonoBehaviour:
   goalMeshModel: {fileID: 1938778326}
   goalDataModel: {fileID: 1938778328}
   taskRunner: {fileID: 1938778329}
+  dataModel: {fileID: 1938778330}
 --- !u!4 &736199768
 Transform:
   m_ObjectHideFlags: 0
@@ -739,7 +740,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Submit
+  m_text: Add & Next
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1406,6 +1407,7 @@ GameObject:
   - component: {fileID: 1938778326}
   - component: {fileID: 1938778328}
   - component: {fileID: 1938778329}
+  - component: {fileID: 1938778330}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -1474,5 +1476,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 498f297bbf7248d8b219523654ffa00e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1938778330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938778322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 686cd76e9e5a4bab9c2c44b95dcd2fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

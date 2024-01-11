@@ -23,7 +23,7 @@ namespace Presenters
         [SerializeField] private GoalMeshDataModel goalDataModel;
         [SerializeField] private TaskRunnerModel taskRunner;
         [SerializeField] private DataExportModel dataModel;
-
+        
         private void OnEnable()
         {
             Debug.Log("LP Enable");
@@ -43,21 +43,23 @@ namespace Presenters
             Debug.Log($"Using input {input} for the task.");
 
             // LoadedModels.Measurement.ResetTime();
+            goalDataModel.LoadFromDisk(1);
         }
 
         private void Start()
         {
             goalDataModel.OnMeshesFound += HandleGoalMeshesFound;
             goalDataModel.OnMeshesMissing += HandleGoalMeshesMissing;
-            
-            goalDataModel.LoadFromDisk(1);
         }
 
         private void HandleGoalMeshesFound(Dictionary<int, MeshesTimePair> meshes)
         {
             goalMeshModel.GoalMeshes = meshes;
             
-            if (!goalMeshModel.GoalMeshes.Any()) return;
+            if (!goalMeshModel.GoalMeshes.Any())
+            {
+                statusLabel.text = "Handle found but none passed";
+            };
 
             NextGoalMesh();
         }
@@ -110,7 +112,7 @@ namespace Presenters
             
             // Save add generated mesh to the data model
             // Also save out goal mesh (just in case)
-            taskResultModel.AddUserGeneratedMesh(taskRunner.CurrentKeyframe, copy);
+            taskResultModel.AddUserGeneratedMesh(taskRunner.CurrentKeyframe, copy, 100, 360);
 
             Debug.Log("Added to task result model! (still things to do here");
 
