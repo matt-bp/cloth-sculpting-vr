@@ -18,7 +18,7 @@ namespace Models.Global
             Debug.Log("LPM Enable");
             Messenger.AddListener(PresenterToModel.SWITCHED_INPUT, OnSwitchedInput);
             Messenger.AddListener(GameEvents.START, OnStart);
-            Messenger.AddListener(PresenterToModel.SUBMITTED, OnSubmitted);
+            Messenger.AddListener(PresenterToModel.TASK_COMPLETE, OnTaskComplete);
         }
 
         private void OnDisable()
@@ -26,7 +26,7 @@ namespace Models.Global
             Debug.Log("LPM Disable");
             Messenger.RemoveListener(PresenterToModel.SWITCHED_INPUT, OnSwitchedInput);
             Messenger.RemoveListener(GameEvents.START, OnStart);
-            Messenger.RemoveListener(PresenterToModel.SUBMITTED, OnSubmitted);
+            Messenger.RemoveListener(PresenterToModel.TASK_COMPLETE, OnTaskComplete);
         }
 
         private void OnSwitchedInput()
@@ -51,7 +51,7 @@ namespace Models.Global
             StartCoroutine(LoadInputSwitchSceneAsync());
         }
 
-        private void OnSubmitted()
+        private void OnTaskComplete()
         {
             if (_currentLevel >= lastLevel)
             {

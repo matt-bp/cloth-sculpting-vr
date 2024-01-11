@@ -18,18 +18,19 @@ namespace Models.Local
             _taskResultModel = GetComponent<TaskResultModel>();
         }
 
-        public void SaveGameStatus()
+        public void SaveResults()
         {
-            var filename = "game"; // needs to change
-            var datedFilename = FilenameSanitizer.Sanitize($"{filename}_{DateTime.Now}.dat");
-            var fullFilename = Path.Combine(Application.persistentDataPath, datedFilename);
-            Debug.Log($"Saving file to {fullFilename}");
-            
-            var gameState = new Dictionary<string, object> { { "time", 1.0 } };
-
-            using var stream = File.Create(fullFilename);
-            var formatter = new BinaryFormatter();
-            formatter.Serialize(stream, gameState);
+            throw new NotImplementedException("NOPE!");
+            // var filename = "game"; // needs to change
+            // var datedFilename = FilenameSanitizer.Sanitize($"{filename}_{DateTime.Now}.dat");
+            // var fullFilename = Path.Combine(Application.persistentDataPath, datedFilename);
+            // Debug.Log($"Saving file to {fullFilename}");
+            //
+            // var gameState = new Dictionary<string, object> { { "time", 1.0 } };
+            //
+            // using var stream = File.Create(fullFilename);
+            // var formatter = new BinaryFormatter();
+            // formatter.Serialize(stream, gameState);
         }
     }
 }

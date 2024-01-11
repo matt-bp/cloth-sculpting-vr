@@ -5,6 +5,7 @@ using Events;
 using Models.Local;
 using TMPro;
 using UnityEngine;
+using Wright.Library.GoalMeshes;
 using Wright.Library.Mesh;
 using Wright.Library.Messages;
 
@@ -20,6 +21,8 @@ namespace Presenters
         [Header("Model")] [SerializeField] private TaskResultModel taskResultModel;
         [SerializeField] private GoalMeshModel goalMeshModel;
         [SerializeField] private GoalMeshDataModel goalDataModel;
+        [SerializeField] private TaskRunnerModel taskRunner;
+        [SerializeField] private DataExportModel dataModel;
 
         private void OnEnable()
         {
@@ -50,14 +53,13 @@ namespace Presenters
             goalDataModel.LoadFromDisk(1);
         }
 
-        private void HandleGoalMeshesFound(Dictionary<int, Mesh> meshes)
+        private void HandleGoalMeshesFound(Dictionary<int, MeshesTimePair> meshes)
         {
             goalMeshModel.GoalMeshes = meshes;
             
             if (!goalMeshModel.GoalMeshes.Any()) return;
 
-            goalMesh.sharedMesh = goalMeshModel.GoalMeshes.First().Value;
-            goalMesh.GetComponent<MeshRenderer>().enabled = true;
+            NextGoalMesh();
         }
 
         private void HandleGoalMeshesMissing()
@@ -68,6 +70,22 @@ namespace Presenters
         private void OnTimeUpdate(double dt)
         {
             timeLabel.text = $"Time is now: {TimeSpan.FromSeconds(dt):mm\\:ss}";
+        }
+
+        private void NextGoalMesh()
+        {
+            if (!taskRunner.ProgressToNextMesh())
+            {
+                statusLabel.text = "Task complete.";
+                dataModel.SaveResults();
+                
+                Messenger.Broadcast(PresenterToModel.TASK_COMPLETE);
+                return;
+            }
+
+            statusLabel.text = "Found one";
+
+            goalMesh.sharedMesh = taskRunner.CurrentMeshAndTime.Mesh;
         }
 
         private void Update()
@@ -87,16 +105,16 @@ namespace Presenters
             copy.vertices = copy.vertices.Select(v => currentCloth.transform.TransformPoint(v)).ToArray();
 
             // Compute differences between the two meshes, save that to the data model as well
+
+            // Computer angular difference between triangles (face normals)
             
             // Save add generated mesh to the data model
             // Also save out goal mesh (just in case)
-            taskResultModel.AddUserGeneratedMesh(0, copy);
+            taskResultModel.AddUserGeneratedMesh(taskRunner.CurrentKeyframe, copy);
 
             Debug.Log("Added to task result model! (still things to do here");
-            
-            // Get next goal mesh!
-            
-            // if all goal meshes are done, signal to move onto the next task!
+
+            NextGoalMesh();
         }
     }
 }

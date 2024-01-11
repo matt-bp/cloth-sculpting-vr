@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Wright.Library.File;
+using Wright.Library.GoalMeshes;
 using static Models.Local.GoalMeshCreationDataModel;
 
 namespace Models.Local
@@ -11,11 +12,11 @@ namespace Models.Local
     public class GoalMeshDataModel : MonoBehaviour
     {
         public event Action OnMeshesMissing;
-        public event Action<Dictionary<int, Mesh>> OnMeshesFound;
+        public event Action<Dictionary<int, MeshesTimePair>> OnMeshesFound;
         
         public void LoadFromDisk(int task)
         {
-            var results = new Dictionary<int, Mesh>();
+            var results = new Dictionary<int, MeshesTimePair>();
         
             var filename = $"tasks/task_{task}.dat";
         
@@ -49,12 +50,16 @@ namespace Models.Local
                 mesh.RecalculateNormals();
         
                 // Reconstruct meshes here, and add them to something?
-                results.Add(i, mesh);
+                results.Add(i, new MeshesTimePair
+                {
+                    Time = (float)d2["time"],
+                    Mesh = mesh
+                });
             }
         
             OnMeshesFound?.Invoke(results);
         }
 
-        private static Vector3 TupleToVector((float, float, float) t) => new Vector3(t.Item1, t.Item2, t.Item3);
+        private static Vector3 TupleToVector((float, float, float) t) => new(t.Item1, t.Item2, t.Item3);
     }
 }
