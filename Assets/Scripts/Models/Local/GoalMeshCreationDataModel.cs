@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Wright.Library.File;
+using Wright.Library.File.SaveClasses;
 
 namespace Models.Local
 {
@@ -12,28 +13,24 @@ namespace Models.Local
         {
             // Get all the generated meshes
             var model = GetComponent<GoalMeshCreationModel>();
-
-            var overallData = new Dictionary<string, object>
-            {
-                { "type", "goal" },
-                { "num_goals", model.GoalMeshes.Count }
-            };
+            
+            var fileGoalMeshes = new FileGoalMeshes();
 
             foreach (var (mtp, i) in model.GoalMeshes.Select((s, i) => (s, i)))
             {
-                var goalMesh = new Dictionary<string, object>
+                var goalMesh = new FileGoalMesh
                 {
-                    { "verts", mtp.Mesh.vertices.Select(VectorToTuple).ToArray() },
-                    { "tris", mtp.Mesh.triangles },
-                    { "time", mtp.Time }
+                    Vertices = mtp.Mesh.vertices.Select(VectorToTuple).ToArray(),
+                    Triangles = mtp.Mesh.triangles,
+                    Time = mtp.Time
                 };
 
-                overallData.Add(MakeGoalKey(i), goalMesh);
+                fileGoalMeshes.Meshes.Add(goalMesh);
             }
 
-            const string filename = "new_task_goals.dat";
+            const string filename = "new_task_goals.json";
 
-            DictionaryFileHelper.WriteToFile(overallData, filename);
+            DictionaryFileHelper.WriteToFile(fileGoalMeshes, filename);
         }
 
         public static string MakeGoalKey(int i) => $"goal_{i}";
