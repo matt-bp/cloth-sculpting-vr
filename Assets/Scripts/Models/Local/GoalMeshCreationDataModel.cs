@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Wright.Library.File;
-using Wright.Library.GoalMeshes;
 
 namespace Models.Local
 {
@@ -15,8 +13,12 @@ namespace Models.Local
             // Get all the generated meshes
             var model = GetComponent<GoalMeshCreationModel>();
 
-            var overallData = new Dictionary<string, object> { { "num_goals", model.GoalMeshes.Count } };
-            
+            var overallData = new Dictionary<string, object>
+            {
+                { "type", "goal" },
+                { "num_goals", model.GoalMeshes.Count }
+            };
+
             foreach (var (mtp, i) in model.GoalMeshes.Select((s, i) => (s, i)))
             {
                 var goalMesh = new Dictionary<string, object>

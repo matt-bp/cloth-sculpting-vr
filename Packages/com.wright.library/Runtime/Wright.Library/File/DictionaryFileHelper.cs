@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace Wright.Library.File
 {
@@ -19,27 +20,30 @@ namespace Wright.Library.File
             Debug.Log($"Saving file to {fullFilename}");
 
             using var stream = System.IO.File.Create(fullFilename);
-            var formatter = new BinaryFormatter();
-            formatter.Serialize(stream, dict);
+            using var writer = new StreamWriter(stream);
+
+            var result = JsonConvert.SerializeObject(dict);
+
+            writer.WriteLine(result);
         }
 
         public static bool LoadFromDisk(string filename, out Dictionary<string, object> dict)
         {
             var fullFilename = Path.Combine(Application.persistentDataPath, filename);
-            
+
             dict = new Dictionary<string, object>();
-            
+
             if (!System.IO.File.Exists(fullFilename))
             {
                 Debug.Log($"No saved game at {fullFilename}");
                 return false;
             }
-
+            
             using var stream = System.IO.File.Open(fullFilename, FileMode.Open);
             var formatter = new BinaryFormatter();
+            
             dict = formatter.Deserialize(stream) as Dictionary<string, object>;
             return true;
         }
-        
     }
 }

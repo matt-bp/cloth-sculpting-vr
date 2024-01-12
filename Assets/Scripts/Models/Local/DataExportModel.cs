@@ -13,11 +13,12 @@ namespace Models.Local
         public void SaveResults()
         {
             var model = GetComponent<TaskResultModel>();
-            
+
             var overallData = new Dictionary<string, object>
             {
+                { "type", "result" },
                 { "num_meshes", model.UserGeneratedMeshes.Count },
-                { "time", 1058 }
+                { "time", model.ElapsedTime }
             };
 
             foreach (var (key, result) in model.UserGeneratedMeshes)
@@ -35,7 +36,7 @@ namespace Models.Local
 
             var id = Guid.NewGuid();
             Debug.Log($"Id is {id}");
-            var filename = $"new_results_{id}.dat";
+            var filename = $"new_results_{id}.json";
 
             DictionaryFileHelper.WriteToFile(overallData, filename);
         }

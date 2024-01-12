@@ -64,7 +64,7 @@ namespace Presenters
 
         private void HandleGoalMeshesMissing()
         {
-            statusLabel.text = "Goal meshes are missing :)";
+            statusLabel.text = "Goal meshes are missing :(";
         }
 
         private void OnTimeUpdate(float t)
