@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using Wright.Library.Mesh;
@@ -12,10 +13,12 @@ namespace Models.Local
             public double EuclideanError { get; set; }
             public double AngularError { get; set; }
         }
+
+        public event Action<float> OnTimeUpdate;
+        private float _timeSinceLastUpdate = 0;
         
         public Dictionary<int, Result> UserGeneratedMeshes { get; } = new();
-        
-        // TODO: Include time here as well
+        public float ElapsedTime { get; private set; }
 
         public void AddUserGeneratedMesh(int keyframe, Mesh generatedMesh, double euclideanError, double angularError)
         {
@@ -27,6 +30,18 @@ namespace Models.Local
             };
             
             UserGeneratedMeshes.Add(keyframe, result);
+        }
+
+        public void AddTime(float dt)
+        {
+            ElapsedTime += dt;
+            _timeSinceLastUpdate += dt;
+
+            if (_timeSinceLastUpdate >= 1)
+            {
+                _timeSinceLastUpdate -= 1;
+                OnTimeUpdate?.Invoke(ElapsedTime);
+            }
         }
 
     }

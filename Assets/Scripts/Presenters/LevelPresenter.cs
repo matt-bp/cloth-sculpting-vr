@@ -28,21 +28,18 @@ namespace Presenters
         {
             Debug.Log("LP Enable");
             Messenger<string>.AddListener(ModelToPresenter.CURRENT_INPUT, OnUsingInput);
-            Messenger<double>.AddListener(ModelToPresenter.TIME_UPDATE, OnTimeUpdate);
         }
 
         private void OnDisable()
         {
             Debug.Log("LP Disable");
             Messenger<string>.RemoveListener(ModelToPresenter.CURRENT_INPUT, OnUsingInput);
-            Messenger<double>.AddListener(ModelToPresenter.TIME_UPDATE, OnTimeUpdate);
         }
 
         private void OnUsingInput(string input)
         {
             Debug.Log($"Using input {input} for the task.");
 
-            // LoadedModels.Measurement.ResetTime();
             goalDataModel.LoadFromDisk(1);
         }
 
@@ -50,6 +47,7 @@ namespace Presenters
         {
             goalDataModel.OnMeshesFound += HandleGoalMeshesFound;
             goalDataModel.OnMeshesMissing += HandleGoalMeshesMissing;
+            taskResultModel.OnTimeUpdate += OnTimeUpdate;
         }
 
         private void HandleGoalMeshesFound(Dictionary<int, MeshesTimePair> meshes)
@@ -69,9 +67,9 @@ namespace Presenters
             statusLabel.text = "Goal meshes are missing :)";
         }
 
-        private void OnTimeUpdate(double dt)
+        private void OnTimeUpdate(float t)
         {
-            timeLabel.text = $"Time is now: {TimeSpan.FromSeconds(dt):mm\\:ss}";
+            timeLabel.text = $"Time is now: {TimeSpan.FromSeconds(t):mm\\:ss}";
         }
 
         private void NextGoalMesh()
@@ -92,13 +90,7 @@ namespace Presenters
 
         private void Update()
         {
-            // if (LoadedModels.Measurement is null)
-            // {
-            //     timeLabel.text = "Time Measurement model not setup.";
-            //     return;
-            // }
-            //
-            // LoadedModels.Measurement.IncrementTime();
+            taskResultModel.AddTime(Time.deltaTime);
         }
 
         public void OnSubmitClicked()
