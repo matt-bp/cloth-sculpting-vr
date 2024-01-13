@@ -1,12 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Models.Local;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using Wright.Library.Mesh;
 
 namespace Presenters
@@ -31,14 +27,6 @@ namespace Presenters
             goalMeshCreationModel.OnMeshAdded += HandleMeshAdded;
         }
 
-        public void OnTimeChanged(string newTime)
-        {
-            if (!float.TryParse(newTime, out var value)) return;
-
-            Debug.Log($"New time: {value}");
-            goalMeshCreationModel.SetTime(value);
-        }
-
         public void OnExport()
         {
             dataModel.SaveToDisk();
@@ -52,13 +40,13 @@ namespace Presenters
             copy.vertices = copy.vertices
                 .Select(v => currentCloth.transform.TransformPoint(v)).ToArray();
 
-            goalMeshCreationModel.AddGoalMeshAtCurrentTime(copy);
+            goalMeshCreationModel.AddGoalMesh(copy);
         }
 
         private void HandleMeshAdded()
         {
             // Update visualization
-            VisualizeGoalMeshes(goalMeshCreationModel.GoalMeshes.Select(p => p.Mesh));
+            VisualizeGoalMeshes(goalMeshCreationModel.GoalMeshes);
         }
 
         private void VisualizeGoalMeshes(IEnumerable<Mesh> meshes)

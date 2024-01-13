@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using Wright.Library.File;
 using Wright.Library.File.SaveClasses;
-using Wright.Library.GoalMeshes;
 
 namespace Models.Local
 {
@@ -12,11 +11,11 @@ namespace Models.Local
     public class GoalMeshDataModel : MonoBehaviour
     {
         public event Action OnMeshesMissing;
-        public event Action<Dictionary<int, MeshesTimePair>> OnMeshesFound;
+        public event Action<Dictionary<int, Mesh>> OnMeshesFound;
         
         public void LoadFromDisk(int task)
         {
-            var results = new Dictionary<int, MeshesTimePair>();
+            var results = new Dictionary<int, Mesh>();
         
             var filename = $"tasks/task_{task}.json";
         
@@ -37,11 +36,7 @@ namespace Models.Local
                 mesh.RecalculateNormals();
                 mesh.RecalculateBounds();
                 
-                results.Add(index, new MeshesTimePair
-                {
-                    Time = value.Time,
-                    Mesh = mesh
-                });
+                results.Add(index, mesh);
             }
 
             OnMeshesFound?.Invoke(results);

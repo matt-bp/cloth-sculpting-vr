@@ -1,6 +1,5 @@
 using System.Linq;
 using UnityEngine;
-using Wright.Library.GoalMeshes;
 
 namespace Models.Local
 {
@@ -10,7 +9,7 @@ namespace Models.Local
     {
         private TaskResultModel _taskResultModel;
         private GoalMeshModel _goalMeshModel;
-        public MeshesTimePair CurrentMeshAndTime { get; private set; }
+        public Mesh CurrentMesh { get; private set; }
         public int CurrentKeyframe { get; private set; }
 
         private void Start()
@@ -25,7 +24,7 @@ namespace Models.Local
                 .OrderBy(g => g.Key)
                 .FirstOrDefault(g => !_taskResultModel.UserGeneratedMeshes.ContainsKey(g.Key));
 
-            CurrentMeshAndTime = mesh;
+            CurrentMesh = mesh;
             CurrentKeyframe = keyframe;
             
             return mesh != null;

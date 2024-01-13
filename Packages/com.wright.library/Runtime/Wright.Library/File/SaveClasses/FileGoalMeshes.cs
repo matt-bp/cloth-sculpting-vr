@@ -6,7 +6,6 @@ namespace Wright.Library.File.SaveClasses
     {
         public (float, float, float)[] Vertices { get; set; }
         public int[] Triangles { get; set; }
-        public float Time { get; set; }
     }
     
     public class FileGoalMeshes

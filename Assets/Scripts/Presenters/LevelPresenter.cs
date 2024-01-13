@@ -5,7 +5,6 @@ using Events;
 using Models.Local;
 using TMPro;
 using UnityEngine;
-using Wright.Library.GoalMeshes;
 using Wright.Library.Mesh;
 using Wright.Library.Messages;
 
@@ -50,7 +49,7 @@ namespace Presenters
             taskResultModel.OnTimeUpdate += OnTimeUpdate;
         }
 
-        private void HandleGoalMeshesFound(Dictionary<int, MeshesTimePair> meshes)
+        private void HandleGoalMeshesFound(Dictionary<int, Mesh> meshes)
         {
             goalMeshModel.GoalMeshes = meshes;
             
@@ -85,7 +84,7 @@ namespace Presenters
 
             statusLabel.text = "Found one";
 
-            goalMesh.sharedMesh = taskRunner.CurrentMeshAndTime.Mesh;
+            goalMesh.sharedMesh = taskRunner.CurrentMesh;
         }
 
         private void Update()

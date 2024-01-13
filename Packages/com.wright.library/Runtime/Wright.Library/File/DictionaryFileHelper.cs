@@ -40,7 +40,7 @@ namespace Wright.Library.File
                 return false;
             }
 
-            var json = string.Concat(System.IO.File.ReadLines(filename));
+            var json = string.Concat(System.IO.File.ReadLines(fullFilename));
             Debug.Log($"READ JSON: {json}");
             fromDisk = JsonConvert.DeserializeObject<T>(json);
             

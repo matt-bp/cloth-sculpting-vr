@@ -16,13 +16,12 @@ namespace Models.Local
             
             var fileGoalMeshes = new FileGoalMeshes();
 
-            foreach (var (mtp, i) in model.GoalMeshes.Select((s, i) => (s, i)))
+            foreach (var (mesh, i) in model.GoalMeshes.Select((s, i) => (s, i)))
             {
                 var goalMesh = new FileGoalMesh
                 {
-                    Vertices = mtp.Mesh.vertices.Select(VectorToTuple).ToArray(),
-                    Triangles = mtp.Mesh.triangles,
-                    Time = mtp.Time
+                    Vertices = mesh.vertices.Select(VectorToTuple).ToArray(),
+                    Triangles = mesh.triangles
                 };
 
                 fileGoalMeshes.Meshes.Add(goalMesh);
