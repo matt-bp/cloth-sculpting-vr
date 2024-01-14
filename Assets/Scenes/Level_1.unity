@@ -959,6 +959,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec3968661e440b9be204206fb2326f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  root: {fileID: 53867019}
+  background: {fileID: 6691321684794633046, guid: 10b98ec663a884d4aab758b785fd7318, type: 3}
+  check: {fileID: 0}
 --- !u!4 &874299559
 Transform:
   m_ObjectHideFlags: 0
