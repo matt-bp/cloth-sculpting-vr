@@ -13,7 +13,7 @@ namespace Models.Local
         private GoalMeshModel _goalMeshModel;
         public Mesh CurrentMesh { get; private set; }
         public int CurrentKeyframe { get; private set; }
-        public UnityEvent onNextMesh;
+        public UnityEvent<(int current, int total)> onNextMesh;
         public UnityEvent onMeshesFinished;
         
         private void Start()
@@ -33,7 +33,7 @@ namespace Models.Local
 
             if (mesh != null)
             {
-                onNextMesh.Invoke();
+                onNextMesh.Invoke((keyframe, _goalMeshModel.GoalMeshes.Count));
             }
             else
             {

@@ -76,9 +76,9 @@ namespace Presenters
             taskRunner.ProgressToNextMesh();
         }
 
-        public void UpdateCurrentGoalMesh()
+        public void UpdateCurrentGoalMesh((int current, int total) value)
         {
-            statusLabel.text = $"Found {taskRunner.CurrentKeyframe}";
+            statusLabel.text = $"Found {value.current}";
 
             goalMesh.sharedMesh = taskRunner.CurrentMesh;
         }
