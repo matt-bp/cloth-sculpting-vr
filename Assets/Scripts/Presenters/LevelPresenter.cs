@@ -28,7 +28,7 @@ namespace Presenters
             Debug.Log("LP Enable");
             Messenger<string>.AddListener(ModelToPresenter.CURRENT_INPUT, OnUsingInput);
         }
-
+        
         private void OnDisable()
         {
             Debug.Log("LP Disable");
@@ -73,18 +73,22 @@ namespace Presenters
 
         private void NextGoalMesh()
         {
-            if (!taskRunner.ProgressToNextMesh())
-            {
-                statusLabel.text = "Task complete.";
-                dataModel.SaveResults();
-                
-                Messenger.Broadcast(PresenterToModel.TASK_COMPLETE);
-                return;
-            }
+            taskRunner.ProgressToNextMesh();
+        }
 
-            statusLabel.text = "Found one";
+        public void UpdateCurrentGoalMesh()
+        {
+            statusLabel.text = $"Found {taskRunner.CurrentKeyframe}";
 
             goalMesh.sharedMesh = taskRunner.CurrentMesh;
+        }
+
+        public void TaskComplete()
+        {
+            statusLabel.text = "Task complete.";
+            dataModel.SaveResults();
+                
+            Messenger.Broadcast(PresenterToModel.TASK_COMPLETE);
         }
 
         private void Update()
