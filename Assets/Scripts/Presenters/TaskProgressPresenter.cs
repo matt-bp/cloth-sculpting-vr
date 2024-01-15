@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Presenters
@@ -6,7 +7,7 @@ namespace Presenters
     public class TaskProgressPresenter : MonoBehaviour
     {
 
-        [SerializeField] private Transform root;
+        [SerializeField] private Transform[] positions;
         [Header("Prefabs")]
         [SerializeField] private GameObject background;
         [SerializeField] private GameObject check;
@@ -21,25 +22,20 @@ namespace Presenters
             {
                 Destroy(c);
             }
-
+            
             created = new List<GameObject>();
 
-            float currentX = 0;
+            foreach (var i in Enumerable.Range(0, value.total))
+            {
+                Debug.Assert(i >= 0 && i < positions.Length);
+                
+                created.Add(Instantiate(background, positions[i]));
 
-            var temp = Instantiate(background, root);
-            var updated = temp.transform.position;
-            updated.x = currentX;
-            temp.transform.position = updated;
-
-            // start here
-            var gap = temp.GetComponent<SpriteRenderer>().bounds.size.x;
-
-            currentX += gap;
-            
-            created.Add(temp);
-            
-
-            // Create backgrounds
+                if (i < value.current)
+                {
+                    created.Add(Instantiate(check, positions[i]));
+                }
+            }
         }
     }
 }
