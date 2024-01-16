@@ -91,6 +91,11 @@ namespace Presenters
             Messenger.Broadcast(PresenterToModel.TASK_COMPLETE);
         }
 
+        public void HandleTaskRunnerError()
+        {
+            statusLabel.text = "Error with task runner. Check log";
+        }
+
         private void Update()
         {
             taskResultModel.AddTime(Time.deltaTime);

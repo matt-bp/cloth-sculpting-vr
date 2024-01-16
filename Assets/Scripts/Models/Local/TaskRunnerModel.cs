@@ -15,6 +15,7 @@ namespace Models.Local
         public int CurrentKeyframe { get; private set; }
         public UnityEvent<(int current, int total)> onNextMesh;
         public UnityEvent onMeshesFinished;
+        public UnityEvent onError;
         
         private void Start()
         {
@@ -24,6 +25,12 @@ namespace Models.Local
 
         public void ProgressToNextMesh()
         {
+            if (_goalMeshModel.GoalMeshes == null)
+            {
+                onError.Invoke();
+                return;
+            }
+            
             var (keyframe, mesh) = _goalMeshModel.GoalMeshes
                 .OrderBy(g => g.Key)
                 .FirstOrDefault(g => !_taskResultModel.UserGeneratedMeshes.ContainsKey(g.Key));

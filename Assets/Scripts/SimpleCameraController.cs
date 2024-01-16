@@ -58,11 +58,7 @@ namespace UnityTemplateProjects
 
         CameraState m_TargetCameraState = new CameraState();
         CameraState m_InterpolatingCameraState = new CameraState();
-
-        [Header("Movement Settings")]
-        [Tooltip("Exponential boost factor on translation, controllable by mouse wheel.")]
-        public float boost = 3.5f;
-
+        
         [Tooltip("Time it takes to interpolate camera position 99% of the way to the target."), Range(0.001f, 1f)]
         public float positionLerpTime = 0.2f;
 
@@ -212,10 +208,6 @@ namespace UnityTemplateProjects
                 translation *= 10.0f;
             }
 
-            // Modify movement by a boost factor (defined in Inspector and modified in play mode through the mouse scroll wheel)
-            boost += GetBoostFactor();
-            translation *= Mathf.Pow(2.0f, boost);
-
             m_TargetCameraState.Translate(translation);
 
             // Framerate-independent interpolation
@@ -225,15 +217,6 @@ namespace UnityTemplateProjects
             m_InterpolatingCameraState.LerpTowards(m_TargetCameraState, positionLerpPct, rotationLerpPct);
 
             m_InterpolatingCameraState.UpdateTransform(transform);
-        }
-
-        float GetBoostFactor()
-        {
-#if ENABLE_INPUT_SYSTEM
-            return boostFactorAction.ReadValue<Vector2>().y * 0.01f;
-#else
-            return Input.mouseScrollDelta.y * 0.01f;
-#endif
         }
 
         Vector2 GetInputLookRotation()
