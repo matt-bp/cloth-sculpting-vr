@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,24 +9,24 @@ namespace Wright.Library.Study
     {
         private int _currentIndex;
         private InputMethods _currentInputMethod = InputMethods.KeyboardMouse;
-        public (string Name, InputMethods input) LevelNameAndInput => (_levelNames[_currentIndex], _currentInputMethod);
-
-        private readonly List<string> _levelNames;
+        private readonly List<int> _tasks;
         private readonly Dictionary<int, CompleteState> _completeStates;
+        
+        public (string Name, int Task) LevelNameAndTask => GetCurrentLevelNameAndTask();
 
         /// <summary>
         /// Create progression state.
         /// </summary>
-        /// <param name="levelNames">Names of the scenes that we will be using.</param>
-        public LevelProgressionState(List<string> levelNames)
+        /// <param name="tasks">Tasks to complete, already in order.</param>
+        public LevelProgressionState(List<int> tasks)
         {
-            Debug.Assert(levelNames.Any());
+            Debug.Assert(tasks.Any());
             
-            _completeStates = levelNames
+            _completeStates = tasks
                 .Select((_, i) => i)
                 .ToDictionary(i => i, _ => new CompleteState());
             
-            _levelNames = levelNames;
+            _tasks = tasks;
         }
 
         public bool AllLevelsComplete() => _completeStates.All(v => v.Value.AllDone);
@@ -63,5 +64,8 @@ namespace Wright.Library.Study
                 _completeStates[_currentIndex].VR = true;
             }
         }
+
+        private (string, int) GetCurrentLevelNameAndTask() => ($"Level_{_currentInputMethod}", _tasks[_currentIndex]);
+            
     }
 }

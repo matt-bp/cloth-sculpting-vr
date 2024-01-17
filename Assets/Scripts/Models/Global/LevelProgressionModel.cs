@@ -13,7 +13,7 @@ namespace Models.Global
     public class LevelProgressionModel : MonoBehaviour
     {
         private LevelProgressionState _state;
-        [SerializeField] private List<string> sceneNames;
+        [SerializeField] private List<int> tasks;
         
         private void OnEnable()
         {
@@ -33,7 +33,8 @@ namespace Models.Global
 
         private void Start()
         {
-            _state = new LevelProgressionState(sceneNames);
+            // Do latin square design here? And just pass the list to the progression state, it doesn't have to worry about that!
+            _state = new LevelProgressionState(tasks);
         }
 
         private void OnSwitchedInput()
@@ -43,8 +44,8 @@ namespace Models.Global
             {
                 Debug.Log("Go to next scene");
 
-                var (levelName, input) = _state.LevelNameAndInput;
-                StartCoroutine(StartLevelWithInputMethod(levelName, input));
+                var (levelName, task) = _state.LevelNameAndTask;
+                StartCoroutine(StartLevelWithInputMethod(levelName, task));
             }
             else
             {
@@ -54,7 +55,7 @@ namespace Models.Global
 
         private void OnStart()
         {
-            StartCoroutine(StartLevelWithInputMethod("Input_Switch", _state.LevelNameAndInput.input));
+            StartCoroutine(StartLevelWithInputMethod("Input_Switch", null));
         }
 
         private void OnTaskComplete()
@@ -67,17 +68,20 @@ namespace Models.Global
             }
             else
             {
-                StartCoroutine(StartLevelWithInputMethod("Input_Switch", _state.LevelNameAndInput.input));
+                StartCoroutine(StartLevelWithInputMethod("Input_Switch", null));
             }
         }
 
-        private static IEnumerator StartLevelWithInputMethod(string sceneName, InputMethods inputMethod)
+        private static IEnumerator StartLevelWithInputMethod(string sceneName, int? currentTask)
         {
             var load = SceneManager.LoadSceneAsync(sceneName);
 
             while (!load.isDone) yield return null;
-            
-            Messenger<InputMethods>.Broadcast(ModelToPresenter.CURRENT_INPUT, inputMethod);
+
+            if (currentTask.HasValue)
+            {
+                Messenger<int>.Broadcast(ModelToPresenter.CURRENT_TASK, currentTask.Value, MessengerMode.DONT_REQUIRE_LISTENER);    
+            }
         }
 
         private static void LoadEndScene()

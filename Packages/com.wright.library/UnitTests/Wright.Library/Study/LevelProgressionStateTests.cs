@@ -11,9 +11,9 @@ namespace UnitTests.Wright.Library.Study
         {
             var state = CreateState();
 
-            var result = state.LevelNameAndInput;
+            var result = state.LevelNameAndTask;
 
-            Assert.That(result, Is.EqualTo(("Tutorial", InputMethods.KeyboardMouse)));
+            Assert.That(result, Is.EqualTo(("Level_KeyboardMouse", 0)));
         }
         
         [Test]
@@ -22,9 +22,9 @@ namespace UnitTests.Wright.Library.Study
             var state = CreateState();
             state.Next();
             
-            var result = state.LevelNameAndInput;
+            var result = state.LevelNameAndTask;
 
-            Assert.That(result, Is.EqualTo(("Tutorial", InputMethods.VR)));
+            Assert.That(result, Is.EqualTo(("Level_VR", 0)));
         }
         
         [Test]
@@ -34,9 +34,9 @@ namespace UnitTests.Wright.Library.Study
             state.Next();
             state.Next();
             
-            var result = state.LevelNameAndInput;
+            var result = state.LevelNameAndTask;
 
-            Assert.That(result, Is.EqualTo(("One", InputMethods.KeyboardMouse)));
+            Assert.That(result, Is.EqualTo(("Level_KeyboardMouse", 2)));
         }
         
         [Test]
@@ -69,13 +69,13 @@ namespace UnitTests.Wright.Library.Study
 
         private static LevelProgressionState CreateState() => new(CreateLevelNameList());
         
-        private static List<string> CreateLevelNameList()
+        private static List<int> CreateLevelNameList()
         {
-            return new List<string>()
+            return new List<int>
             {
-                "Tutorial",
-                "One",
-                "Two"
+                0,
+                2,
+                1
             };
         }
 

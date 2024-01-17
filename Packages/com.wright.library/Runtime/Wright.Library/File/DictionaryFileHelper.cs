@@ -9,8 +9,8 @@ namespace Wright.Library.File
         /// <summary>
         /// Serializes a dictionary to a file with the specified filename in the persistent data path provided by Unity.
         /// </summary>
-        /// <param name="thingToSave"></param>
-        /// <param name="filename"></param>
+        /// <param name="thingToSave">Object to serialize</param>
+        /// <param name="filename">Path relative to Unity's persistent data path to store the file.</param>
         public static void WriteToFile<T>(T thingToSave, string filename)
         {
             Debug.Assert(filename.Contains(".json"));
@@ -41,7 +41,6 @@ namespace Wright.Library.File
             }
 
             var json = string.Concat(System.IO.File.ReadLines(fullFilename));
-            Debug.Log($"READ JSON: {json}");
             fromDisk = JsonConvert.DeserializeObject<T>(json);
             
             return true;

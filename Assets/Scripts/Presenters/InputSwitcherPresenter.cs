@@ -11,21 +11,9 @@ namespace Presenters
         [Header("View")]
         [SerializeField] private TMP_Text currentInput;
         
-        private void OnEnable()
+        private void Start()
         {
-            Debug.Log("ISP Enable");
-            Messenger<InputMethods>.AddListener(ModelToPresenter.CURRENT_INPUT, OnCurrentInput);
-        }
-
-        private void OnDisable()
-        {
-            Debug.Log("ISP Disable");
-            Messenger<InputMethods>.RemoveListener(ModelToPresenter.CURRENT_INPUT, OnCurrentInput);
-        }
-        
-        private void OnCurrentInput(InputMethods input)
-        {
-            currentInput.text = $"Switch to: {input}";
+            currentInput.text = "Switch to XXX (change to actual scene that will do this)";
         }
         
         public void OnInputSwitched()
