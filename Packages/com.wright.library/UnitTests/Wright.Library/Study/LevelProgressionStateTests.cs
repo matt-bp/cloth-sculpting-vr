@@ -20,8 +20,8 @@ namespace UnitTests.Wright.Library.Study
         public void Next_WhenCalledAtStart_ReturnsNextInputMethod()
         {
             var state = CreateState();
-
             state.Next();
+            
             var result = state.LevelNameAndInput;
 
             Assert.That(result, Is.EqualTo(("Tutorial", InputMethods.VR)));
@@ -31,12 +31,38 @@ namespace UnitTests.Wright.Library.Study
         public void Next_WhenCalledTwice_MovesToNextLevel()
         {
             var state = CreateState();
-
             state.Next();
             state.Next();
+            
             var result = state.LevelNameAndInput;
 
             Assert.That(result, Is.EqualTo(("One", InputMethods.KeyboardMouse)));
+        }
+        
+        [Test]
+        public void AllLevelsComplete_WhenNotAllAreDone_ReturnsFalse()
+        {
+            var state = CreateState();
+            
+            var result = state.AllLevelsComplete();
+
+            Assert.That(result, Is.False);
+        }
+        
+        [Test]
+        public void AllLevelsComplete_WhenAllAreDone_ReturnsTrue()
+        {
+            var state = CreateState();
+            state.Next();
+            state.Next();
+            state.Next();
+            state.Next();
+            state.Next();
+            state.Next();
+            
+            var result = state.AllLevelsComplete();
+
+            Assert.That(result, Is.True);
         }
         
         #region Helpers
