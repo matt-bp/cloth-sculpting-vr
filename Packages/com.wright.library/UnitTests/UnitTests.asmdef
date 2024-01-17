@@ -4,7 +4,7 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Pika.Simulation.Helpers"
+        "Wright.Library"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

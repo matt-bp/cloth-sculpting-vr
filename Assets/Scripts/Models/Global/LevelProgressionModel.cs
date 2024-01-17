@@ -1,17 +1,19 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Events;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Wright.Library.Messages;
+using Wright.Library.Study;
 
 namespace Models.Global
 {
     public class LevelProgressionModel : MonoBehaviour
     {
-        private string _currentInputMethod = "Keyboard & Mouse";
-        private int _currentLevel = 1;
-        private string CurrentLevelName => $"Level_{_currentLevel}";
-        [SerializeField] private int lastLevel;
+        private LevelProgressionState _state;
+        [SerializeField] private List<string> sceneNames;
         
         private void OnEnable()
         {
@@ -29,16 +31,20 @@ namespace Models.Global
             Messenger.RemoveListener(PresenterToModel.TASK_COMPLETE, OnTaskComplete);
         }
 
+        private void Start()
+        {
+            _state = new LevelProgressionState(sceneNames);
+        }
+
         private void OnSwitchedInput()
         {
             Debug.Log("Switched input");
-            if (_currentLevel <= lastLevel)
+            if (!_state.AllLevelsComplete())
             {
                 Debug.Log("Go to next scene");
 
-                StartCoroutine(StartLevelWithInputMethod());
-                
-                _currentLevel++;
+                var (levelName, input) = _state.LevelNameAndInput;
+                StartCoroutine(StartLevelWithInputMethod(levelName, input));
             }
             else
             {
@@ -48,44 +54,33 @@ namespace Models.Global
 
         private void OnStart()
         {
-            StartCoroutine(LoadInputSwitchSceneAsync());
+            StartCoroutine(StartLevelWithInputMethod("Input_Switch", _state.LevelNameAndInput.input));
         }
 
         private void OnTaskComplete()
         {
-            if (_currentLevel >= lastLevel)
+            _state.Next();
+            
+            if (_state.AllLevelsComplete())
             {
                 LoadEndScene();
             }
             else
             {
-                StartCoroutine(LoadInputSwitchSceneAsync());
+                StartCoroutine(StartLevelWithInputMethod("Input_Switch", _state.LevelNameAndInput.input));
             }
         }
 
-        private IEnumerator LoadInputSwitchSceneAsync()
+        private static IEnumerator StartLevelWithInputMethod(string sceneName, InputMethods inputMethod)
         {
-            const string inputSwitchingSceneName = "Input_Switch";
-            
-            var load = SceneManager.LoadSceneAsync(inputSwitchingSceneName);
+            var load = SceneManager.LoadSceneAsync(sceneName);
 
             while (!load.isDone) yield return null;
             
-            Messenger<string>.Broadcast(ModelToPresenter.CURRENT_INPUT, _currentInputMethod);
+            Messenger<InputMethods>.Broadcast(ModelToPresenter.CURRENT_INPUT, inputMethod);
         }
 
-        private IEnumerator StartLevelWithInputMethod()
-        {
-            Debug.Assert(_currentLevel > 0 && _currentLevel <= lastLevel);
-            
-            var load = SceneManager.LoadSceneAsync(CurrentLevelName);
-
-            while (!load.isDone) yield return null;
-            
-            Messenger<string>.Broadcast(ModelToPresenter.CURRENT_INPUT, _currentInputMethod);
-        }
-
-        private void LoadEndScene()
+        private static void LoadEndScene()
         {
             SceneManager.LoadScene("End");
         }

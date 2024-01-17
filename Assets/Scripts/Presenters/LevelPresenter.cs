@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using Wright.Library.Mesh;
 using Wright.Library.Messages;
+using Wright.Library.Study;
 
 namespace Presenters
 {
@@ -26,16 +27,16 @@ namespace Presenters
         private void OnEnable()
         {
             Debug.Log("LP Enable");
-            Messenger<string>.AddListener(ModelToPresenter.CURRENT_INPUT, OnUsingInput);
+            Messenger<InputMethods>.AddListener(ModelToPresenter.CURRENT_INPUT, OnUsingInput);
         }
         
         private void OnDisable()
         {
             Debug.Log("LP Disable");
-            Messenger<string>.RemoveListener(ModelToPresenter.CURRENT_INPUT, OnUsingInput);
+            Messenger<InputMethods>.RemoveListener(ModelToPresenter.CURRENT_INPUT, OnUsingInput);
         }
 
-        private void OnUsingInput(string input)
+        private void OnUsingInput(InputMethods input)
         {
             Debug.Log($"Using input {input} for the task.");
 

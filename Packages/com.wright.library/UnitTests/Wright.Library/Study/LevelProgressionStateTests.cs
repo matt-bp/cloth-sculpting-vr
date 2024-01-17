@@ -9,16 +9,40 @@ namespace UnitTests.Wright.Library.Study
         [Test]
         public void CurrentLevelName_AfterInitialized_ReturnsFirstName()
         {
-            var list = CreateLevelNameList();
-            var state = new LevelProgressionState(list, 0);
+            var state = CreateState();
 
-            var result = state.CurrentLevelName;
+            var result = state.LevelNameAndInput;
 
-            Assert.That(result, Is.EqualTo("Tutorial"));
+            Assert.That(result, Is.EqualTo(("Tutorial", InputMethods.KeyboardMouse)));
+        }
+        
+        [Test]
+        public void Next_WhenCalledAtStart_ReturnsNextInputMethod()
+        {
+            var state = CreateState();
+
+            state.Next();
+            var result = state.LevelNameAndInput;
+
+            Assert.That(result, Is.EqualTo(("Tutorial", InputMethods.VR)));
+        }
+        
+        [Test]
+        public void Next_WhenCalledTwice_MovesToNextLevel()
+        {
+            var state = CreateState();
+
+            state.Next();
+            state.Next();
+            var result = state.LevelNameAndInput;
+
+            Assert.That(result, Is.EqualTo(("One", InputMethods.KeyboardMouse)));
         }
         
         #region Helpers
 
+        private static LevelProgressionState CreateState() => new(CreateLevelNameList());
+        
         private static List<string> CreateLevelNameList()
         {
             return new List<string>()

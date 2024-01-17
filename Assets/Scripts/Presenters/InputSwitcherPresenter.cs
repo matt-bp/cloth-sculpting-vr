@@ -2,6 +2,7 @@ using Events;
 using TMPro;
 using UnityEngine;
 using Wright.Library.Messages;
+using Wright.Library.Study;
 
 namespace Presenters
 {
@@ -13,16 +14,16 @@ namespace Presenters
         private void OnEnable()
         {
             Debug.Log("ISP Enable");
-            Messenger<string>.AddListener(ModelToPresenter.CURRENT_INPUT, OnCurrentInput);
+            Messenger<InputMethods>.AddListener(ModelToPresenter.CURRENT_INPUT, OnCurrentInput);
         }
 
         private void OnDisable()
         {
             Debug.Log("ISP Disable");
-            Messenger<string>.RemoveListener(ModelToPresenter.CURRENT_INPUT, OnCurrentInput);
+            Messenger<InputMethods>.RemoveListener(ModelToPresenter.CURRENT_INPUT, OnCurrentInput);
         }
         
-        private void OnCurrentInput(string input)
+        private void OnCurrentInput(InputMethods input)
         {
             currentInput.text = $"Switch to: {input}";
         }
