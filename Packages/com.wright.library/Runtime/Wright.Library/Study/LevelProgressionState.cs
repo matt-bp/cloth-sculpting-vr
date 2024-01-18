@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Wright.Library.Study
@@ -11,8 +13,9 @@ namespace Wright.Library.Study
         private InputMethods _currentInputMethod = InputMethods.KeyboardMouse;
         private readonly List<int> _tasks;
         private readonly Dictionary<int, CompleteState> _completeStates;
-        
+
         public (string Name, int Task) LevelNameAndTask => GetCurrentLevelNameAndTask();
+        public string CurrentSwitchScene => $"Switch_To_{_currentInputMethod}";
 
         /// <summary>
         /// Create progression state.

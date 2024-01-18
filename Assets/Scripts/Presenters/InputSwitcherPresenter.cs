@@ -1,6 +1,8 @@
 using Events;
+using Models.Local;
 using TMPro;
 using UnityEngine;
+using Wright.Library.Logging;
 using Wright.Library.Messages;
 using Wright.Library.Study;
 
@@ -18,6 +20,7 @@ namespace Presenters
         
         public void OnInputSwitched()
         {
+            MDebug.Log("Notify that we switched input.");
             Messenger.Broadcast(PresenterToModel.SWITCHED_INPUT);
         }
     }

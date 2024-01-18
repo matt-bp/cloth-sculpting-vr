@@ -55,7 +55,7 @@ namespace Models.Global
 
         private void OnStart()
         {
-            StartCoroutine(StartLevelWithInputMethod("Input_Switch", null));
+            StartCoroutine(StartLevelWithInputMethod(_state.CurrentSwitchScene, null));
         }
 
         private void OnTaskComplete()
@@ -68,7 +68,7 @@ namespace Models.Global
             }
             else
             {
-                StartCoroutine(StartLevelWithInputMethod("Input_Switch", null));
+                StartCoroutine(StartLevelWithInputMethod(_state.CurrentSwitchScene, null));
             }
         }
 
