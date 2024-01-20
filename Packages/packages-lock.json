@@ -4,8 +4,10 @@
       "version": "git@github.com:matt-bp/grab-tool.git",
       "depth": 0,
       "source": "git",
-      "dependencies": {},
-      "hash": "6f2e2a12a2c0653a097d2073bc36c36dbe2b712a"
+      "dependencies": {
+        "com.unity.xr.interaction.toolkit": "2.5.2"
+      },
+      "hash": "7b38ff9ba2c7158766dabd51424447cea7adebd1"
     },
     "com.unity.collab-proxy": {
       "version": "2.0.1",

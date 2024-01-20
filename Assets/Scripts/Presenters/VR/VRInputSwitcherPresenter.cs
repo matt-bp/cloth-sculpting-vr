@@ -33,8 +33,8 @@ namespace Presenters.VR
 
         private void OnDisable()
         {
-            MDebug.Log("Stopping VR...");
-            vrStateModel.StopVR();
+            // MDebug.Log("Stopping VR...");
+            // vrStateModel.StopVR();
         }
     }
 }

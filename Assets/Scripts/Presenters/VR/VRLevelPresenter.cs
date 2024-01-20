@@ -1,5 +1,6 @@
 using Events;
 using Models.Local;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Wright.Library.Logging;
@@ -12,7 +13,7 @@ namespace Presenters.VR
     {
         [Header("Model")] [SerializeField] private VRStateModel vrStateModel;
 
-        [Header("View")] [SerializeField] private InputActionReference addAndNext;
+        [Header("View")] [SerializeField] private XROrigin xrOrigin;
         
         private void OnEnable()
         {
@@ -22,12 +23,12 @@ namespace Presenters.VR
 
         private void Update()
         {
-            var action = addAndNext.action;
-
-            if (action.WasPressedThisFrame() && action.IsPressed())
-            {
-                TaskComplete();
-            }
+            // var action = addAndNext.action;
+            //
+            // if (action.WasPressedThisFrame() && action.IsPressed())
+            // {
+            //     TaskComplete();
+            // }
         }
         
         public void TaskComplete()
@@ -35,6 +36,11 @@ namespace Presenters.VR
             MDebug.Log("Task complete");
  
             Messenger.Broadcast(PresenterToModel.TASK_COMPLETE);
+        }
+
+        public void ResetPosition()
+        {
+            xrOrigin.transform.position = Vector3.zero;
         }
 
         private void OnDisable()

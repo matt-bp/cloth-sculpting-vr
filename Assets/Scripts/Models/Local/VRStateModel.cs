@@ -9,17 +9,25 @@ namespace Models.Local
     {
         public IEnumerator StartVR()
         {
-            MDebug.Log("Initializing XR...");
-            yield return XRGeneralSettings.Instance.Manager.InitializeLoader();
-
-            if (XRGeneralSettings.Instance.Manager.activeLoader == null)
+            if (!XRGeneralSettings.Instance.Manager.isInitializationComplete)
             {
-                Debug.LogError("Initializing XR Failed. Check Editor or Player log for details.");
+                MDebug.Log("Initializing XR...");
+
+                yield return XRGeneralSettings.Instance.Manager.InitializeLoader();
+
+                if (XRGeneralSettings.Instance.Manager.activeLoader == null)
+                {
+                    Debug.LogError("Initializing XR Failed. Check Editor or Player log for details.");
+                }
+                else
+                {
+                    MDebug.Log("Starting XR...");
+                    XRGeneralSettings.Instance.Manager.StartSubsystems();
+                }
             }
             else
             {
-                MDebug.Log("Starting XR...");
-                XRGeneralSettings.Instance.Manager.StartSubsystems();
+                MDebug.Log("VR already initialized");
             }
         }
 
