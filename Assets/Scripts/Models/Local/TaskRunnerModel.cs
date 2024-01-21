@@ -2,6 +2,7 @@ using System.Linq;
 using System.Security;
 using UnityEngine;
 using UnityEngine.Events;
+using Wright.Library.Logging;
 
 namespace Models.Local
 {
@@ -15,7 +16,7 @@ namespace Models.Local
         public int CurrentKeyframe { get; private set; }
         public UnityEvent<(int current, int total)> onNextMesh;
         public UnityEvent onMeshesFinished;
-        public UnityEvent onError;
+        public UnityEvent onNoMeshesFound;
         
         private void Start()
         {
@@ -27,7 +28,7 @@ namespace Models.Local
         {
             if (_goalMeshModel.GoalMeshes == null)
             {
-                onError.Invoke();
+                onNoMeshesFound.Invoke();
                 return;
             }
             

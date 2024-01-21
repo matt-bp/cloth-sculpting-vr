@@ -5,6 +5,7 @@ using Events;
 using Models.Local;
 using TMPro;
 using UnityEngine;
+using Wright.Library.Logging;
 using Wright.Library.Mesh;
 using Wright.Library.Messages;
 
@@ -22,22 +23,22 @@ namespace Presenters
         [SerializeField] private GoalMeshDataModel goalDataModel;
         [SerializeField] private TaskRunnerModel taskRunner;
         [SerializeField] private DataExportModel dataModel;
-        
+
         private void OnEnable()
         {
-            Debug.Log("LP Enable");
+            MDebug.Log("Enable");
             Messenger<int>.AddListener(ModelToPresenter.CURRENT_TASK, OnReceivedTask);
         }
-        
+
         private void OnDisable()
         {
-            Debug.Log("LP Disable");
+            MDebug.Log("Disable");
             Messenger<int>.RemoveListener(ModelToPresenter.CURRENT_TASK, OnReceivedTask);
         }
 
         private void OnReceivedTask(int task)
         {
-            Debug.Log($"Going to grab task {task}.");
+            MDebug.Log($"Going to grab task {task}.");
 
             goalDataModel.LoadFromDisk(task);
         }
@@ -52,18 +53,20 @@ namespace Presenters
         private void HandleGoalMeshesFound(Dictionary<int, Mesh> meshes)
         {
             goalMeshModel.GoalMeshes = meshes;
-            
+
             if (!goalMeshModel.GoalMeshes.Any())
             {
                 statusLabel.text = "Handle found but none passed";
-            };
+            }
 
             NextGoalMesh();
         }
 
         private void HandleGoalMeshesMissing()
         {
-            statusLabel.text = "Goal meshes are missing :(";
+            const string message = "Goal meshes are missing :(";
+            statusLabel.text = message;
+            MDebug.Log(message);
         }
 
         private void OnTimeUpdate(float t)
@@ -87,13 +90,15 @@ namespace Presenters
         {
             statusLabel.text = "Task complete.";
             dataModel.SaveResults();
-                
+
             Messenger.Broadcast(PresenterToModel.TASK_COMPLETE);
         }
 
-        public void HandleTaskRunnerError()
+        public void HandleTaskRunnerNoMeshes()
         {
-            statusLabel.text = "Error with task runner. Check log";
+            const string message = "GoalMeshModel not populated.";
+            statusLabel.text = message;
+            MDebug.Log(message);
         }
 
         private void Update()
@@ -109,12 +114,12 @@ namespace Presenters
             // Compute differences between the two meshes, save that to the data model as well
 
             // Computer angular difference between triangles (face normals)
-            
+
             // Save add generated mesh to the data model
             // Also save out goal mesh (just in case)
             taskResultModel.AddUserGeneratedMesh(taskRunner.CurrentKeyframe, copy, 100, 360);
 
-            Debug.Log("Added to task result model! (still things to do here");
+            MDebug.Log("Added to task result model! (still things to do here, like analysis)");
 
             NextGoalMesh();
         }

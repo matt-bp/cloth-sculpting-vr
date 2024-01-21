@@ -12,41 +12,36 @@ namespace Presenters.VR
     public class VRLevelPresenter : MonoBehaviour
     {
         [Header("Model")] [SerializeField] private VRStateModel vrStateModel;
-
+        [SerializeField] private TaskResultModel taskResultModel;
+        [SerializeField] private GoalMeshModel goalMeshModel;
+        [SerializeField] private GoalMeshDataModel goalDataModel;
+        [SerializeField] private TaskRunnerModel taskRunner;
+        [SerializeField] private DataExportModel dataModel;
+        
         [Header("View")] [SerializeField] private XROrigin xrOrigin;
+        [SerializeField] private MeshFilter currentCloth;
+        [SerializeField] private MeshFilter goalMesh;
         
         private void OnEnable()
         {
-            MDebug.Log("Starting VR...");
+            MDebug.Log("Enabled");
             StartCoroutine(vrStateModel.StartVR());
         }
-
-        private void Update()
-        {
-            // var action = addAndNext.action;
-            //
-            // if (action.WasPressedThisFrame() && action.IsPressed())
-            // {
-            //     TaskComplete();
-            // }
-        }
         
-        public void TaskComplete()
+        private void OnDisable()
         {
-            MDebug.Log("Task complete");
- 
-            Messenger.Broadcast(PresenterToModel.TASK_COMPLETE);
+            MDebug.Log("Disabled");
+            vrStateModel.StopVR();
+        }
+
+        public void HelloWorld()
+        {
+            MDebug.Log("Hello world!");
         }
 
         public void ResetPosition()
         {
             xrOrigin.transform.position = Vector3.zero;
-        }
-
-        private void OnDisable()
-        {
-            MDebug.Log("Stopping VR...");
-            vrStateModel.StopVR();
         }
     }
 }
