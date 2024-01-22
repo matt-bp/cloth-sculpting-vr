@@ -41,6 +41,8 @@ namespace Presenters
             MDebug.Log($"Going to grab task {task}.");
 
             goalDataModel.LoadFromDisk(task);
+
+            dataModel.task = task;
         }
 
         private void Start()

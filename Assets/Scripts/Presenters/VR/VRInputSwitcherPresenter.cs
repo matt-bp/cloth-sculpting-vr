@@ -13,28 +13,16 @@ namespace Presenters.VR
     {
         [Header("Model")] [SerializeField] private VRStateModel vrStateModel;
 
-        [Header("View")] [SerializeField] private InputActionReference temp;
         private void OnEnable()
         {
             MDebug.Log("Starting VR...");
             StartCoroutine(vrStateModel.StartVR());
         }
-
-        private void Update()
+        
+        public void SwitchedInput()
         {
-            var action = temp.action;
-
-            if (action.WasPressedThisFrame() && action.IsPressed())
-            {
-                MDebug.Log("Notify that we switched input.");
-                Messenger.Broadcast(PresenterToModel.SWITCHED_INPUT);
-            }
-        }
-
-        private void OnDisable()
-        {
-            // MDebug.Log("Stopping VR...");
-            // vrStateModel.StopVR();
+            MDebug.Log("Notify that we switched input.");
+            Messenger.Broadcast(PresenterToModel.SWITCHED_INPUT);
         }
     }
 }

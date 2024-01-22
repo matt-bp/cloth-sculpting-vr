@@ -41,7 +41,7 @@ namespace Presenters.VR
 
         public void ResetPosition()
         {
-            xrOrigin.transform.position = Vector3.zero;
+            xrOrigin.MoveCameraToWorldLocation(Vector3.zero);
         }
     }
 }

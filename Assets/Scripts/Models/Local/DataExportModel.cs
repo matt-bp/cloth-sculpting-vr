@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Wright.Library.File;
+using Wright.Library.Study;
 using static Models.Local.GoalMeshCreationDataModel;
 
 namespace Models.Local
@@ -10,6 +11,9 @@ namespace Models.Local
     [RequireComponent(typeof(TaskResultModel))]
     public class DataExportModel : MonoBehaviour
     {
+        public int task = -1;
+        public InputMethods inputMethod;
+
         public void SaveResults()
         {
             var model = GetComponent<TaskResultModel>();
@@ -18,7 +22,9 @@ namespace Models.Local
             {
                 { "type", "result" },
                 { "num_meshes", model.UserGeneratedMeshes.Count },
-                { "time", model.ElapsedTime }
+                { "time", model.ElapsedTime },
+                { "task", task },
+                { "inputMethod", inputMethod.ToString() }
             };
 
             foreach (var (key, result) in model.UserGeneratedMeshes)
