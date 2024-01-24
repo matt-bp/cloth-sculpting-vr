@@ -12,7 +12,7 @@ namespace UnitTests.Wright.Library.Analysis
             var goalMesh = MakeGoalMesh();
             var generatedMesh = MakeGoalMesh();
 
-            var result = TranslationError.GetError(goalMesh, generatedMesh);
+            var result = DistanceError.GetError(goalMesh, generatedMesh);
 
             Assert.That(result, Is.EqualTo(0));
         }
@@ -25,20 +25,20 @@ namespace UnitTests.Wright.Library.Analysis
 
             Assert.Throws<UnityEngine.Assertions.AssertionException>(() =>
             {
-                TranslationError.GetError(goalMesh, generatedMesh);
+                DistanceError.GetError(goalMesh, generatedMesh);
             });
         }
         
-        // [Test]
-        // public void GetError_OnMeshMovedOneVertex_ReturnsThatError()
-        // {
-        //     var goalMesh = MakeGoalMesh();
-        //     var generatedMesh = MakeOneMoved();
-        //
-        //     var result = TranslationError.GetError(goalMesh, generatedMesh);
-        //
-        //     Assert.That(result, Is.EqualTo(1));
-        // }
+        [Test]
+        public void GetError_OnMeshMovedOneVertex_ReturnsThatError()
+        {
+            var goalMesh = MakeGoalMesh();
+            var generatedMesh = MakeOneMoved();
+        
+            var result = DistanceError.GetError(goalMesh, generatedMesh);
+        
+            Assert.That(result, Is.EqualTo(1));
+        }
 
         #region Helpers
 
@@ -76,7 +76,11 @@ namespace UnitTests.Wright.Library.Analysis
         {
             var mesh = MakeGoalMesh();
 
-            mesh.vertices[0].x += 1;
+            var temp = mesh.vertices;
+            temp[0].x += 1;
+
+            mesh.vertices = temp;
+            mesh.RecalculateNormals();
 
             return mesh;
         }
