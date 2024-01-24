@@ -32,7 +32,7 @@ namespace Models.Local
                 var goalMesh = new Dictionary<string, object>
                 {
                     { "distance_error", result.DistanceError },
-                    { "a_error", result.AngularError },
+                    { "normal_error", result.NormalError },
                     { "verts", result.Mesh.vertices.Select(VectorToTuple).ToArray() },
                     { "tris", result.Mesh.triangles }
                 };

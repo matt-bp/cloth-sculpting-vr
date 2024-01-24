@@ -11,7 +11,10 @@ namespace Models.Local
         {
             public Mesh Mesh { get; set; }
             public double DistanceError { get; set; }
-            public double AngularError { get; set; }
+            /// <summary>
+            /// That is, error between vertex normals.
+            /// </summary>
+            public double NormalError { get; set; }
         }
 
         public event Action<float> OnTimeUpdate;
@@ -20,13 +23,13 @@ namespace Models.Local
         public Dictionary<int, Result> UserGeneratedMeshes { get; } = new();
         public float ElapsedTime { get; private set; }
 
-        public void AddUserGeneratedMesh(int keyframe, Mesh generatedMesh, double distanceError, double angularError)
+        public void AddUserGeneratedMesh(int keyframe, Mesh generatedMesh, double distanceError, double normalError)
         {
             var result = new Result
             {
                 Mesh = MeshCopier.MakeCopy(generatedMesh),
                 DistanceError = distanceError,
-                AngularError = angularError
+                NormalError = normalError
             };
             
             UserGeneratedMeshes.Add(keyframe, result);

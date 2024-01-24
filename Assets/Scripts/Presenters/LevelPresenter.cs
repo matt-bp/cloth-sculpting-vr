@@ -115,13 +115,17 @@ namespace Presenters
             // Convert to world space to make comparison
             copy.vertices = copy.vertices.Select(v => currentCloth.transform.TransformPoint(v)).ToArray();
             
+            // Recalculating normals because the mesh draggers aren't doing this
+            copy.RecalculateNormals();
+            taskRunner.CurrentMesh.RecalculateNormals();
+            
             var distanceError = DistanceError.GetError(taskRunner.CurrentMesh, copy);
-
-            // Computer angular difference between triangles (face normals)
+            
+            var normalError = NormalError.GetError(taskRunner.CurrentMesh, copy);
 
             // Save add generated mesh to the data model
             // Also save out goal mesh (just in case)
-            taskResultModel.AddUserGeneratedMesh(taskRunner.CurrentKeyframe, copy, distanceError, 360);
+            taskResultModel.AddUserGeneratedMesh(taskRunner.CurrentKeyframe, copy, distanceError, normalError);
 
             MDebug.Log("Added to task result model! (still things to do here, like analysis)");
 
