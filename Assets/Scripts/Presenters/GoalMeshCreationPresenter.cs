@@ -37,6 +37,8 @@ namespace Presenters
             if (!creationModeModel.CreatingGoals) return;
 
             var copy = MeshCopier.MakeCopy(currentCloth.sharedMesh);
+            
+            // Transform to world space for later use in the tasks
             copy.vertices = copy.vertices
                 .Select(v => currentCloth.transform.TransformPoint(v)).ToArray();
 

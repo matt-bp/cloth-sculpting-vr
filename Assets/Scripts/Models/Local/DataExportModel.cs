@@ -31,10 +31,10 @@ namespace Models.Local
             {
                 var goalMesh = new Dictionary<string, object>
                 {
+                    { "distance_error", result.DistanceError },
+                    { "a_error", result.AngularError },
                     { "verts", result.Mesh.vertices.Select(VectorToTuple).ToArray() },
-                    { "tris", result.Mesh.triangles },
-                    { "e_error", result.EuclideanError },
-                    { "a_error", result.AngularError }
+                    { "tris", result.Mesh.triangles }
                 };
 
                 overallData.Add(MakeGoalKey(key), goalMesh);

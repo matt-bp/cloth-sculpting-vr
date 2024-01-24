@@ -5,6 +5,7 @@ using Events;
 using Models.Local;
 using TMPro;
 using UnityEngine;
+using Wright.Library.Analysis;
 using Wright.Library.Logging;
 using Wright.Library.Mesh;
 using Wright.Library.Messages;
@@ -111,15 +112,16 @@ namespace Presenters
         public void OnSubmitClicked()
         {
             var copy = MeshCopier.MakeCopy(currentCloth.sharedMesh);
+            // Convert to world space to make comparison
             copy.vertices = copy.vertices.Select(v => currentCloth.transform.TransformPoint(v)).ToArray();
-
-            // Compute differences between the two meshes, save that to the data model as well
+            
+            var distanceError = DistanceError.GetError(taskRunner.CurrentMesh, copy);
 
             // Computer angular difference between triangles (face normals)
 
             // Save add generated mesh to the data model
             // Also save out goal mesh (just in case)
-            taskResultModel.AddUserGeneratedMesh(taskRunner.CurrentKeyframe, copy, 100, 360);
+            taskResultModel.AddUserGeneratedMesh(taskRunner.CurrentKeyframe, copy, distanceError, 360);
 
             MDebug.Log("Added to task result model! (still things to do here, like analysis)");
 

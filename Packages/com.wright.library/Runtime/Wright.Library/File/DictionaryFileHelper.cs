@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
+using UnityEngine.Assertions;
 
 namespace Wright.Library.File
 {
@@ -13,7 +14,7 @@ namespace Wright.Library.File
         /// <param name="filename">Path relative to Unity's persistent data path to store the file.</param>
         public static void WriteToFile<T>(T thingToSave, string filename)
         {
-            Debug.Assert(filename.Contains(".json"));
+            Assert.IsTrue(filename.Contains(".json"));
             
             var fullFilename = Path.Combine(Application.persistentDataPath, filename);
             Debug.Log($"Saving file to {fullFilename}");

@@ -10,7 +10,7 @@ namespace Models.Local
         public class Result
         {
             public Mesh Mesh { get; set; }
-            public double EuclideanError { get; set; }
+            public double DistanceError { get; set; }
             public double AngularError { get; set; }
         }
 
@@ -20,12 +20,12 @@ namespace Models.Local
         public Dictionary<int, Result> UserGeneratedMeshes { get; } = new();
         public float ElapsedTime { get; private set; }
 
-        public void AddUserGeneratedMesh(int keyframe, Mesh generatedMesh, double euclideanError, double angularError)
+        public void AddUserGeneratedMesh(int keyframe, Mesh generatedMesh, double distanceError, double angularError)
         {
             var result = new Result
             {
                 Mesh = MeshCopier.MakeCopy(generatedMesh),
-                EuclideanError = euclideanError,
+                DistanceError = distanceError,
                 AngularError = angularError
             };
             
