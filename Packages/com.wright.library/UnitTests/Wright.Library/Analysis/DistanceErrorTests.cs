@@ -39,6 +39,17 @@ namespace UnitTests.Wright.Library.Analysis
         
             Assert.That(result, Is.EqualTo(1));
         }
+        
+        [Test]
+        public void GetError_TwoMovedOppositeDirections_ReturnsErrorOfTwo()
+        {
+            var goalMesh = MakeGoalMesh();
+            var generatedMesh = TwoMovedOppositeDirections();
+        
+            var result = DistanceError.GetError(goalMesh, generatedMesh);
+        
+            Assert.That(result, Is.EqualTo(2));
+        }
 
         #region Helpers
 
@@ -104,6 +115,20 @@ namespace UnitTests.Wright.Library.Analysis
             return MakeMesh(vertices, triangles);
         }
 
+        private static Mesh TwoMovedOppositeDirections()
+        {
+            var mesh = MakeGoalMesh();
+
+            var temp = mesh.vertices;
+            temp[0].x += 1;
+            temp[2].x -= 1;
+
+            mesh.vertices = temp;
+            mesh.RecalculateNormals();
+
+            return mesh;
+        }
+        
         #endregion
     }
 }
