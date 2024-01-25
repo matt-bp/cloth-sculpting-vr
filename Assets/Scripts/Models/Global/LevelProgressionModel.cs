@@ -48,8 +48,11 @@ namespace Models.Global
         public void StartFirstSwitchScene()
         {
             var results = LatinSquare.GetTasksAndInputMethod(participantModel.ParticipantNumber);
+
+            var tasksWithTutorial = results.Tasks.ToList();
+            tasksWithTutorial.Insert(0, 0);
             
-            _state = new LevelProgressionState(results.Tasks.ToList(), results.startingInputMethod);
+            _state = new LevelProgressionState(tasksWithTutorial, results.startingInputMethod);
             
             StartCoroutine(StartSceneWithInputMethod(_state.CurrentSwitchScene, null));
         }

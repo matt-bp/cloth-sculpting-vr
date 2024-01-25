@@ -1159,7 +1159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   participantModel: {fileID: 2009547183}
-  levelProgressionModel: {fileID: 0}
+  levelProgressionModel: {fileID: 2009547181}
 --- !u!4 &1560136851
 Transform:
   m_ObjectHideFlags: 0
@@ -2086,7 +2086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595ee34bca434daeabb642114b568c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tasks: 0000000001000000
+  participantModel: {fileID: 2009547183}
 --- !u!114 &2009547182
 MonoBehaviour:
   m_ObjectHideFlags: 0
