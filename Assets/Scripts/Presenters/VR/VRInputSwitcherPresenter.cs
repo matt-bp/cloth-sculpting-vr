@@ -13,10 +13,10 @@ namespace Presenters.VR
     public class VRInputSwitcherPresenter : MonoBehaviour
     {
         [Header("Model")] [SerializeField] private VRStateModel vrStateModel;
-        
-        [Header("View")]
-        [SerializeField] private TMP_Text participantStatus;
-        
+
+        [Header("View")] [SerializeField] private TMP_Text participantStatus;
+        [SerializeField] private TMP_Text progressionText;
+
         private void Start()
         {
             var models = GameObject.FindWithTag("Global Models");
@@ -30,15 +30,18 @@ namespace Presenters.VR
             {
                 var participant = models.GetComponent<ParticipantModel>();
                 participantStatus.text = $"P {participant.DisplayParticipantNumber}";
+
+                var (completed, total) = models.GetComponent<LevelProgressionModel>().GetProgression();
+                progressionText.text = $"You have completed: {completed}/{total}";
             }
         }
-        
+
         private void OnEnable()
         {
             MDebug.Log("Starting VR...");
             StartCoroutine(vrStateModel.StartVR());
         }
-        
+
         public void SwitchedInput()
         {
             MDebug.Log("Notify that we switched input.");

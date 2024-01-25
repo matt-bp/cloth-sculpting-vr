@@ -9,10 +9,9 @@ namespace Presenters
 {
     public class InputSwitcherPresenter : MonoBehaviour
     {
-        [Header("View")]
-        [SerializeField] private TMP_Text participantStatus;
+        [Header("View")] [SerializeField] private TMP_Text participantStatus;
         [SerializeField] private TMP_Text progressionText;
-        
+
         private void Start()
         {
             var models = GameObject.FindWithTag("Global Models");
@@ -31,7 +30,7 @@ namespace Presenters
                 progressionText.text = $"You have completed: {completed}/{total}";
             }
         }
-        
+
         public void OnInputSwitched()
         {
             MDebug.Log("Notify that we switched input.");
