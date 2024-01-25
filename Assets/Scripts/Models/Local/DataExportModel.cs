@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Models.Global;
 using UnityEngine;
 using Wright.Library.File;
 using Wright.Library.Study;
@@ -17,6 +19,7 @@ namespace Models.Local
         public void SaveResults()
         {
             var model = GetComponent<TaskResultModel>();
+            var participantModel = GameObject.FindWithTag("Global Models").GetComponent<ParticipantModel>();
 
             var overallData = new Dictionary<string, object>
             {
@@ -24,7 +27,8 @@ namespace Models.Local
                 { "num_meshes", model.UserGeneratedMeshes.Count },
                 { "time", model.ElapsedTime },
                 { "task", task },
-                { "inputMethod", inputMethod.ToString() }
+                { "inputMethod", inputMethod.ToString() },
+                { "participant_number", participantModel.ParticipantNumber }
             };
 
             foreach (var (key, result) in model.UserGeneratedMeshes)
@@ -40,11 +44,15 @@ namespace Models.Local
                 overallData.Add(MakeGoalKey(key), goalMesh);
             }
 
+            var subDirectory = $"p{participantModel.ParticipantNumber}_results";
+            var directory = Path.Combine(Application.persistentDataPath, subDirectory);
+            Directory.CreateDirectory(directory);
+            
             var id = Guid.NewGuid();
             Debug.Log($"Id is {id}");
             var filename = $"new_results_{id}.json";
 
-            DictionaryFileHelper.WriteToFile(overallData, filename);
+            DictionaryFileHelper.WriteToFile(overallData, $"{subDirectory}\\{filename}");
         }
     }
 }

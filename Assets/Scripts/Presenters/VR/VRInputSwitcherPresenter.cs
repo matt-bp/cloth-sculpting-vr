@@ -1,8 +1,9 @@
 using System;
 using Events;
+using Models.Global;
 using Models.Local;
+using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Wright.Library.Logging;
 using Wright.Library.Messages;
 
@@ -12,7 +13,26 @@ namespace Presenters.VR
     public class VRInputSwitcherPresenter : MonoBehaviour
     {
         [Header("Model")] [SerializeField] private VRStateModel vrStateModel;
+        
+        [Header("View")]
+        [SerializeField] private TMP_Text participantStatus;
+        
+        private void Start()
+        {
+            var models = GameObject.FindWithTag("Global Models");
 
+            if (models == null)
+            {
+                participantStatus.color = Color.red;
+                participantStatus.text = "Can't find em!";
+            }
+            else
+            {
+                var participant = models.GetComponent<ParticipantModel>();
+                participantStatus.text = $"P {participant.DisplayParticipantNumber}";
+            }
+        }
+        
         private void OnEnable()
         {
             MDebug.Log("Starting VR...");

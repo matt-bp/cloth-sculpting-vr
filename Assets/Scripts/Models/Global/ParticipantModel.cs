@@ -7,11 +7,13 @@ namespace Models.Global
         [SerializeField] [Tooltip("Number of this participant, for use in Latin Square design.")]
         private int participantNumber;
 
-        /// <summary>The current active manager used to manage XR lifetime.</summary>
+        /// <summary>The index of the participant, starting at 0.</summary>
         public int ParticipantNumber
         {
             get => participantNumber;
             set => participantNumber = value;
         }
+
+        public int DisplayParticipantNumber => participantNumber + 1;
     }
 }

@@ -1,21 +1,31 @@
 using Events;
-using Models.Local;
+using Models.Global;
 using TMPro;
 using UnityEngine;
 using Wright.Library.Logging;
 using Wright.Library.Messages;
-using Wright.Library.Study;
 
 namespace Presenters
 {
     public class InputSwitcherPresenter : MonoBehaviour
     {
         [Header("View")]
-        [SerializeField] private TMP_Text currentInput;
+        [SerializeField] private TMP_Text participantStatus;
         
         private void Start()
         {
-            currentInput.text = "Switch to XXX (change to actual scene that will do this)";
+            var models = GameObject.FindWithTag("Global Models");
+
+            if (models == null)
+            {
+                participantStatus.color = Color.red;
+                participantStatus.text = "Can't find em!";
+            }
+            else
+            {
+                var participant = models.GetComponent<ParticipantModel>();
+                participantStatus.text = $"P {participant.DisplayParticipantNumber}";
+            }
         }
         
         public void OnInputSwitched()
