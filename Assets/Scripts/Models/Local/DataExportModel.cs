@@ -12,7 +12,7 @@ namespace Models.Local
     public class DataExportModel : MonoBehaviour
     {
         public int task = -1;
-        public InputMethods inputMethod;
+        public InputMethod inputMethod;
 
         public void SaveResults()
         {

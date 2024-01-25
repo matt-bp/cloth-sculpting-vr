@@ -67,7 +67,7 @@ namespace UnitTests.Wright.Library.Study
         
         #region Helpers
 
-        private static LevelProgressionState CreateState() => new(CreateLevelNameList());
+        private static LevelProgressionState CreateState() => new(CreateLevelNameList(), InputMethod.KeyboardMouse);
         
         private static List<int> CreateLevelNameList()
         {

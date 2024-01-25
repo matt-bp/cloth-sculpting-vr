@@ -1,6 +1,6 @@
 namespace Wright.Library.Study
 {
-    public enum InputMethods
+    public enum InputMethod
     {
         KeyboardMouse,
         VR

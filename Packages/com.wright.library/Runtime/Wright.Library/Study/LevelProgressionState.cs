@@ -10,7 +10,7 @@ namespace Wright.Library.Study
     public class LevelProgressionState
     {
         private int _currentIndex;
-        private InputMethods _currentInputMethod = InputMethods.KeyboardMouse;
+        private InputMethod _currentInputMethod;
         private readonly List<int> _tasks;
         private readonly Dictionary<int, CompleteState> _completeStates;
 
@@ -21,7 +21,8 @@ namespace Wright.Library.Study
         /// Create progression state.
         /// </summary>
         /// <param name="tasks">Tasks to complete, already in order.</param>
-        public LevelProgressionState(List<int> tasks)
+        /// <param name="startingInputMethod">Which input method the user will start with.</param>
+        public LevelProgressionState(List<int> tasks, InputMethod startingInputMethod)
         {
             Debug.Assert(tasks.Any());
             
@@ -30,6 +31,8 @@ namespace Wright.Library.Study
                 .ToDictionary(i => i, _ => new CompleteState());
             
             _tasks = tasks;
+
+            _currentInputMethod = startingInputMethod;
         }
 
         public bool AllLevelsComplete() => _completeStates.All(v => v.Value.AllDone);
@@ -46,9 +49,9 @@ namespace Wright.Library.Study
         {
             UpdateFromCurrentInputMethod();
 
-            _currentInputMethod = _currentInputMethod == InputMethods.KeyboardMouse
-                ? InputMethods.VR
-                : InputMethods.KeyboardMouse;
+            _currentInputMethod = _currentInputMethod == InputMethod.KeyboardMouse
+                ? InputMethod.VR
+                : InputMethod.KeyboardMouse;
 
             if (_completeStates[_currentIndex].AllDone)
             {
@@ -58,7 +61,7 @@ namespace Wright.Library.Study
 
         private void UpdateFromCurrentInputMethod()
         {
-            if (_currentInputMethod == InputMethods.KeyboardMouse)
+            if (_currentInputMethod == InputMethod.KeyboardMouse)
             {
                 _completeStates[_currentIndex].KeyboardMouse = true;
             }

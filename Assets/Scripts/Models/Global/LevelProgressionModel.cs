@@ -13,13 +13,12 @@ namespace Models.Global
     public class LevelProgressionModel : MonoBehaviour
     {
         private LevelProgressionState _state;
-        [SerializeField] private List<int> tasks;
+        [SerializeField] private ParticipantModel participantModel;
         
         private void OnEnable()
         {
             Debug.Log("LPM Enable");
             Messenger.AddListener(PresenterToModel.SWITCHED_INPUT, OnSwitchedInput);
-            Messenger.AddListener(GameEvents.START, OnStart);
             Messenger.AddListener(PresenterToModel.TASK_COMPLETE, OnTaskComplete);
         }
 
@@ -27,14 +26,7 @@ namespace Models.Global
         {
             Debug.Log("LPM Disable");
             Messenger.RemoveListener(PresenterToModel.SWITCHED_INPUT, OnSwitchedInput);
-            Messenger.RemoveListener(GameEvents.START, OnStart);
             Messenger.RemoveListener(PresenterToModel.TASK_COMPLETE, OnTaskComplete);
-        }
-
-        private void Start()
-        {
-            // Do latin square design here? And just pass the list to the progression state, it doesn't have to worry about that!
-            _state = new LevelProgressionState(tasks);
         }
 
         private void OnSwitchedInput()
@@ -45,7 +37,7 @@ namespace Models.Global
                 Debug.Log("Go to next scene");
 
                 var (levelName, task) = _state.LevelNameAndTask;
-                StartCoroutine(StartLevelWithInputMethod(levelName, task));
+                StartCoroutine(StartSceneWithInputMethod(levelName, task));
             }
             else
             {
@@ -53,9 +45,13 @@ namespace Models.Global
             }
         }
 
-        private void OnStart()
+        public void StartFirstSwitchScene()
         {
-            StartCoroutine(StartLevelWithInputMethod(_state.CurrentSwitchScene, null));
+            var results = LatinSquare.GetTasksAndInputMethod(participantModel.ParticipantNumber);
+            
+            _state = new LevelProgressionState(results.Tasks.ToList(), results.startingInputMethod);
+            
+            StartCoroutine(StartSceneWithInputMethod(_state.CurrentSwitchScene, null));
         }
 
         private void OnTaskComplete()
@@ -68,11 +64,11 @@ namespace Models.Global
             }
             else
             {
-                StartCoroutine(StartLevelWithInputMethod(_state.CurrentSwitchScene, null));
+                StartCoroutine(StartSceneWithInputMethod(_state.CurrentSwitchScene, null));
             }
         }
 
-        private static IEnumerator StartLevelWithInputMethod(string sceneName, int? currentTask)
+        private static IEnumerator StartSceneWithInputMethod(string sceneName, int? currentTask)
         {
             var load = SceneManager.LoadSceneAsync(sceneName);
 
