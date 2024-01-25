@@ -36,6 +36,11 @@ namespace Wright.Library.Study
         }
 
         public bool AllLevelsComplete() => _completeStates.All(v => v.Value.AllDone);
+        public int CountCompleted => CountKeyboardMouseDone + CountVRDone;
+        public int TotalCount => _completeStates.Count * 2; // Since for each task, we need to complete KM and VR
+        
+        private int CountKeyboardMouseDone => _completeStates.Count(v => v.Value.KeyboardMouse);
+        private int CountVRDone => _completeStates.Count(v => v.Value.VR);
 
         private class CompleteState
         {

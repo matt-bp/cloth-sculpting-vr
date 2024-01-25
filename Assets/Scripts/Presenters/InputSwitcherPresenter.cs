@@ -11,6 +11,7 @@ namespace Presenters
     {
         [Header("View")]
         [SerializeField] private TMP_Text participantStatus;
+        [SerializeField] private TMP_Text progressionText;
         
         private void Start()
         {
@@ -25,6 +26,9 @@ namespace Presenters
             {
                 var participant = models.GetComponent<ParticipantModel>();
                 participantStatus.text = $"P {participant.DisplayParticipantNumber}";
+
+                var (completed, total) = models.GetComponent<LevelProgressionModel>().GetProgression();
+                progressionText.text = $"You have completed: {completed}/{total}";
             }
         }
         

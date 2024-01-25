@@ -54,7 +54,7 @@ namespace Models.Local
                 overallData.Add(MakeGoalKey(key), goalMesh);
             }
 
-            var subDirectory = $"p{participantModel.ParticipantNumber}_results";
+            var subDirectory = $"p{participantModel.DisplayParticipantNumber}_results";
             var directory = Path.Combine(Application.persistentDataPath, subDirectory);
             Directory.CreateDirectory(directory);
 

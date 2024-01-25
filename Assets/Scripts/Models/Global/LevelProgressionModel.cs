@@ -57,6 +57,8 @@ namespace Models.Global
             StartCoroutine(StartSceneWithInputMethod(_state.CurrentSwitchScene, null));
         }
 
+        public (int Completed, int Total) GetProgression() => (_state.CountCompleted, _state.TotalCount);
+
         private void OnTaskComplete()
         {
             _state.Next();
