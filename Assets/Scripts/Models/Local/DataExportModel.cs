@@ -11,6 +11,7 @@ using static Models.Local.GoalMeshCreationDataModel;
 namespace Models.Local
 {
     [RequireComponent(typeof(TaskResultModel))]
+    [RequireComponent(typeof(GoalMeshModel))]
     public class DataExportModel : MonoBehaviour
     {
         public int task = -1;
@@ -19,6 +20,7 @@ namespace Models.Local
         public void SaveResults()
         {
             var model = GetComponent<TaskResultModel>();
+            var goalMeshModel = GetComponent<GoalMeshModel>();
             var participantModel = GameObject.FindWithTag("Global Models").GetComponent<ParticipantModel>();
 
             var overallData = new Dictionary<string, object>
@@ -33,12 +35,20 @@ namespace Models.Local
 
             foreach (var (key, result) in model.UserGeneratedMeshes)
             {
-                var goalMesh = new Dictionary<string, object>
+                var userMesh = new Dictionary<string, object>
                 {
                     { "distance_error", result.DistanceError },
                     { "normal_error", result.NormalError },
                     { "verts", result.Mesh.vertices.Select(VectorToTuple).ToArray() },
                     { "tris", result.Mesh.triangles }
+                };
+
+                overallData.Add(MakeUserKey(key), userMesh);
+
+                var goalMesh = new Dictionary<string, object>
+                {
+                    { "verts", goalMeshModel.GoalMeshes[key].vertices.Select(VectorToTuple).ToArray() },
+                    { "tris", goalMeshModel.GoalMeshes[key].triangles }
                 };
 
                 overallData.Add(MakeGoalKey(key), goalMesh);
@@ -47,12 +57,14 @@ namespace Models.Local
             var subDirectory = $"p{participantModel.ParticipantNumber}_results";
             var directory = Path.Combine(Application.persistentDataPath, subDirectory);
             Directory.CreateDirectory(directory);
-            
+
             var id = Guid.NewGuid();
             Debug.Log($"Id is {id}");
             var filename = $"new_results_{id}.json";
 
             DictionaryFileHelper.WriteToFile(overallData, $"{subDirectory}\\{filename}");
         }
+
+        private static string MakeUserKey(int i) => $"user_mesh_{i}";
     }
 }
