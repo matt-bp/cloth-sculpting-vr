@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.matt.cloth": "git@github.com:matt-bp/cloth.git",
     "com.matt.grab-tool": "git@github.com:matt-bp/grab-tool.git",
     "com.unity.collab-proxy": "2.0.1",
     "com.unity.feature.development": "1.0.1",

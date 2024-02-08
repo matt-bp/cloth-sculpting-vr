@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.matt.cloth": {
+      "version": "git@github.com:matt-bp/cloth.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "af727d32d3db08650eec58b796d0ea0c41136a85"
+    },
     "com.matt.grab-tool": {
       "version": "git@github.com:matt-bp/grab-tool.git",
       "depth": 0,
@@ -7,7 +14,7 @@
       "dependencies": {
         "com.unity.xr.interaction.toolkit": "2.5.2"
       },
-      "hash": "e16a8474a1eb7042911c2f8899da64a526e0ccc2"
+      "hash": "6d69d8c494dc717e3b06fe52ff130c3ab96eacc5"
     },
     "com.unity.collab-proxy": {
       "version": "2.0.1",

@@ -749,6 +749,7 @@ GameObject:
   - component: {fileID: 736199768}
   - component: {fileID: 736199767}
   - component: {fileID: 736199769}
+  - component: {fileID: 736199770}
   m_Layer: 0
   m_Name: Presenter
   m_TagString: Untagged
@@ -834,6 +835,24 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &736199770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736199766}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d26e0c1989448b87ecf7eae771d47e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rO: 2
+  rI: 0.8
+  rMultiplier: 1
+  meshToCheckCollision: {fileID: 1302290849}
+  taperVelocityOnNegativeHemisphere: 0
+  mouseIndicatorPrefab: {fileID: 4524481222472927990, guid: 3cd25898134efe14baf783c32ffb6199, type: 3}
 --- !u!1 &842949485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,6 +1571,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 736199770}
+        m_TargetAssemblyTypeName: GrabTool.Mesh.MouseVectorFieldDragger, GrabTool.Runtime
+        m_MethodName: OnMultiplierChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1249741761
 GameObject:
   m_ObjectHideFlags: 0
@@ -1811,6 +1842,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 686cd76e9e5a4bab9c2c44b95dcd2fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  task: -1
+  inputMethod: 0
 --- !u!1 &2003460547
 GameObject:
   m_ObjectHideFlags: 0
