@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 using Wright.Library.File;
 using Wright.Library.File.SaveClasses;
@@ -18,12 +19,16 @@ namespace Models.Local
             var results = new Dictionary<int, Mesh>();
         
             var filename = $"tasks/task_{task}.json";
-        
-            if (!DictionaryFileHelper.LoadFromDisk<FileGoalMeshes>(filename, out var data))
+
+            var jsonTextFile = Resources.Load<TextAsset>(filename);
+
+            if (jsonTextFile == null)
             {
                 OnMeshesMissing?.Invoke();
-                return;
+                return; 
             }
+
+            var data = JsonConvert.DeserializeObject<FileGoalMeshes>(jsonTextFile.text);
             
             foreach (var (value, index) in data.Meshes.Select((v, i) => (v, i)))
             {
