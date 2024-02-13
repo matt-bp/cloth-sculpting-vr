@@ -886,7 +886,6 @@ GameObject:
   - component: {fileID: 736199767}
   - component: {fileID: 736199769}
   - component: {fileID: 736199770}
-  - component: {fileID: 736199771}
   m_Layer: 0
   m_Name: Presenter
   m_TagString: Untagged
@@ -946,6 +945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 0.2
   mouseIndicator: {fileID: 4524481222472927990, guid: 3cd25898134efe14baf783c32ffb6199, type: 3}
+  history: {fileID: 1938778333}
   meshesToCheckCollision:
   - {fileID: 1302290849}
   onDragComplete:
@@ -1005,18 +1005,6 @@ MonoBehaviour:
   meshToCheckCollision: {fileID: 1302290849}
   taperVelocityOnNegativeHemisphere: 0
   mouseIndicatorPrefab: {fileID: 4524481222472927990, guid: 3cd25898134efe14baf783c32ffb6199, type: 3}
---- !u!114 &736199771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 736199766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d07e849621a4172b8796a5af942c017, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &842949485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,6 +1904,7 @@ GameObject:
   - component: {fileID: 1938778329}
   - component: {fileID: 1938778330}
   - component: {fileID: 1938778332}
+  - component: {fileID: 1938778333}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -2073,7 +2062,19 @@ MonoBehaviour:
   clothRenderer: {fileID: 1302290850}
   disabledMaterial: {fileID: 2100000, guid: b95f90a87cca28b48bb1dbba4c75e49d, type: 2}
   cloth: {fileID: 1302290851}
-  meshHistory: {fileID: 736199771}
+  meshHistory: {fileID: 1938778333}
+--- !u!114 &1938778333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938778322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d07e849621a4172b8796a5af942c017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2003460547
 GameObject:
   m_ObjectHideFlags: 0
