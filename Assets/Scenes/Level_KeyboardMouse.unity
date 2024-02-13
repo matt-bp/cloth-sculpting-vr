@@ -750,6 +750,7 @@ GameObject:
   - component: {fileID: 736199767}
   - component: {fileID: 736199769}
   - component: {fileID: 736199770}
+  - component: {fileID: 736199771}
   m_Layer: 0
   m_Name: Presenter
   m_TagString: Untagged
@@ -811,6 +812,21 @@ MonoBehaviour:
   mouseIndicator: {fileID: 4524481222472927990, guid: 3cd25898134efe14baf783c32ffb6199, type: 3}
   meshesToCheckCollision:
   - {fileID: 1302290849}
+  onDragComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1938778331}
+        m_TargetAssemblyTypeName: AfterManipulationTimeout, Assembly-CSharp
+        m_MethodName: HandleDragComplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   falloffCurve:
     serializedVersion: 2
     m_Curve:
@@ -853,6 +869,18 @@ MonoBehaviour:
   meshToCheckCollision: {fileID: 1302290849}
   taperVelocityOnNegativeHemisphere: 0
   mouseIndicatorPrefab: {fileID: 4524481222472927990, guid: 3cd25898134efe14baf783c32ffb6199, type: 3}
+--- !u!114 &736199771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736199766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d07e849621a4172b8796a5af942c017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &842949485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1689,6 +1717,11 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 4027773665881830609, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
   m_PrefabInstance: {fileID: 1302290847}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &1302290850 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1153327804027224091, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+  m_PrefabInstance: {fileID: 1302290847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1938778322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,6 +1736,7 @@ GameObject:
   - component: {fileID: 1938778328}
   - component: {fileID: 1938778329}
   - component: {fileID: 1938778330}
+  - component: {fileID: 1938778331}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -1844,6 +1878,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   task: -1
   inputMethod: 0
+--- !u!114 &1938778331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938778322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a953d0f182f4ccfb4f1772014b575d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseMeshDragger: {fileID: 736199769}
+  clothRenderer: {fileID: 1302290850}
+  disabledMaterial: {fileID: 2100000, guid: b95f90a87cca28b48bb1dbba4c75e49d, type: 2}
 --- !u!1 &2003460547
 GameObject:
   m_ObjectHideFlags: 0
