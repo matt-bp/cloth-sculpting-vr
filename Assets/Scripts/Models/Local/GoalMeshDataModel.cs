@@ -18,7 +18,7 @@ namespace Models.Local
         {
             var results = new Dictionary<int, Mesh>();
         
-            var filename = $"tasks/task_{task}.json";
+            var filename = $"tasks/task_{task}";
 
             var jsonTextFile = Resources.Load<TextAsset>(filename);
 
