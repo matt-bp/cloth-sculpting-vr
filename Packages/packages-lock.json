@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "f18838f718c05104c74c33284a9da0472c1e34ff"
+      "hash": "72ee21fd59125b03ccf937f85e71e18d8ab43aa7"
     },
     "com.matt.grab-tool": {
       "version": "git@github.com:matt-bp/grab-tool.git",
@@ -14,7 +14,7 @@
       "dependencies": {
         "com.unity.xr.interaction.toolkit": "2.5.2"
       },
-      "hash": "0617c5c5d87e16b2666a3a32228c2435ae9eb0fd"
+      "hash": "daf23c1dd636447bd1ef69d83d34d8814bdba224"
     },
     "com.unity.collab-proxy": {
       "version": "2.0.1",

@@ -951,8 +951,8 @@ MonoBehaviour:
   onDragComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1938778331}
-        m_TargetAssemblyTypeName: AfterManipulationTimeout, Assembly-CSharp
+      - m_Target: {fileID: 1938778332}
+        m_TargetAssemblyTypeName: Models.Local.ClothInteractionGlue, Assembly-CSharp
         m_MethodName: HandleDragComplete
         m_Mode: 1
         m_Arguments:
@@ -1841,6 +1841,34 @@ PrefabInstance:
       propertyPath: statusLabel
       value: 
       objectReference: {fileID: 42161465}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1938778332}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandleClothSimulationComplete
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Models.Local.ClothInteractionGlue, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 9142079094210035606, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
@@ -1862,6 +1890,17 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 1153327804027224091, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
   m_PrefabInstance: {fileID: 1302290847}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1302290851 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+  m_PrefabInstance: {fileID: 1302290847}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cbd6801560b43cca4dd04c85b76a9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1938778322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1876,7 +1915,7 @@ GameObject:
   - component: {fileID: 1938778328}
   - component: {fileID: 1938778329}
   - component: {fileID: 1938778330}
-  - component: {fileID: 1938778331}
+  - component: {fileID: 1938778332}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -2018,7 +2057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   task: -1
   inputMethod: 0
---- !u!114 &1938778331
+--- !u!114 &1938778332
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2027,12 +2066,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1938778322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a953d0f182f4ccfb4f1772014b575d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5686bf96b615491990b6630cea907997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mouseMeshDragger: {fileID: 736199769}
   clothRenderer: {fileID: 1302290850}
   disabledMaterial: {fileID: 2100000, guid: b95f90a87cca28b48bb1dbba4c75e49d, type: 2}
+  cloth: {fileID: 1302290851}
+  meshHistory: {fileID: 736199771}
 --- !u!1 &2003460547
 GameObject:
   m_ObjectHideFlags: 0
