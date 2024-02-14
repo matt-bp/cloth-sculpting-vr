@@ -27,6 +27,8 @@ namespace Models.Local
             _previous = clothRenderer.material;
             clothRenderer.material = disabledMaterial;
             
+            cloth.ConstrainedIndices = mouseMeshDragger.ConstantIndices;
+            
             cloth.MatchClothPositionsToMesh();
             
             cloth.ToggleSimulation();
@@ -34,14 +36,16 @@ namespace Models.Local
 
         public void HandleClothSimulationComplete()
         {
+            mouseMeshDragger.SetDisabled(false);
+            clothRenderer.material = _previous;
+            
             // We need to undo and then add back the mesh back to the history so that the manipulation and simulation
             // are counted as one thing in the history.
             _meshHistory.Undo();
             var meshFilter = clothRenderer.gameObject.GetComponent<MeshFilter>();
             _meshHistory.AddMesh(meshFilter.sharedMesh);
-            
-            mouseMeshDragger.SetDisabled(false);
-            clothRenderer.material = _previous;
+
+            cloth.ConstrainedIndices = Array.Empty<int>();
         }
     }
 }
