@@ -944,7 +944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minimumRadius: 0.1
-  constantRatio: 2
+  constantUpperLimitMultiplier: 0.25
   constantIndicatorMaterial: {fileID: 2100000, guid: e61bbe768d6cba245b788a7a0a682679, type: 2}
   mouseIndicator: {fileID: 4524481222472927990, guid: 3cd25898134efe14baf783c32ffb6199, type: 3}
   history: {fileID: 1938778333}
@@ -1828,20 +1828,52 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: bendK
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: bendKd
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: shearK
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: shearKd
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: stretchK
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: stretchKd
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: statusLabel
       value: 
       objectReference: {fileID: 42161465}
     - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: cutoffAverage
-      value: 0.00001
+      value: 0.0004
       objectReference: {fileID: 0}
     - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: relaxationMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: showDebugOutput
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: constrainedIndices.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: maxRelaxationModeSimulationTime
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: onDone.m_PersistentCalls.m_Calls.Array.size

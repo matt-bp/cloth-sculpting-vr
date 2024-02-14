@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "8397f57609103eed7fe7d706e2f4463f91696530"
+      "hash": "2493579208c92812b12a58332bbe22c86bb300aa"
     },
     "com.matt.grab-tool": {
       "version": "git@github.com:matt-bp/grab-tool.git",

@@ -464,15 +464,17 @@ MonoBehaviour:
   bendKd: 1
   surfaceDensity: 1
   gravity: {x: 0, y: -10, z: 0}
-  doSimulation: 0
-  numberOfSubsteps: 10
-  cutoffAverage: 0.003
   relaxationMode: 0
-  constrainedIndices: 000000000100000041000000
-  statusLabel: {fileID: 0}
+  cutoffAverage: 0.0004
+  maxRelaxationModeSimulationTime: 0
   onDone:
     m_PersistentCalls:
       m_Calls: []
+  doSimulation: 0
+  numberOfSubsteps: 10
+  constrainedIndices: 000000000100000041000000
+  showDebugOutput: 0
+  statusLabel: {fileID: 0}
 --- !u!1001 &1068947527400964568
 PrefabInstance:
   m_ObjectHideFlags: 0
