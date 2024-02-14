@@ -731,10 +731,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6f0c3e3adb40918651e11ba00faced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0.2
+  minimumRadius: 0.1
+  constantUpperLimitMultiplier: 0.25
+  constantIndicatorMaterial: {fileID: 2100000, guid: e61bbe768d6cba245b788a7a0a682679, type: 2}
   mouseIndicator: {fileID: 4524481222472927990, guid: 3cd25898134efe14baf783c32ffb6199, type: 3}
+  history: {fileID: 1938778330}
   meshesToCheckCollision:
   - {fileID: 1588292479}
+  onDragComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1938778329}
+        m_TargetAssemblyTypeName: Models.Local.ClothInteractionGlue, Assembly-CSharp
+        m_MethodName: HandleDragComplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   falloffCurve:
     serializedVersion: 2
     m_Curve:
@@ -1606,6 +1624,8 @@ GameObject:
   - component: {fileID: 1938778324}
   - component: {fileID: 1938778327}
   - component: {fileID: 1938778328}
+  - component: {fileID: 1938778330}
+  - component: {fileID: 1938778329}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -1677,6 +1697,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b727a13aee374d858118602c53f7b93d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1938778329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938778322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5686bf96b615491990b6630cea907997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseMeshDragger: {fileID: 736199769}
+  clothRenderer: {fileID: 558697211971909603}
+  disabledMaterial: {fileID: 2100000, guid: b95f90a87cca28b48bb1dbba4c75e49d, type: 2}
+  cloth: {fileID: 558697211971909602}
+--- !u!114 &1938778330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938778322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d07e849621a4172b8796a5af942c017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &558697211971909601
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1724,5 +1772,53 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: relaxationMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1938778329}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandleClothSimulationComplete
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Models.Local.ClothInteractionGlue, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: onDone.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+--- !u!114 &558697211971909602 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+  m_PrefabInstance: {fileID: 558697211971909601}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cbd6801560b43cca4dd04c85b76a9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!23 &558697211971909603 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1153327804027224091, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+  m_PrefabInstance: {fileID: 558697211971909601}
+  m_PrefabAsset: {fileID: 0}
