@@ -456,23 +456,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cbd6801560b43cca4dd04c85b76a9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stretchK: 10
-  stretchKd: 2
-  shearK: 10
-  shearKd: 2
-  bendK: 5
-  bendKd: 1
+  stretchK: 1000
+  stretchKd: 10
+  shearK: 1000
+  shearKd: 10
+  bendK: 50
+  bendKd: 5
   surfaceDensity: 1
   gravity: {x: 0, y: -10, z: 0}
   relaxationMode: 0
   cutoffAverage: 0.0004
-  maxRelaxationModeSimulationTime: 0
+  maxRelaxationModeSimulationTime: 5
   onDone:
     m_PersistentCalls:
       m_Calls: []
   doSimulation: 0
   numberOfSubsteps: 10
-  constrainedIndices: 000000000100000041000000
+  constrainedIndices: 
   showDebugOutput: 0
   statusLabel: {fileID: 0}
 --- !u!1001 &1068947527400964568

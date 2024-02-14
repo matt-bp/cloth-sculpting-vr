@@ -14,7 +14,7 @@
       "dependencies": {
         "com.unity.xr.interaction.toolkit": "2.5.2"
       },
-      "hash": "d89de3d2beb575b284f738b4324c256e3c82f8aa"
+      "hash": "793783ae58a46deb8cb3f6bdf67023cb725f60d8"
     },
     "com.unity.collab-proxy": {
       "version": "2.0.1",

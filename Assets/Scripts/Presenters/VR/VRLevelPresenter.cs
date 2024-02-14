@@ -12,16 +12,9 @@ namespace Presenters.VR
     public class VRLevelPresenter : MonoBehaviour
     {
         [Header("Model")] [SerializeField] private VRStateModel vrStateModel;
-        [SerializeField] private TaskResultModel taskResultModel;
-        [SerializeField] private GoalMeshModel goalMeshModel;
-        [SerializeField] private GoalMeshDataModel goalDataModel;
-        [SerializeField] private TaskRunnerModel taskRunner;
-        [SerializeField] private DataExportModel dataModel;
         
         [Header("View")] [SerializeField] private XROrigin xrOrigin;
-        [SerializeField] private MeshFilter currentCloth;
-        [SerializeField] private MeshFilter goalMesh;
-        
+
         private void OnEnable()
         {
             MDebug.Log("Enabled");
@@ -32,11 +25,6 @@ namespace Presenters.VR
         {
             MDebug.Log("Disabled");
             vrStateModel.StopVR();
-        }
-
-        public void HelloWorld()
-        {
-            MDebug.Log("Hello world!");
         }
 
         public void ResetPosition()
