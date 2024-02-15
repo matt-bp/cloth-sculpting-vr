@@ -1812,6 +1812,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7968025129193440505, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 691ccc08e8a19304fa48495c01e60282, type: 2}
     - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: relaxationMode
       value: 1

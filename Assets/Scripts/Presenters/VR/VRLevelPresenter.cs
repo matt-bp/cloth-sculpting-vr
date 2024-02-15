@@ -29,7 +29,10 @@ namespace Presenters.VR
 
         public void ResetPosition()
         {
-            xrOrigin.MoveCameraToWorldLocation(Vector3.zero);
+            var heightAdjustment = xrOrigin.Origin.transform.up * xrOrigin.CameraInOriginSpaceHeight;
+            var cameraDestination = Vector3.zero + heightAdjustment;
+
+            xrOrigin.MoveCameraToWorldLocation(cameraDestination);
         }
     }
 }
