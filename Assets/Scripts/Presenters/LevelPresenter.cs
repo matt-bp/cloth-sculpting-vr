@@ -86,6 +86,20 @@ namespace Presenters
         {
             statusLabel.text = $"Found {value.current}";
 
+            if (value.current == 0)
+            {
+                MDebug.Log("First, set cloth to current goal mesh and get another one!");
+
+                currentCloth.sharedMesh.vertices =
+                    taskRunner.CurrentMesh.vertices.Select(currentCloth.transform.InverseTransformPoint).ToArray();
+                
+                // For each results, we have a padded one at the beginning. I guess that will be a good check, the 
+                // error should always be zero on that one.
+                OnSubmitClicked();
+
+                return;
+            }
+
             goalMesh.sharedMesh = taskRunner.CurrentMesh;
         }
 
