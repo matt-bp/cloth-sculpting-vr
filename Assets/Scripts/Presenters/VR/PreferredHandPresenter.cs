@@ -66,7 +66,7 @@ namespace Presenters.VR
                 isLeftHandGrab ? grabLeftController.transform : movementLeftController.transform;
             
             rightControllerGrabMoveProvider.controllerTransform =
-                isLeftHandGrab ? grabRightController.transform : movementRightController.transform;
+                !isLeftHandGrab ? grabRightController.transform : movementRightController.transform;
 
             progressPositionsModel.positions = isLeftHandGrab
                 ? rightControllerProgressParent.transform.Cast<Transform>().ToArray()
