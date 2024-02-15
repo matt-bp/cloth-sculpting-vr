@@ -15,5 +15,13 @@ namespace Models.Global
         }
 
         public int DisplayParticipantNumber => participantNumber + 1;
+        
+        [SerializeField] [Tooltip("Does the user prefer to use their left hand in VR?")]
+        private bool useLeftHand;
+        public bool UseLeftHand
+        {
+            get => useLeftHand;
+            set => useLeftHand = value;
+        }
     }
 }

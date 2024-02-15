@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Models.Global;
 using Models.Local;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -22,24 +23,38 @@ namespace Presenters.VR
         [SerializeField] private FollowObject[] controllerColliderFollowers;
         [SerializeField] private TaskProgressPositionsModel progressPositionsModel;
         
-        public bool leftHandGrab;
+        public bool defaultToLeftHandGrab;
         
         private void Start()
         {
-            SetGrabControllerState(grabLeftController, leftHandGrab);
-            SetMovementControllerState(movementRightController, leftHandGrab);
+            var models = GameObject.FindWithTag("Global Models");
+            if (models != null)
+            {
+                var participant = models.GetComponent<ParticipantModel>();
+                ApplyPreference(participant.UseLeftHand);
+            }
+            else
+            {
+                ApplyPreference(defaultToLeftHandGrab);
+            }
+        }
+
+        private void ApplyPreference(bool isLeftHandGrab)
+        {
+            SetGrabControllerState(grabLeftController, isLeftHandGrab);
+            SetMovementControllerState(movementRightController, isLeftHandGrab);
             
-            SetGrabControllerState(grabRightController, !leftHandGrab);
-            SetMovementControllerState(movementLeftController, !leftHandGrab);
+            SetGrabControllerState(grabRightController, !isLeftHandGrab);
+            SetMovementControllerState(movementLeftController, !isLeftHandGrab);
             
-            progressPositionsModel.positions = leftHandGrab
+            progressPositionsModel.positions = isLeftHandGrab
                 ? rightControllerProgressParent.transform.Cast<Transform>().ToArray()
                 : leftControllerProgressParent.transform.Cast<Transform>().ToArray();
 
             foreach (var follower in controllerColliderFollowers)
             {
                 follower.transformToFollow =
-                    leftHandGrab ? grabLeftController.transform : grabRightController.transform;
+                    isLeftHandGrab ? grabLeftController.transform : grabRightController.transform;
             }
         }
 

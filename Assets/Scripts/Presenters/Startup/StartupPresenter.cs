@@ -22,5 +22,10 @@ namespace Presenters.Startup
             
             levelProgressionModel.StartFirstSwitchScene();
         }
+
+        public void OnHandPreferenceChanged(bool preference)
+        {
+            participantModel.UseLeftHand = preference;
+        }
     }
 }

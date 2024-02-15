@@ -1338,7 +1338,7 @@ MonoBehaviour:
   - {fileID: 1691129766}
   - {fileID: 1156655962}
   progressPositionsModel: {fileID: 1208553284}
-  leftHandGrab: 1
+  leftHandGrab: 0
 --- !u!1 &819706190
 GameObject:
   m_ObjectHideFlags: 0
@@ -4649,6 +4649,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 437684927}
     m_Modifications:
+    - target: {fileID: 664489801923019586, guid: 2fd3e07afe5b461490fb8e314976b1b0, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6189354538098044173, guid: 2fd3e07afe5b461490fb8e314976b1b0, type: 3}
       propertyPath: m_RootOrder
       value: 1
