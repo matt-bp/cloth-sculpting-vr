@@ -18,9 +18,11 @@ namespace Presenters.VR
 
         [SerializeField] private GameObject movementLeftController;
         [SerializeField] private GameObject leftControllerProgressParent;
+        [SerializeField] private GrabMoveProvider leftControllerGrabMoveProvider;
         [SerializeField] private GameObject grabRightController;
         [SerializeField] private GameObject movementRightController;
         [SerializeField] private GameObject rightControllerProgressParent;
+        [SerializeField] private GrabMoveProvider rightControllerGrabMoveProvider;
 
         [Header("Miscellaneous things to update")]
         // Set these to the direct interactor game object component of the grab controller game object
@@ -60,6 +62,12 @@ namespace Presenters.VR
             SetGrabControllerState(grabRightController, !isLeftHandGrab);
             SetMovementControllerState(movementLeftController, !isLeftHandGrab);
 
+            leftControllerGrabMoveProvider.controllerTransform =
+                isLeftHandGrab ? grabLeftController.transform : movementLeftController.transform;
+            
+            rightControllerGrabMoveProvider.controllerTransform =
+                isLeftHandGrab ? grabRightController.transform : movementRightController.transform;
+
             progressPositionsModel.positions = isLeftHandGrab
                 ? rightControllerProgressParent.transform.Cast<Transform>().ToArray()
                 : leftControllerProgressParent.transform.Cast<Transform>().ToArray();
@@ -76,7 +84,6 @@ namespace Presenters.VR
             controller.SetActive(isEnabled);
             controller.GetComponent<ActionBasedControllerManager>().enabled = isEnabled;
             controller.GetComponent<ActionBasedController>().enabled = isEnabled;
-            // controller.GetComponentInChildren<XRDirectInteractor>().enabled = true;
         }
 
         private void SetMovementControllerState(GameObject controller, bool isEnabled)
