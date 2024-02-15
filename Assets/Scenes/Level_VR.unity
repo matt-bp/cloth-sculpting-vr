@@ -1397,7 +1397,7 @@ MonoBehaviour:
   grabActionReference: {fileID: 7095198341329513501, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
   toggleSizeActionReference: {fileID: -7805022731977164059, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
   changeSizeActionReference: {fileID: -3952860310760156016, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
-  vrMeshDragger: {fileID: 0}
+  vrMeshDragger: {fileID: 1876553692}
   progressPositionsModel: {fileID: 1208553284}
   defaultToLeftHandGrab: 0
 --- !u!1 &819706190
