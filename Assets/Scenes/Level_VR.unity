@@ -1338,9 +1338,10 @@ MonoBehaviour:
   - {fileID: 1691129766}
   - {fileID: 1156655962}
   grabActionReference: {fileID: 7095198341329513501, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
-  example: {fileID: -4909804601881533995, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+  toggleSizeActionReference: {fileID: -7805022731977164059, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+  changeSizeActionReference: {fileID: -3952860310760156016, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
   progressPositionsModel: {fileID: 1208553284}
-  defaultToLeftHandGrab: 0
+  defaultToLeftHandGrab: 1
 --- !u!1 &819706190
 GameObject:
   m_ObjectHideFlags: 0
@@ -4018,6 +4019,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1875013792}
     m_Modifications:
+    - target: {fileID: 664489801923019586, guid: 2fd3e07afe5b461490fb8e314976b1b0, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6189354538098044173, guid: 2fd3e07afe5b461490fb8e314976b1b0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -4554,7 +4559,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876553689}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a6384c240ca437693f35133cfd72674, type: 3}
   m_Name: 
@@ -4571,7 +4576,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -335775248641796371, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+    m_Reference: {fileID: -7805022731977164059, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
   changeValue:
     m_UseReference: 1
     m_Action:
@@ -4583,8 +4588,8 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -1636515391019944688, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
-  radiusChangeRate: 0.4
+    m_Reference: {fileID: -3952860310760156016, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+  radiusChangeRate: 0.6
   collisionVisualization: {fileID: 1691129761}
   updatingMaterial: {fileID: 2100000, guid: a75d48a94814f35428bc1fb32f46c83a, type: 2}
 --- !u!114 &1876553694

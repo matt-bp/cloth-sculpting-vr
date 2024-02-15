@@ -29,8 +29,9 @@ namespace Presenters.VR
 
         [Header("Dynamic Action References")]
         [SerializeField] private InputActionReference grabActionReference;
-        [SerializeField] private InputActionReference example;
-        
+        [SerializeField] private InputActionReference toggleSizeActionReference;
+        [SerializeField] private InputActionReference changeSizeActionReference;
+
         [Header("Model")] [SerializeField] private TaskProgressPositionsModel progressPositionsModel;
 
         public bool defaultToLeftHandGrab;
@@ -90,7 +91,9 @@ namespace Presenters.VR
             var controller = isLeftHandGrab ? "LeftHand" : "RightHand";
             
             grabActionReference.action.AddBinding($"<XRController>{{{controller}}}/{{GripButton}}");
-            grabActionReference.action.bindingMask = new InputBinding { groups = "GenericXRController" };
+            toggleSizeActionReference.action.AddBinding($"<XRController>{{{controller}}}/{{Primary2DAxisClick}}");
+            var writeAccessBinding = changeSizeActionReference.action.ChangeBinding(0);
+            writeAccessBinding.WithPath($"<XRController>{{{controller}}}/{{Primary2DAxis}}");
         }
     }
 }
