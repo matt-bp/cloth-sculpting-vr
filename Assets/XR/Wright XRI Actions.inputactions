@@ -1675,6 +1675,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Add & Next",
+                    "type": "Button",
+                    "id": "206d793b-aa3d-418b-8093-17cd7d1da7a5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1862,6 +1871,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Secondary Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd13319c-12a1-416c-8b0e-48d7b1692345",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Add & Next",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
