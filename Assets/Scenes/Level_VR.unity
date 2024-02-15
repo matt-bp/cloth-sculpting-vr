@@ -1337,8 +1337,10 @@ MonoBehaviour:
   controllerColliderFollowers:
   - {fileID: 1691129766}
   - {fileID: 1156655962}
+  grabActionReference: {fileID: 7095198341329513501, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+  example: {fileID: -4909804601881533995, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
   progressPositionsModel: {fileID: 1208553284}
-  leftHandGrab: 0
+  defaultToLeftHandGrab: 0
 --- !u!1 &819706190
 GameObject:
   m_ObjectHideFlags: 0
@@ -4517,7 +4519,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -4909804601881533995, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+    m_Reference: {fileID: 7095198341329513501, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
   undoAction:
     m_UseReference: 1
     m_Action:

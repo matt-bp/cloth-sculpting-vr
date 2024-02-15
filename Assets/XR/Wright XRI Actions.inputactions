@@ -2720,6 +2720,83 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "XRI Cloth and Manipulation",
+            "id": "a9e3573a-1ed4-49c5-9c9e-8b1a5dfdcba6",
+            "actions": [
+                {
+                    "name": "Grab Cloth",
+                    "type": "Button",
+                    "id": "92f5dda5-f531-4b5d-8a4e-2474b24e246d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Undo",
+                    "type": "Button",
+                    "id": "35f36efe-36f8-4c43-8a10-8007e70a1cc5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Toggle Size Change",
+                    "type": "Button",
+                    "id": "a930bc9e-d6d5-4e31-b1b7-9466b6369ea7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Change Size",
+                    "type": "Button",
+                    "id": "e3de6990-42b7-41e3-a28f-76980af32114",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fb5c72ff-8418-46fc-a217-7542de7dc901",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Undo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2a9a0d97-1b40-4fb3-981f-429ab408af26",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Size Change",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d6f062e8-9cd7-4c83-b17e-e5b9eb5bfde1",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Change Size",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
