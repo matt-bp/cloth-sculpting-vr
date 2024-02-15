@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GrabTool.Mesh;
 using Models.Global;
 using Models.Local;
 using UnityEngine;
@@ -8,6 +9,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 using Wright.Library.Helpers;
+using Wright.Library.Logging;
 
 namespace Presenters.VR
 {
@@ -29,10 +31,12 @@ namespace Presenters.VR
         [SerializeField]
         private FollowObject[] controllerColliderFollowers;
 
-        [Header("Dynamic Action References")]
-        [SerializeField] private InputActionReference grabActionReference;
+        [Header("Dynamic Action References")] [SerializeField]
+        private InputActionReference grabActionReference;
+
         [SerializeField] private InputActionReference toggleSizeActionReference;
         [SerializeField] private InputActionReference changeSizeActionReference;
+        [SerializeField] private VRMeshDragger vrMeshDragger;
 
         [Header("Model")] [SerializeField] private TaskProgressPositionsModel progressPositionsModel;
 
@@ -43,6 +47,7 @@ namespace Presenters.VR
             var models = GameObject.FindWithTag("Global Models");
             if (models != null)
             {
+                MDebug.Log("Got global models");
                 var participant = models.GetComponent<ParticipantModel>();
                 ApplyPreference(participant.UseLeftHand);
             }
@@ -54,8 +59,10 @@ namespace Presenters.VR
 
         private void ApplyPreference(bool isLeftHandGrab)
         {
+            MDebug.Log($"Is using left hand as grab: {isLeftHandGrab}");
+
             SetActions(isLeftHandGrab);
-            
+
             SetGrabControllerState(grabLeftController, isLeftHandGrab);
             SetMovementControllerState(movementRightController, isLeftHandGrab);
 
@@ -64,7 +71,7 @@ namespace Presenters.VR
 
             leftControllerGrabMoveProvider.controllerTransform =
                 isLeftHandGrab ? grabLeftController.transform : movementLeftController.transform;
-            
+
             rightControllerGrabMoveProvider.controllerTransform =
                 !isLeftHandGrab ? grabRightController.transform : movementRightController.transform;
 
@@ -77,6 +84,10 @@ namespace Presenters.VR
                 follower.transformToFollow =
                     isLeftHandGrab ? grabLeftController.transform : grabRightController.transform;
             }
+
+            vrMeshDragger.SphereCollider = isLeftHandGrab
+                ? grabLeftController.GetComponentInChildren<SphereCollider>()
+                : grabRightController.GetComponentInChildren<SphereCollider>();
         }
 
         private void SetGrabControllerState(GameObject controller, bool isEnabled)
@@ -96,7 +107,7 @@ namespace Presenters.VR
         private void SetActions(bool isLeftHandGrab)
         {
             var controller = isLeftHandGrab ? "LeftHand" : "RightHand";
-            
+
             grabActionReference.action.AddBinding($"<XRController>{{{controller}}}/{{GripButton}}");
             toggleSizeActionReference.action.AddBinding($"<XRController>{{{controller}}}/{{Primary2DAxisClick}}");
             var writeAccessBinding = changeSizeActionReference.action.ChangeBinding(0);

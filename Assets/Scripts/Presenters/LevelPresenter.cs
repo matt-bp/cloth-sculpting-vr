@@ -92,6 +92,8 @@ namespace Presenters
 
                 currentCloth.sharedMesh.vertices =
                     taskRunner.CurrentMesh.vertices.Select(currentCloth.transform.InverseTransformPoint).ToArray();
+
+                currentCloth.gameObject.GetComponent<MeshCollider>().sharedMesh = currentCloth.sharedMesh;
                 
                 // For each results, we have a padded one at the beginning. I guess that will be a good check, the 
                 // error should always be zero on that one.

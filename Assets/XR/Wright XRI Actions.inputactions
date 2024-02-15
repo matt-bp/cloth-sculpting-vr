@@ -2765,12 +2765,12 @@
                 },
                 {
                     "name": "Change Size",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "e3de6990-42b7-41e3-a28f-76980af32114",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [

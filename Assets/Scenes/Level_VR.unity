@@ -1397,6 +1397,7 @@ MonoBehaviour:
   grabActionReference: {fileID: 7095198341329513501, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
   toggleSizeActionReference: {fileID: -7805022731977164059, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
   changeSizeActionReference: {fileID: -3952860310760156016, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+  vrMeshDragger: {fileID: 0}
   progressPositionsModel: {fileID: 1208553284}
   defaultToLeftHandGrab: 0
 --- !u!1 &819706190
@@ -1576,10 +1577,6 @@ PrefabInstance:
       objectReference: {fileID: 1120879293}
     - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: relaxationMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
-      propertyPath: showDebugOutput
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
@@ -4708,6 +4705,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  sphereCollider: {fileID: 1955250856}
   colliderVisualization: {fileID: 1691129761}
   constantColliderVisualization: {fileID: 1156655960}
   grabAction:
@@ -4928,6 +4926,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4253f32900bcc4d499d675566142ded0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &1955250856 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 6059725000919627127, guid: 2fd3e07afe5b461490fb8e314976b1b0, type: 3}
+  m_PrefabInstance: {fileID: 1955250853}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1991193673
 GameObject:
   m_ObjectHideFlags: 0

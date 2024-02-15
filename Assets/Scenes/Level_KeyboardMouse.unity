@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &42161465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +251,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 136158395}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -292,7 +292,7 @@ RectTransform:
   - {fileID: 369477699}
   - {fileID: 2108420388}
   m_Father: {fileID: 136158395}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -422,11 +422,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1004868544}
   - {fileID: 659039025}
-  - {fileID: 1017500251}
   - {fileID: 53867019}
   - {fileID: 42161467}
+  - {fileID: 1004868544}
+  - {fileID: 1017500251}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -575,7 +575,7 @@ RectTransform:
   m_Children:
   - {fileID: 842949486}
   m_Father: {fileID: 136158395}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -1246,12 +1246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec3968661e440b9be204206fb2326f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positions:
-  - {fileID: 722346941}
-  - {fileID: 151972184}
-  - {fileID: 2003460548}
-  - {fileID: 369477699}
-  - {fileID: 2108420388}
+  model: {fileID: 1938778334}
   background: {fileID: 6691321684794633046, guid: 10b98ec663a884d4aab758b785fd7318, type: 3}
   check: {fileID: 4764233050851579813, guid: e7dd751f14d924461bbeacafba68bee1, type: 3}
 --- !u!4 &874299559
@@ -1412,7 +1407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1004868544
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1426,7 +1421,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 136158395}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1547,7 +1542,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1017500251
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1561,7 +1556,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 136158395}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1836,10 +1831,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
-      propertyPath: showDebugOutput
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9139210262442263221, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: constrainedIndices.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -1919,6 +1910,7 @@ GameObject:
   - component: {fileID: 1938778330}
   - component: {fileID: 1938778332}
   - component: {fileID: 1938778333}
+  - component: {fileID: 1938778334}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -2088,6 +2080,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d07e849621a4172b8796a5af942c017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1938778334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938778322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95a1da8b410a446e9308f756c23cb959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positions:
+  - {fileID: 722346941}
+  - {fileID: 151972184}
+  - {fileID: 2003460548}
+  - {fileID: 369477699}
+  - {fileID: 2108420388}
 --- !u!1 &2003460547
 GameObject:
   m_ObjectHideFlags: 0
