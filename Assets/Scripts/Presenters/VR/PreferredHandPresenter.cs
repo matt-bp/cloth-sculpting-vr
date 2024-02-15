@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Models.Local;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
@@ -10,11 +13,14 @@ namespace Presenters.VR
     {
         [SerializeField] private GameObject grabLeftController;
         [SerializeField] private GameObject movementLeftController;
+        [SerializeField] private GameObject leftControllerProgressParent;
         [SerializeField] private GameObject grabRightController;
         [SerializeField] private GameObject movementRightController;
+        [SerializeField] private GameObject rightControllerProgressParent;
 
         // Set these to the direct interactor game object component of the grab controller game object
         [SerializeField] private FollowObject[] controllerColliderFollowers;
+        [SerializeField] private TaskProgressPositionsModel progressPositionsModel;
         
         public bool leftHandGrab;
         
@@ -26,6 +32,10 @@ namespace Presenters.VR
             SetGrabControllerState(grabRightController, !leftHandGrab);
             SetMovementControllerState(movementLeftController, !leftHandGrab);
             
+            progressPositionsModel.positions = leftHandGrab
+                ? rightControllerProgressParent.transform.Cast<Transform>().ToArray()
+                : leftControllerProgressParent.transform.Cast<Transform>().ToArray();
+
             foreach (var follower in controllerColliderFollowers)
             {
                 follower.transformToFollow =
