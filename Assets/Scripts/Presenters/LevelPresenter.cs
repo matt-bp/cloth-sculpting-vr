@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Events;
+using GrabTool.Mesh;
 using Models.Local;
 using TMPro;
 using UnityEngine;
 using Wright.Library.Analysis;
 using Wright.Library.Logging;
-using Wright.Library.Mesh;
 using Wright.Library.Messages;
+using MeshCopier = Wright.Library.Mesh.MeshCopier;
 
 namespace Presenters
 {
@@ -90,10 +91,11 @@ namespace Presenters
             {
                 MDebug.Log("First, set cloth to current goal mesh and get another one!");
 
-                currentCloth.sharedMesh.vertices =
-                    taskRunner.CurrentMesh.vertices.Select(currentCloth.transform.InverseTransformPoint).ToArray();
+                var newPositions = taskRunner.CurrentMesh.vertices.Select(currentCloth.transform.InverseTransformPoint).ToArray();
 
-                currentCloth.gameObject.GetComponent<MeshCollider>().sharedMesh = currentCloth.sharedMesh;
+                var clothCollider = currentCloth.gameObject.GetComponent<MeshCollider>();
+                
+                MeshUpdater.UpdateMeshes(currentCloth.sharedMesh, clothCollider, newPositions);
                 
                 // For each results, we have a padded one at the beginning. I guess that will be a good check, the 
                 // error should always be zero on that one.
