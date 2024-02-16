@@ -376,6 +376,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9014170783809206330, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014170783809206330, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.6603774
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014170783809206330, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.19030558
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014170783809206330, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9014170784424948809, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1447,6 +1463,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 31
       objectReference: {fileID: 0}
+    - target: {fileID: 558697211348054032, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d38b051e23841254cbe6fb05bf2e6f85, type: 2}
     - target: {fileID: 682727976379459322, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: m_Colliders.Array.size
       value: 0
@@ -1507,6 +1527,22 @@ PrefabInstance:
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3401612375510191763, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 67250b26c5e032b4fafd6bff87bbae74, type: 2}
+    - target: {fileID: 3773473013073786115, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 67250b26c5e032b4fafd6bff87bbae74, type: 2}
+    - target: {fileID: 3838754122243854514, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 67250b26c5e032b4fafd6bff87bbae74, type: 2}
+    - target: {fileID: 5307156666561476318, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 67250b26c5e032b4fafd6bff87bbae74, type: 2}
     - target: {fileID: 5931951509041305144, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: m_Name
       value: User Task Level
