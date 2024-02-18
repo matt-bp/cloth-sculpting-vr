@@ -28,13 +28,17 @@ namespace Presenters
 
             foreach (var i in Enumerable.Range(0, value.total))
             {
-                Debug.Assert(i >= 0 && i < model.positions.Length);
+                if (i == 0) continue;
                 
-                created.Add(Instantiate(background, model.positions[i]));
+                Debug.Assert(i >= 0 && i < model.positions.Length);
+
+                var position = model.positions[i - 1];
+                
+                created.Add(Instantiate(background, position));
 
                 if (i < value.current)
                 {
-                    created.Add(Instantiate(check, model.positions[i]));
+                    created.Add(Instantiate(check, position));
                 }
             }
         }
