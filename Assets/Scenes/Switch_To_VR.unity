@@ -239,6 +239,70 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 761341043}
     m_Modifications:
+    - target: {fileID: 6440810187169128756, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 365.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187169128757, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_text
+      value: Switch to using VR
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187169128757, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187169128757, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187169128757, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187169128757, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187328569301, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187328569301, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.07058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187328569301, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.18039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187328569301, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294906414
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187665024218, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187665024219, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_text
+      value: When you are ready, press the right controller's next button to begin.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187665024219, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187665024219, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187665024219, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187665024219, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
     - target: {fileID: 6440810187863946157, guid: 483bbe277087311479f4a9502e81814f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -250,6 +314,10 @@ PrefabInstance:
     - target: {fileID: 6440810187863946157, guid: 483bbe277087311479f4a9502e81814f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Presenters.VR.VRInputSwitcherPresenter, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440810187863946159, guid: 483bbe277087311479f4a9502e81814f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6440810188230339845, guid: 483bbe277087311479f4a9502e81814f, type: 3}
       propertyPath: m_Name
@@ -369,6 +437,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 180462341}
     m_Modifications:
+    - target: {fileID: 122084618895949332, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 146340753648116383, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127728408163665757, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_ActionAssets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127728408163665757, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_ActionAssets.Array.data[1]
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+    - target: {fileID: 3412649390972202448, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711799367079663623, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -413,9 +505,53 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4564216430282282028, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6443765611106601763, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454594071094758631, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694496370488184912, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733349667411237925, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169631891049266947, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_Name
       value: XR Interaction Setup
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602005377494257453, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8677371567480465662, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014170783705847993, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_ModelPrefab
+      value: 
+      objectReference: {fileID: 3475118261464492563, guid: 4d1a322418fb20d4da95f8d1caa5b669, type: 3}
+    - target: {fileID: 9014170784424948809, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9067829889149138881, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -429,6 +565,41 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 9014170783809206330, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
   m_PrefabInstance: {fileID: 548122105}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &548122108 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9014170783705847997, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+  m_PrefabInstance: {fileID: 548122105}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &548122109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548122108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf62d2c0bdf44fb38c50e27732f90ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Button Press
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: d2a4919b-5a4f-4de4-8573-a755c3994e73
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -1275169996464042549, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+  onPress:
+    m_PersistentCalls:
+      m_Calls: []
+  onRelease:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &701677161
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +960,8 @@ Transform:
   m_LocalPosition: {x: 498.5416, y: 431.06918, z: -5.026478}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1186603390}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -808,6 +980,80 @@ MonoBehaviour:
   vrStateModel: {fileID: 1064379475}
   participantStatus: {fileID: 701677163}
   progressionText: {fileID: 29721633}
+--- !u!1 &1186603389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1186603390}
+  - component: {fileID: 1186603391}
+  m_Layer: 0
+  m_Name: Controller Button Events
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1186603390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186603389}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1145808327}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1186603391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186603389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf62d2c0bdf44fb38c50e27732f90ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Button Press
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 82049e70-0a7c-49fb-8fb1-2f731b08fb64
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -7453127134952763863, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+  onPress:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1145808328}
+        m_TargetAssemblyTypeName: Presenters.VR.VRInputSwitcherPresenter, Assembly-CSharp
+        m_MethodName: SwitchedInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onRelease:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1301736852
 GameObject:
   m_ObjectHideFlags: 0

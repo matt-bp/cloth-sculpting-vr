@@ -1677,7 +1677,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Add & Next",
+                    "name": "Next Keyframe",
                     "type": "Button",
                     "id": "206d793b-aa3d-418b-8093-17cd7d1da7a5",
                     "expectedControlType": "Button",
@@ -1881,7 +1881,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
-                    "action": "Add & Next",
+                    "action": "Next Keyframe",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
