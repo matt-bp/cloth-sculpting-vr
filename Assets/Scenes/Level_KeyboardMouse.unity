@@ -1770,6 +1770,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 558697211348054032, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ee534f37696d2ea48b5cd37e936d3c39, type: 2}
     - target: {fileID: 5931951509041305144, guid: 161ba95428834a84ab4e6a9d5dd4efaf, type: 3}
       propertyPath: m_Name
       value: User Task Level
