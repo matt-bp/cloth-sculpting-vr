@@ -1106,15 +1106,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Grab Move New",
-                    "type": "Button",
-                    "id": "7bf4cf7e-d7a1-4c46-a4ed-bd24a1394f6c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1186,8 +1177,8 @@
                 },
                 {
                     "name": "",
-                    "id": "9e2fa814-8cbd-4c65-a60d-a1503f30ffd8",
-                    "path": "<XRController>{LeftHand}/{GripButton}",
+                    "id": "0afa6565-c663-4b24-9635-864060ee9aa7",
+                    "path": "<XRController>{LeftHand}/{TriggerButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
@@ -1203,17 +1194,6 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Snap Turn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6a544213-fd6f-4dda-9d85-33a85b8c3dc2",
-                    "path": "<XRController>{LeftHand}/{TriggerButton}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Generic XR Controller",
-                    "action": "Grab Move New",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -2053,8 +2033,8 @@
                 },
                 {
                     "name": "",
-                    "id": "7ecb549e-ab98-4a4b-b979-38068fe3b811",
-                    "path": "<XRController>{RightHand}/{GripButton}",
+                    "id": "4ac6e0a4-017d-42b2-ab2c-8baedc0cc586",
+                    "path": "<XRController>{RightHand}/{TriggerButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
