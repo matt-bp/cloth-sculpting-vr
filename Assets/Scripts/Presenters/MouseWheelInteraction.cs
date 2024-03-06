@@ -7,7 +7,7 @@ namespace Presenters
 {
     public class MouseWheelInteraction : MonoBehaviour
     {
-        private float _rate = 1.0f;
+        [SerializeField] private float rate = 500.0f;
         private float _currentValue = 0.2f;
         [SerializeField] private float exponent = 1.0f;
         public UnityEvent<float> onUpdateSize;
@@ -16,14 +16,10 @@ namespace Presenters
         {
             if (Input.GetAxis("Mouse ScrollWheel") == 0) return;
 
-            var updated = Input.GetAxis("Mouse ScrollWheel") * _rate;
-
-            _currentValue += updated;
+            _currentValue += rate * Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime;
             _currentValue = MathF.Max(0.01f, MathF.Min(1000.0f, _currentValue));
 
-            // Scale our current value to grow quadratically.
-            var outValue = MathF.Pow(_currentValue, exponent);
-            onUpdateSize.Invoke(outValue);
+            onUpdateSize.Invoke(MathF.Pow(_currentValue, exponent));
         }
     }
 }
