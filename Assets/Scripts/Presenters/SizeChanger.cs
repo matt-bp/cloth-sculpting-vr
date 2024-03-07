@@ -1,15 +1,15 @@
 using System;
 using GrabTool.Mesh;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit.Inputs;
+using Wright.Library.Logging;
 
-namespace Presenters.VR
+namespace Presenters
 {
-    public class VRSizeChanger : MonoBehaviour
+    public class SizeChanger : MonoBehaviour
     {
-        [SerializeField] private VRMeshDragger vRMeshDragger;
-
         [Header("Settings")]
         [SerializeField] private float radiusChangeRate = 0.1f;
         [SerializeField] private float exponent = 1.0f;
@@ -18,6 +18,10 @@ namespace Presenters.VR
 
         [Header("Input")]
         [SerializeField] private InputActionProperty changeValue;
+        
+        [Header("Events")]
+        public UnityEvent<float> onUpdateSize;
+
         
         private float _currentValue = 0.2f;
         
@@ -35,10 +39,20 @@ namespace Presenters.VR
         {
             var value = changeValue.action.ReadValue<Vector2>();
 
+            if (value != Vector2.zero)
+            {
+                MDebug.Log($"Values is {value}");
+            }
+            else
+            {
+                MDebug.Log("Is zero");
+                return;
+            }
+
             _currentValue += radiusChangeRate * value.y * Time.deltaTime;
             _currentValue = Mathf.Max(minimumValue, Mathf.Min(maximumValue, _currentValue));
             
-            vRMeshDragger.OnRadiusChanged(Mathf.Pow(_currentValue, exponent));
+            onUpdateSize.Invoke(Mathf.Pow(_currentValue, exponent));
         }
     }
 }

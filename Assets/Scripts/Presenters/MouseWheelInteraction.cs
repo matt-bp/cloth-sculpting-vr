@@ -1,25 +1,30 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
-using Wright.Library.Logging;
 
 namespace Presenters
 {
     public class MouseWheelInteraction : MonoBehaviour
     {
+        [Header("Settings")]
         [SerializeField] private float rate = 500.0f;
-        private float _currentValue = 0.2f;
         [SerializeField] private float exponent = 1.0f;
+        [SerializeField] private float minimumValue = 0.01f;
+        [SerializeField] private float maximumValue = 1000.0f;
+        
+        [Header("Events")]
         public UnityEvent<float> onUpdateSize;
+
+        private float _currentValue = 0.2f;
 
         private void Update()
         {
             if (Input.GetAxis("Mouse ScrollWheel") == 0) return;
 
             _currentValue += rate * Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime;
-            _currentValue = MathF.Max(0.01f, MathF.Min(1000.0f, _currentValue));
+            _currentValue = Mathf.Max(minimumValue, Mathf.Min(maximumValue, _currentValue));
 
-            onUpdateSize.Invoke(MathF.Pow(_currentValue, exponent));
+            onUpdateSize.Invoke(Mathf.Pow(_currentValue, exponent));
         }
     }
 }

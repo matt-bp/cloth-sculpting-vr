@@ -1670,6 +1670,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1225106999}
   - component: {fileID: 1225107000}
+  - component: {fileID: 1225107001}
   m_Layer: 0
   m_Name: Mouse Wheel Interaction
   m_TagString: Untagged
@@ -1705,8 +1706,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rate: 500
-  _currentValue: 0.2
   exponent: 1.7
+  minimumValue: 0.01
+  maximumValue: 1000
   onUpdateSize:
     m_PersistentCalls:
       m_Calls:
@@ -1722,10 +1724,41 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 736199770}
-        m_TargetAssemblyTypeName: GrabTool.Mesh.MouseVectorFieldDragger, GrabTool.Runtime
-        m_MethodName: OnMultiplierChanged
-        m_Mode: 0
+--- !u!114 &1225107001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225106998}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7022d8a7434130b3b6222ce36666eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radiusChangeRate: 500
+  exponent: 1.7
+  minimumValue: 0.01
+  maximumValue: 1000
+  changeValue:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Change Value
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: fb075150-6d55-4347-b931-c493e8ba4824
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -7567598028235857759, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+  onUpdateSize:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 736199769}
+        m_TargetAssemblyTypeName: GrabTool.Mesh.MouseMeshDragger, GrabTool.Runtime
+        m_MethodName: OnSizeChanged
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
