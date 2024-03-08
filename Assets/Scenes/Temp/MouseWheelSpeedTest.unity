@@ -1737,7 +1737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radiusChangeRate: 500
-  exponent: 1.7
+  exponent: 2
   minimumValue: 0.01
   maximumValue: 1000
   changeValue:

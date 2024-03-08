@@ -1704,7 +1704,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7daab11467a148d6b17ebe0cee3af60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rate: 1
+  rate: 500
+  exponent: 1.7
+  minimumValue: 0.01
+  maximumValue: 1000
   onUpdateSize:
     m_PersistentCalls:
       m_Calls:

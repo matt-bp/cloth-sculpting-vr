@@ -4796,18 +4796,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vRMeshDragger: {fileID: 1876553692}
-  toggle:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Toggle
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 75c6ed1f-d94b-401e-bda5-abcdf1b346d7
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -7805022731977164059, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
+  radiusChangeRate: 2
+  exponent: 2
+  minimumValue: 0.01
+  maximumValue: 1000
   changeValue:
     m_UseReference: 1
     m_Action:
@@ -4820,9 +4812,6 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: -3952860310760156016, guid: 57d5019cb7fe71040850b0a7a5fa486e, type: 3}
-  radiusChangeRate: 0.6
-  collisionVisualization: {fileID: 1691129761}
-  updatingMaterial: {fileID: 2100000, guid: a75d48a94814f35428bc1fb32f46c83a, type: 2}
 --- !u!114 &1876553694
 MonoBehaviour:
   m_ObjectHideFlags: 0
