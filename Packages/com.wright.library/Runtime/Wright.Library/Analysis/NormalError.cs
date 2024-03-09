@@ -16,7 +16,7 @@ namespace Wright.Library.Analysis
 
             float CalculateError(Vector3 n, Vector3 m)
             {
-                return 0.5f * Math.Abs(Vector3.Dot(n, m) - 1);
+                return 0.5f * Mathf.Abs(Vector3.Dot(n, m) - 1);
             }
             
             return goal.normals.Zip(generated.normals, CalculateError).Sum();

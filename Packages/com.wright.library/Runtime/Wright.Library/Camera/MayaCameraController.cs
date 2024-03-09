@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 #endif
 
 using UnityEngine;
+using Wright.Library.Math;
 
 namespace Wright.Library.Camera
 {
@@ -73,7 +74,7 @@ namespace Wright.Library.Camera
             {
                 var translation = GetMouseMovement() * k_MouseSensitivityMultiplier * mouseSensitivity * Time.deltaTime;
                 translation *= Mathf.Pow(2.0f, boost);
-                _targetCameraState.Translate(translation);
+                _targetCameraState.Translate(transform.eulerAngles, translation);
             }
 
             // Framerate-independent interpolation
@@ -129,63 +130,50 @@ namespace Wright.Library.Camera
 
         #endregion
 
+        /// <summary>
+        /// <para>This camera state is concerned only about a focus point, and spherical coordinates to update the camera.</para>
+        /// <para>From what I gathered from Maya, manipulating the camera also involves manipulating a focus point, and when you tumble the camera, it rotates around that focus point.</para>
+        /// <para>That means we only need to update the focus point, and what the rotations should be, and then we can convert those rotations to coordinates that the camera's position could then be updated.</para>
+        /// </summary>
         private class CameraState
         {
-            private float _yaw;
-            private float _pitch;
-            private float _roll;
-            private float _x;
-            private float _y;
-            private float _z;
-            private Vector3 _target;
+            private SphericalCoordinates _sc;
+            private Vector3 _focus;
 
-            public void SetFromTransformAndPoint(Transform t, Vector3 target)
+            public void SetFromTransformAndPoint(Transform t, Vector3 focus)
             {
-                t.LookAt(target);
-
-                _pitch = t.eulerAngles.x;
-                _yaw = t.eulerAngles.y;
-                _roll = t.eulerAngles.z;
-                _x = t.position.x;
-                _y = t.position.y;
-                _z = t.position.z;
-                _target = target;
+                _sc = SphericalCoordinates.FromCartesian(t.position);
+                _focus = focus;
             }
 
-            public void Translate(Vector3 translation)
+            public void Translate(Vector3 cameraEulerAngles, Vector3 translation)
             {
-                var rotatedTranslation = Quaternion.Euler(_pitch, _yaw, _roll) * translation;
+                var rotatedTranslation = Quaternion.Euler(cameraEulerAngles) * translation;
 
-                _x += rotatedTranslation.x;
-                _y += rotatedTranslation.y;
-                _z += rotatedTranslation.z;
-
-                _target = new Vector3(
-                    _target.x + rotatedTranslation.x, 
-                    _target.y + rotatedTranslation.y,
-                    _target.z + rotatedTranslation.z);
+                _focus = new Vector3(
+                    _focus.x + rotatedTranslation.x,
+                    _focus.y + rotatedTranslation.y,
+                    _focus.z + rotatedTranslation.z);
             }
 
             public void LerpTowards(CameraState target, float positionLerpPct, float rotationLerpPct)
             {
-                // yaw = Mathf.Lerp(yaw, target.yaw, rotationLerpPct);
-                // pitch = Mathf.Lerp(pitch, target.pitch, rotationLerpPct);
-                // roll = Mathf.Lerp(roll, target.roll, rotationLerpPct);
+                _sc.RadialDistance = Mathf.Lerp(_sc.RadialDistance, target._sc.RadialDistance, positionLerpPct);
+                _sc.Polar = Mathf.Lerp(_sc.Polar, target._sc.Polar, rotationLerpPct);
+                _sc.Elevation = Mathf.Lerp(_sc.Elevation, target._sc.Elevation, rotationLerpPct);
 
-                _x = Mathf.Lerp(_x, target._x, positionLerpPct);
-                _y = Mathf.Lerp(_y, target._y, positionLerpPct);
-                _z = Mathf.Lerp(_z, target._z, positionLerpPct);
-
-                _target = new Vector3(
-                    Mathf.Lerp(_target.x, target._x, positionLerpPct), 
-                    Mathf.Lerp(_target.y, target._y, positionLerpPct), 
-                    Mathf.Lerp(_target.z, target._z, positionLerpPct));
+                _focus = new Vector3(
+                    Mathf.Lerp(_focus.x, target._focus.x, positionLerpPct),
+                    Mathf.Lerp(_focus.y, target._focus.y, positionLerpPct),
+                    Mathf.Lerp(_focus.z, target._focus.z, positionLerpPct));
             }
 
             public void UpdateTransform(Transform t)
             {
-                t.position = new Vector3(_x, _y, _z);
-                t.LookAt(_target);
+                // Translate the spherical coordinates to be centered on our focus point.
+                t.position = _focus + _sc.ToCartesian();
+
+                t.LookAt(_focus);
             }
         }
     }
