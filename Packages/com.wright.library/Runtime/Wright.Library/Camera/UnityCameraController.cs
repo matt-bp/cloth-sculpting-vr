@@ -1,10 +1,12 @@
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Wright.Library.Camera
 {
-    public class SimpleCameraController : MonoBehaviour
+    public class UnityCameraController : MonoBehaviour
     {
         const float k_MouseSensitivityMultiplier = 0.01f;
 
@@ -36,11 +38,10 @@ namespace Wright.Library.Camera
         InputAction verticalMovementAction;
         InputAction lookAction;
         InputAction boostFactorAction;
-        bool        mouseRightButtonPressed;
 
         void Start()
         {
-            var map = new InputActionMap("Simple Camera Controller");
+            var map = new InputActionMap("Unity Camera Controller");
 
             lookAction = map.AddAction("look", binding: "<Mouse>/delta");
             movementAction = map.AddAction("move", binding: "<Gamepad>/leftStick");
@@ -121,19 +122,13 @@ namespace Wright.Library.Camera
         {
             // Exit Sample
 
-            if (IsEscapePressed())
-            {
-                Application.Quit();
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-#endif
-            }
-
-            // Hide and lock cursor when right mouse button pressed
-            if (IsRightMouseButtonDown())
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
+//             if (IsEscapePressed())
+//             {
+//                 Application.Quit();
+// #if UNITY_EDITOR
+//                 UnityEditor.EditorApplication.isPlaying = false;
+// #endif
+//             }
 
             // Unlock and show cursor when right mouse button released
             if (IsRightMouseButtonUp())
@@ -141,6 +136,14 @@ namespace Wright.Library.Camera
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
+
+            if (!IsRightMouseButtonDown())
+            {
+                return;
+            }
+            
+            // Hide and lock cursor when right mouse button pressed
+            Cursor.lockState = CursorLockMode.Locked;
 
             // Rotation
             if (IsCameraRotationAllowed())
@@ -238,6 +241,52 @@ namespace Wright.Library.Camera
 #else
             return Input.GetMouseButtonUp(1);
 #endif
+        }
+        
+        private class CameraState
+        {
+            public float yaw;
+            public float pitch;
+            public float roll;
+            public float x;
+            public float y;
+            public float z;
+
+            public void SetFromTransform(Transform t)
+            {
+                pitch = t.eulerAngles.x;
+                yaw = t.eulerAngles.y;
+                roll = t.eulerAngles.z;
+                x = t.position.x;
+                y = t.position.y;
+                z = t.position.z;
+            }
+
+            public void Translate(Vector3 translation)
+            {
+                Vector3 rotatedTranslation = Quaternion.Euler(pitch, yaw, roll) * translation;
+
+                x += rotatedTranslation.x;
+                y += rotatedTranslation.y;
+                z += rotatedTranslation.z;
+            }
+
+            public void LerpTowards(CameraState target, float positionLerpPct, float rotationLerpPct)
+            {
+                yaw = Mathf.Lerp(yaw, target.yaw, rotationLerpPct);
+                pitch = Mathf.Lerp(pitch, target.pitch, rotationLerpPct);
+                roll = Mathf.Lerp(roll, target.roll, rotationLerpPct);
+
+                x = Mathf.Lerp(x, target.x, positionLerpPct);
+                y = Mathf.Lerp(y, target.y, positionLerpPct);
+                z = Mathf.Lerp(z, target.z, positionLerpPct);
+            }
+
+            public void UpdateTransform(Transform t)
+            {
+                t.eulerAngles = new Vector3(pitch, yaw, roll);
+                t.position = new Vector3(x, y, z);
+            }
         }
     }
 }
