@@ -886,6 +886,7 @@ GameObject:
   - component: {fileID: 736199767}
   - component: {fileID: 736199769}
   - component: {fileID: 736199770}
+  - component: {fileID: 736199771}
   m_Layer: 0
   m_Name: Presenter
   m_TagString: Untagged
@@ -1007,6 +1008,33 @@ MonoBehaviour:
   meshToCheckCollision: {fileID: 1302290849}
   taperVelocityOnNegativeHemisphere: 0
   mouseIndicatorPrefab: {fileID: 4524481222472927990, guid: 3cd25898134efe14baf783c32ffb6199, type: 3}
+--- !u!114 &736199771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736199766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42adb32d7bb74fe4bc1caeceeed5f893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 736199769}
+        m_TargetAssemblyTypeName: GrabTool.Mesh.MouseMeshDragger, GrabTool.Runtime
+        m_MethodName: SetStoppedByCameraMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &842949485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,11 +1452,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 736199771}
+        m_TargetAssemblyTypeName: Presenters.PauseToDisabledAdapter, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onCameraControlStopped:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1225107000}
         m_TargetAssemblyTypeName: Presenters.MouseWheelInteraction, Assembly-CSharp
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 736199771}
+        m_TargetAssemblyTypeName: Presenters.PauseToDisabledAdapter, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
