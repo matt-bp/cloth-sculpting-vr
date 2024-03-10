@@ -40,12 +40,10 @@ namespace Wright.Library.Camera
         [Tooltip("Whether or not to invert our axes for mouse input to rotation.")]
         public bool invert = false;
 
+        [Header("Focus Settings")] [Tooltip("The minimum distance to maintain between the camera and focus point.")]
         public float minimumRadialDistance = 2.0f;
 
-        public GameObject focusVisualizer;
-
-        // [Header("Focus Settings")] [Tooltip("The minimum distance to maintain between the camera and focus point.")]
-        // public float minRadialDistance = 0.1f;
+        // public GameObject focusVisualizer;
 
         private void OnEnable()
         {
@@ -83,7 +81,7 @@ namespace Wright.Library.Camera
             if (!IsAltButtonDown())
                 return;
 
-            focusVisualizer.transform.position = _interpolatingCameraState.Focus;
+            // focusVisualizer.transform.position = _interpolatingCameraState.Focus;
 
             // Pan the camera
             if (IsMiddleMouseButtonDown())
@@ -106,10 +104,7 @@ namespace Wright.Library.Camera
             else if (IsRightMouseButtonDown())
             {
                 var mouseMovement = GetMouseMovement() * (k_MouseSensitivityMultiplier * dollySensitivity);
-                // mouseMovement *= invert ? -1 : 1;
-                Debug.Log($"Mouse movement: {mouseMovement}");
                 var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
-                // decrease or increase the radial distance
                 _targetCameraState.Slide((mouseMovement.y - mouseMovement.x) * mouseSensitivityFactor);
             }
 
@@ -120,16 +115,8 @@ namespace Wright.Library.Camera
             var rotationLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / rotationLerpTime) * Time.deltaTime);
             _interpolatingCameraState.LerpTowards(_targetCameraState, positionLerpPct, rotationLerpPct);
 
-            // If after interpolation we're too close, match the focus points and radial distances
-            // and push out the focus point in front of the camera a ways (like 2m? to start)
-            var currentDistance = Vector3.Distance(transform.position, _interpolatingCameraState.Focus);
-            if (currentDistance < minimumRadialDistance)
-            {
-                var adjustment = (_interpolatingCameraState.Focus - transform.position).normalized;
-                Debug.DrawRay(transform.position, adjustment);
-                // _interpolatingCameraState.MatchRadialAndFocus(_targetCameraState);
-            }
-
+            PushFocusAwayFromCameraIfTooClose();
+            
             _interpolatingCameraState.UpdateTransform(transform);
         }
 
@@ -195,6 +182,24 @@ namespace Wright.Library.Camera
 
         #endregion
 
+
+        /// <summary>
+        /// <para>If after interpolation we're too close, push out the focus point in front of the camera</para>
+        /// <para>Also match the target and interpolating state, so this change happens immediately.</para>
+        /// </summary>
+        private void PushFocusAwayFromCameraIfTooClose()
+        {
+            var currentDistance = Vector3.Distance(transform.position, _interpolatingCameraState.Focus);
+            if (currentDistance > minimumRadialDistance) return;
+            var adjustment = (_interpolatingCameraState.Focus - transform.position).normalized * minimumRadialDistance;
+            var newFocus = _interpolatingCameraState.Focus + adjustment;
+            var radialDistance = Vector3.Distance(transform.position, newFocus);
+            _interpolatingCameraState.Focus = newFocus;
+            _interpolatingCameraState.RadialDistance = radialDistance;
+            _targetCameraState.Focus = newFocus;
+            _targetCameraState.RadialDistance = radialDistance;
+        }
+        
         /// <summary>
         /// <para>This camera state is concerned only about a focus point, and spherical coordinates to update the camera.</para>
         /// <para>From what I gathered from Maya, manipulating the camera also involves manipulating a focus point, and when you tumble the camera, it rotates around that focus point.</para>
@@ -205,7 +210,16 @@ namespace Wright.Library.Camera
             private SphericalCoordinates _sc;
             private Vector3 _focus;
 
-            public Vector3 Focus => _focus;
+            public Vector3 Focus
+            {
+                get => _focus;
+                set => _focus = value;
+            }
+
+            public float RadialDistance
+            {
+                set => _sc.RadialDistance = value;
+            }
 
             public void SetFromTransformAndPoint(Transform t, Vector3 focus)
             {
@@ -245,13 +259,7 @@ namespace Wright.Library.Camera
                     Mathf.Lerp(_focus.y, target._focus.y, positionLerpPct),
                     Mathf.Lerp(_focus.z, target._focus.z, positionLerpPct));
             }
-
-            public void MatchRadialAndFocus(CameraState other)
-            {
-                _sc.RadialDistance = other._sc.RadialDistance;
-                _focus = other._focus;
-            }
-
+            
             public void UpdateTransform(Transform t)
             {
                 // Translate the spherical coordinates to be centered on our focus point.

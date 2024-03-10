@@ -1392,6 +1392,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   rotationLerpTime: 0.01
   invert: 1
+  minimumRadialDistance: 2
   focusVisualizer: {fileID: 1440530162}
 --- !u!1 &1004868543
 GameObject:
