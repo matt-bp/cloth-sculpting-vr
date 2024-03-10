@@ -40,6 +40,13 @@ namespace Wright.Library.Camera
         [Tooltip("Whether or not to invert our axes for mouse input to rotation.")]
         public bool invert = false;
 
+        public float minimumRadialDistance = 2.0f;
+
+        public GameObject focusVisualizer;
+
+        // [Header("Focus Settings")] [Tooltip("The minimum distance to maintain between the camera and focus point.")]
+        // public float minRadialDistance = 0.1f;
+
         private void OnEnable()
         {
             _targetCameraState.SetFromTransformAndPoint(transform, Vector3.zero);
@@ -76,6 +83,8 @@ namespace Wright.Library.Camera
             if (!IsAltButtonDown())
                 return;
 
+            focusVisualizer.transform.position = _interpolatingCameraState.Focus;
+
             // Pan the camera
             if (IsMiddleMouseButtonDown())
             {
@@ -98,9 +107,10 @@ namespace Wright.Library.Camera
             {
                 var mouseMovement = GetMouseMovement() * (k_MouseSensitivityMultiplier * dollySensitivity);
                 // mouseMovement *= invert ? -1 : 1;
+                Debug.Log($"Mouse movement: {mouseMovement}");
                 var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
                 // decrease or increase the radial distance
-                _targetCameraState.Slide(mouseMovement.y * mouseSensitivityFactor);
+                _targetCameraState.Slide((mouseMovement.y - mouseMovement.x) * mouseSensitivityFactor);
             }
 
             // Framerate-independent interpolation
@@ -109,6 +119,17 @@ namespace Wright.Library.Camera
             var positionLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / positionLerpTime) * Time.deltaTime);
             var rotationLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / rotationLerpTime) * Time.deltaTime);
             _interpolatingCameraState.LerpTowards(_targetCameraState, positionLerpPct, rotationLerpPct);
+
+            // If after interpolation we're too close, match the focus points and radial distances
+            // and push out the focus point in front of the camera a ways (like 2m? to start)
+            var currentDistance = Vector3.Distance(transform.position, _interpolatingCameraState.Focus);
+            if (currentDistance < minimumRadialDistance)
+            {
+                var adjustment = (_interpolatingCameraState.Focus - transform.position).normalized;
+                Debug.DrawRay(transform.position, adjustment);
+                // _interpolatingCameraState.MatchRadialAndFocus(_targetCameraState);
+            }
+
             _interpolatingCameraState.UpdateTransform(transform);
         }
 
@@ -184,6 +205,8 @@ namespace Wright.Library.Camera
             private SphericalCoordinates _sc;
             private Vector3 _focus;
 
+            public Vector3 Focus => _focus;
+
             public void SetFromTransformAndPoint(Transform t, Vector3 focus)
             {
                 _sc = SphericalCoordinates.FromCartesian(t.position);
@@ -221,6 +244,12 @@ namespace Wright.Library.Camera
                     Mathf.Lerp(_focus.x, target._focus.x, positionLerpPct),
                     Mathf.Lerp(_focus.y, target._focus.y, positionLerpPct),
                     Mathf.Lerp(_focus.z, target._focus.z, positionLerpPct));
+            }
+
+            public void MatchRadialAndFocus(CameraState other)
+            {
+                _sc.RadialDistance = other._sc.RadialDistance;
+                _focus = other._focus;
             }
 
             public void UpdateTransform(Transform t)
