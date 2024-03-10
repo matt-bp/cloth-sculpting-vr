@@ -23,8 +23,12 @@ namespace Wright.Library.Camera
 
         [Header("Mouse Settings")] [Tooltip("Multiplier for the pan sensitivity of the translation.")]
         public float panSensitivity = 60.0f;
+
         [Tooltip("Multiplier for the tumble sensitivity of the rotation.")]
         public float tumbleSensitivity = 60.0f;
+
+        [Tooltip("Multiplier for the dolly sensitivity of the rotation.")]
+        public float dollySensitivity = 60.0f;
 
         [Tooltip("X = Change in mouse position.\nY = Multiplicative factor for camera rotation.")]
         public AnimationCurve mouseSensitivityCurve =
@@ -89,6 +93,15 @@ namespace Wright.Library.Camera
                 var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
                 _targetCameraState.Rotate(mouseMovement * mouseSensitivityFactor);
             }
+            // Dolly the camera
+            else if (IsRightMouseButtonDown())
+            {
+                var mouseMovement = GetMouseMovement() * (k_MouseSensitivityMultiplier * dollySensitivity);
+                // mouseMovement *= invert ? -1 : 1;
+                var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
+                // decrease or increase the radial distance
+                _targetCameraState.Slide(mouseMovement.y * mouseSensitivityFactor);
+            }
 
             // Framerate-independent interpolation
             // How we get from the current camera state to the target camera state.
@@ -149,7 +162,16 @@ namespace Wright.Library.Camera
             return Input.GetMouseButton(0);
 #endif
         }
-        
+
+        private static bool IsRightMouseButtonDown()
+        {
+#if ENABLE_INPUT_SYSTEM
+            return Mouse.current != null && Mouse.current.rightButton.isPressed;
+#else
+            return Input.GetMouseButton(0);
+#endif
+        }
+
         #endregion
 
         /// <summary>
@@ -182,6 +204,11 @@ namespace Wright.Library.Camera
             {
                 _sc.Polar += polarElevationDelta.x;
                 _sc.Elevation += polarElevationDelta.y;
+            }
+
+            public void Slide(float radialDistanceDelta)
+            {
+                _sc.RadialDistance += radialDistanceDelta;
             }
 
             public void LerpTowards(CameraState target, float positionLerpPct, float rotationLerpPct)

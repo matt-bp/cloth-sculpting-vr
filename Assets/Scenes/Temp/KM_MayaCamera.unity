@@ -1365,6 +1365,7 @@ MonoBehaviour:
   positionLerpTime: 0.2
   panSensitivity: 3
   tumbleSensitivity: 17
+  dollySensitivity: 30
   mouseSensitivityCurve:
     serializedVersion: 2
     m_Curve:
