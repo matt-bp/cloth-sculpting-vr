@@ -1276,6 +1276,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1394,6 +1395,49 @@ MonoBehaviour:
   rotationLerpTime: 0.01
   invert: 1
   minimumRadialDistance: 2
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957811e8805f464f89801fb8ef88a3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeout: 10
+  onCameraControlStarted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1225107000}
+        m_TargetAssemblyTypeName: Presenters.MouseWheelInteraction, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onCameraControlStopped:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1225107000}
+        m_TargetAssemblyTypeName: Presenters.MouseWheelInteraction, Assembly-CSharp
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1004868543
 GameObject:
   m_ObjectHideFlags: 0

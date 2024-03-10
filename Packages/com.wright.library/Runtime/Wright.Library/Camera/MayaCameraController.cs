@@ -7,8 +7,8 @@ using Wright.Library.Math;
 
 namespace Wright.Library.Camera
 {
-    [RequireComponent(typeof(UnityEngine.Camera))]
-    public class MayaCameraController : MonoBehaviour
+    [RequireComponent(typeof(UnityEngine.Camera), typeof(CameraSystem))]
+    public class MayaCameraController : CameraController
     {
         const float k_MouseSensitivityMultiplier = 0.01f;
 
@@ -32,7 +32,7 @@ namespace Wright.Library.Camera
 
         [Tooltip("Multiplier for the scroll dolly sensitivity of the translation.")]
         public float scrollDollySensitivity = 60.0f;
-        
+
         [Tooltip("X = Change in mouse position.\nY = Multiplicative factor for camera rotation.")]
         public AnimationCurve mouseSensitivityCurve =
             new AnimationCurve(new Keyframe(0f, 0.5f, 0f, 5f), new Keyframe(1f, 2.5f, 0f, 0f));
@@ -47,6 +47,8 @@ namespace Wright.Library.Camera
         public float minimumRadialDistance = 2.0f;
 
         // public GameObject focusVisualizer;
+        private CameraSystem _cameraSystem;
+        private bool _hasPermission;
 
         private void OnEnable()
         {
@@ -67,6 +69,8 @@ namespace Wright.Library.Camera
 
             _mouseAction.Enable();
             // _altAction.Enable();
+
+            _cameraSystem = GetComponent<CameraSystem>();
         }
 #endif
 
@@ -77,12 +81,21 @@ namespace Wright.Library.Camera
                 Debug.Log("Alt button up");
 
                 // Reset shared access
+                _cameraSystem.FinishExclusiveOperation(this);
 
                 return;
             }
 
             if (!IsAltButtonDown())
                 return;
+
+            if (!_cameraSystem.HasExclusiveAccess(this))
+            {
+                var result = _cameraSystem.RequestExclusiveOperation(this);
+
+                if (result != CameraSystem.RequestResult.Success)
+                    return;
+            }
 
             // focusVisualizer.transform.position = _interpolatingCameraState.Focus;
 
@@ -126,7 +139,7 @@ namespace Wright.Library.Camera
             _interpolatingCameraState.LerpTowards(_targetCameraState, positionLerpPct, rotationLerpPct);
 
             PushFocusAwayFromCameraIfTooClose();
-            
+
             _interpolatingCameraState.UpdateTransform(transform);
         }
 
@@ -227,7 +240,7 @@ namespace Wright.Library.Camera
             _targetCameraState.Focus = newFocus;
             _targetCameraState.RadialDistance = radialDistance;
         }
-        
+
         /// <summary>
         /// <para>This camera state is concerned only about a focus point, and spherical coordinates to update the camera.</para>
         /// <para>From what I gathered from Maya, manipulating the camera also involves manipulating a focus point, and when you tumble the camera, it rotates around that focus point.</para>
@@ -287,7 +300,7 @@ namespace Wright.Library.Camera
                     Mathf.Lerp(_focus.y, target._focus.y, positionLerpPct),
                     Mathf.Lerp(_focus.z, target._focus.z, positionLerpPct));
             }
-            
+
             public void UpdateTransform(Transform t)
             {
                 // Translate the spherical coordinates to be centered on our focus point.

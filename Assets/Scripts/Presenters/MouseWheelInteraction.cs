@@ -16,15 +16,28 @@ namespace Presenters
         public UnityEvent<float> onUpdateSize;
 
         private float _currentValue = 0.2f;
+        private bool _paused = false;
 
         private void Update()
         {
+            if (_paused) return;
+            
             if (Input.GetAxis("Mouse ScrollWheel") == 0) return;
 
             _currentValue += rate * Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime;
             _currentValue = Mathf.Max(minimumValue, Mathf.Min(maximumValue, _currentValue));
 
             onUpdateSize.Invoke(Mathf.Pow(_currentValue, exponent));
+        }
+
+        public void Pause()
+        {
+            _paused = true;
+        }
+
+        public void Resume()
+        {
+            _paused = false;
         }
     }
 }
