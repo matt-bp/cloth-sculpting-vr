@@ -27,9 +27,12 @@ namespace Wright.Library.Camera
         [Tooltip("Multiplier for the tumble sensitivity of the rotation.")]
         public float tumbleSensitivity = 60.0f;
 
-        [Tooltip("Multiplier for the dolly sensitivity of the rotation.")]
+        [Tooltip("Multiplier for the dolly sensitivity of the translation.")]
         public float dollySensitivity = 60.0f;
 
+        [Tooltip("Multiplier for the scroll dolly sensitivity of the translation.")]
+        public float scrollDollySensitivity = 60.0f;
+        
         [Tooltip("X = Change in mouse position.\nY = Multiplicative factor for camera rotation.")]
         public AnimationCurve mouseSensitivityCurve =
             new AnimationCurve(new Keyframe(0f, 0.5f, 0f, 5f), new Keyframe(1f, 2.5f, 0f, 0f));
@@ -107,6 +110,13 @@ namespace Wright.Library.Camera
                 var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
                 _targetCameraState.Slide((mouseMovement.y - mouseMovement.x) * mouseSensitivityFactor);
             }
+            // Dolly the camera with the scroll wheel
+            else if (IsScrolling())
+            {
+                var scrollMovement = GetScrollMovement() * (k_MouseSensitivityMultiplier * scrollDollySensitivity);
+                scrollMovement *= invert ? -1 : 1;
+                _targetCameraState.Slide(scrollMovement.y);
+            }
 
             // Framerate-independent interpolation
             // How we get from the current camera state to the target camera state.
@@ -130,6 +140,15 @@ namespace Wright.Library.Camera
             return delta;
 #else
             return new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+#endif
+        }
+
+        private Vector2 GetScrollMovement()
+        {
+#if ENABLE_INPUT_SYSTEM
+            return Mouse.current != null ? Mouse.current.scroll.ReadValue() : Vector2.zero;
+#else
+            return Vector2.zero;
 #endif
         }
 
@@ -177,6 +196,15 @@ namespace Wright.Library.Camera
             return Mouse.current != null && Mouse.current.rightButton.isPressed;
 #else
             return Input.GetMouseButton(0);
+#endif
+        }
+
+        private static bool IsScrolling()
+        {
+#if ENABLE_INPUT_SYSTEM
+            return Mouse.current != null && Mouse.current.scroll.ReadValue().sqrMagnitude > 0;
+#else
+            return false;
 #endif
         }
 

@@ -1366,6 +1366,7 @@ MonoBehaviour:
   panSensitivity: 3
   tumbleSensitivity: 17
   dollySensitivity: 30
+  scrollDollySensitivity: 1
   mouseSensitivityCurve:
     serializedVersion: 2
     m_Curve:
@@ -1393,7 +1394,6 @@ MonoBehaviour:
   rotationLerpTime: 0.01
   invert: 1
   minimumRadialDistance: 2
-  focusVisualizer: {fileID: 1440530162}
 --- !u!1 &1004868543
 GameObject:
   m_ObjectHideFlags: 0
