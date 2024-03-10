@@ -1363,7 +1363,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boost: 3.5
   positionLerpTime: 0.2
-  mouseSensitivity: 800
+  panSensitivity: 3
+  tumbleSensitivity: 17
   mouseSensitivityCurve:
     serializedVersion: 2
     m_Curve:
@@ -1389,7 +1390,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   rotationLerpTime: 0.01
-  invertY: 0
+  invert: 1
 --- !u!1 &1004868543
 GameObject:
   m_ObjectHideFlags: 0

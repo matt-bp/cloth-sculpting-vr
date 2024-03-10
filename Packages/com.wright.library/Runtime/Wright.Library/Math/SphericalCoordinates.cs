@@ -29,7 +29,7 @@ namespace Wright.Library.Math
         public float Elevation
         {
             get => _elevation;
-            set => _elevation = SphericalClamp(_elevation);
+            set => _elevation = SphericalClamp(value);
         }
         
         /// <summary>
@@ -93,7 +93,7 @@ namespace Wright.Library.Math
         /// <returns></returns>
         public Vector3 ToCartesian()
         {
-            float a = _radialDistance * Mathf.Cos(_elevation);
+            var a = _radialDistance * Mathf.Cos(_elevation);
             return new Vector3(
                 a * Mathf.Cos(_polar),
                 _radialDistance * Mathf.Sin(_elevation),

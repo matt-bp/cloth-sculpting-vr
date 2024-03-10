@@ -21,8 +21,10 @@ namespace Wright.Library.Camera
         [Tooltip("Time it takes to interpolate camera position 99% of the way to the target."), Range(0.001f, 1f)]
         public float positionLerpTime = 0.2f;
 
-        [Header("Rotation Settings")] [Tooltip("Multiplier for the sensitivity of the rotation.")]
-        public float mouseSensitivity = 60.0f;
+        [Header("Mouse Settings")] [Tooltip("Multiplier for the pan sensitivity of the translation.")]
+        public float panSensitivity = 60.0f;
+        [Tooltip("Multiplier for the tumble sensitivity of the rotation.")]
+        public float tumbleSensitivity = 60.0f;
 
         [Tooltip("X = Change in mouse position.\nY = Multiplicative factor for camera rotation.")]
         public AnimationCurve mouseSensitivityCurve =
@@ -31,8 +33,8 @@ namespace Wright.Library.Camera
         [Tooltip("Time it takes to interpolate camera rotation 99% of the way to the target."), Range(0.001f, 1f)]
         public float rotationLerpTime = 0.01f;
 
-        [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
-        public bool invertY = false;
+        [Tooltip("Whether or not to invert our axes for mouse input to rotation.")]
+        public bool invert = false;
 
         private void OnEnable()
         {
@@ -70,11 +72,22 @@ namespace Wright.Library.Camera
             if (!IsAltButtonDown())
                 return;
 
+            // Pan the camera
             if (IsMiddleMouseButtonDown())
             {
-                var translation = GetMouseMovement() * k_MouseSensitivityMultiplier * mouseSensitivity * Time.deltaTime;
+                var translation = GetMouseMovement() * (k_MouseSensitivityMultiplier * panSensitivity);
                 translation *= Mathf.Pow(2.0f, boost);
-                _targetCameraState.Translate(transform.eulerAngles, translation);
+                translation *= invert ? -1 : 1;
+                var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(translation.magnitude);
+                _targetCameraState.Translate(transform.eulerAngles, translation * mouseSensitivityFactor);
+            }
+            // Tumble the camera
+            else if (IsLeftMouseButtonDown())
+            {
+                var mouseMovement = GetMouseMovement() * (k_MouseSensitivityMultiplier * tumbleSensitivity);
+                mouseMovement *= invert ? -1 : 1;
+                var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
+                _targetCameraState.Rotate(mouseMovement * mouseSensitivityFactor);
             }
 
             // Framerate-independent interpolation
@@ -128,6 +141,15 @@ namespace Wright.Library.Camera
 #endif
         }
 
+        private static bool IsLeftMouseButtonDown()
+        {
+#if ENABLE_INPUT_SYSTEM
+            return Mouse.current != null && Mouse.current.leftButton.isPressed;
+#else
+            return Input.GetMouseButton(0);
+#endif
+        }
+        
         #endregion
 
         /// <summary>
@@ -154,6 +176,12 @@ namespace Wright.Library.Camera
                     _focus.x + rotatedTranslation.x,
                     _focus.y + rotatedTranslation.y,
                     _focus.z + rotatedTranslation.z);
+            }
+
+            public void Rotate(Vector2 polarElevationDelta)
+            {
+                _sc.Polar += polarElevationDelta.x;
+                _sc.Elevation += polarElevationDelta.y;
             }
 
             public void LerpTowards(CameraState target, float positionLerpPct, float rotationLerpPct)
