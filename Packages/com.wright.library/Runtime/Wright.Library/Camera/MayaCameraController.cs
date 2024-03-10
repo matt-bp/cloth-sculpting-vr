@@ -12,8 +12,8 @@ namespace Wright.Library.Camera
     {
         const float k_MouseSensitivityMultiplier = 0.01f;
 
-        private CameraState _targetCameraState = new CameraState();
-        private CameraState _interpolatingCameraState = new CameraState();
+        private readonly CameraState _targetCameraState = new();
+        private readonly CameraState _interpolatingCameraState = new();
 
         [Header("Movement Settings")] [Tooltip("Exponential boost factor on translation.")]
         public float boost = 3.5f;
@@ -35,20 +35,19 @@ namespace Wright.Library.Camera
 
         [Tooltip("X = Change in mouse position.\nY = Multiplicative factor for camera rotation.")]
         public AnimationCurve mouseSensitivityCurve =
-            new AnimationCurve(new Keyframe(0f, 0.5f, 0f, 5f), new Keyframe(1f, 2.5f, 0f, 0f));
+            new(new Keyframe(0f, 0.5f, 0f, 5f), new Keyframe(1f, 2.5f, 0f, 0f));
 
         [Tooltip("Time it takes to interpolate camera rotation 99% of the way to the target."), Range(0.001f, 1f)]
         public float rotationLerpTime = 0.01f;
 
         [Tooltip("Whether or not to invert our axes for mouse input to rotation.")]
-        public bool invert = false;
+        public bool invert;
 
         [Header("Focus Settings")] [Tooltip("The minimum distance to maintain between the camera and focus point.")]
         public float minimumRadialDistance = 2.0f;
 
         // public GameObject focusVisualizer;
         private CameraSystem _cameraSystem;
-        private bool _hasPermission;
 
         private void OnEnable()
         {
@@ -58,17 +57,14 @@ namespace Wright.Library.Camera
 
 #if ENABLE_INPUT_SYSTEM
         private InputAction _mouseAction;
-        // private InputAction _altAction;
 
         private void Start()
         {
             var map = new InputActionMap("Unity Camera Controller");
 
             _mouseAction = map.AddAction("look", binding: "<Mouse>/delta");
-            // _altAction = map.AddAction("look", binding: "<Keyboard>/alt");
 
             _mouseAction.Enable();
-            // _altAction.Enable();
 
             _cameraSystem = GetComponent<CameraSystem>();
         }
@@ -78,8 +74,6 @@ namespace Wright.Library.Camera
         {
             if (IsAltButtonUpThisFrame())
             {
-                Debug.Log("Alt button up");
-
                 // Reset shared access
                 _cameraSystem.FinishExclusiveOperation(this);
 

@@ -6,32 +6,34 @@ using UnityEngine;
 
 namespace Wright.Library.Camera
 {
-    public class UnityCameraController : MonoBehaviour
+    [RequireComponent(typeof(UnityEngine.Camera), typeof(CameraSystem))]
+    public class UnityCameraController : CameraController
     {
         const float k_MouseSensitivityMultiplier = 0.01f;
 
         CameraState m_TargetCameraState = new CameraState();
         CameraState m_InterpolatingCameraState = new CameraState();
 
-        [Header("Movement Settings")]
-        [Tooltip("Exponential boost factor on translation.")]
+        [Header("Movement Settings")] [Tooltip("Exponential boost factor on translation.")]
         public float boost = 3.5f;
 
         [Tooltip("Time it takes to interpolate camera position 99% of the way to the target."), Range(0.001f, 1f)]
         public float positionLerpTime = 0.2f;
 
-        [Header("Rotation Settings")]
-        [Tooltip("Multiplier for the sensitivity of the rotation.")]
+        [Header("Rotation Settings")] [Tooltip("Multiplier for the sensitivity of the rotation.")]
         public float mouseSensitivity = 60.0f;
 
         [Tooltip("X = Change in mouse position.\nY = Multiplicative factor for camera rotation.")]
-        public AnimationCurve mouseSensitivityCurve = new AnimationCurve(new Keyframe(0f, 0.5f, 0f, 5f), new Keyframe(1f, 2.5f, 0f, 0f));
+        public AnimationCurve mouseSensitivityCurve =
+            new AnimationCurve(new Keyframe(0f, 0.5f, 0f, 5f), new Keyframe(1f, 2.5f, 0f, 0f));
 
         [Tooltip("Time it takes to interpolate camera rotation 99% of the way to the target."), Range(0.001f, 1f)]
         public float rotationLerpTime = 0.01f;
 
         [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
-        public bool invertY = false;
+        public bool invertY;
+
+        private CameraSystem _cameraSystem;
 
 #if ENABLE_INPUT_SYSTEM
         InputAction movementAction;
@@ -71,6 +73,8 @@ namespace Wright.Library.Camera
             lookAction.Enable();
             verticalMovementAction.Enable();
             boostFactorAction.Enable();
+
+            _cameraSystem = GetComponent<CameraSystem>();
         }
 
 #endif
@@ -135,13 +139,21 @@ namespace Wright.Library.Camera
             {
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
+                _cameraSystem.FinishExclusiveOperation(this);
+                return;
             }
 
             if (!IsRightMouseButtonDown())
-            {
                 return;
+
+            if (!_cameraSystem.HasExclusiveAccess(this))
+            {
+                var result = _cameraSystem.RequestExclusiveOperation(this);
+
+                if (result != CameraSystem.RequestResult.Success)
+                    return;
             }
-            
+
             // Hide and lock cursor when right mouse button pressed
             Cursor.lockState = CursorLockMode.Locked;
 
@@ -242,7 +254,7 @@ namespace Wright.Library.Camera
             return Input.GetMouseButtonUp(1);
 #endif
         }
-        
+
         private class CameraState
         {
             public float yaw;
