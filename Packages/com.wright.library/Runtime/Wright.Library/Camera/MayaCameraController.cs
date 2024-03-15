@@ -22,16 +22,16 @@ namespace Wright.Library.Camera
         public float positionLerpTime = 0.2f;
 
         [Header("Mouse Settings")] [Tooltip("Multiplier for the pan sensitivity of the translation.")]
-        public float panSensitivity = 60.0f;
+        public float panSensitivity = 4.0f;
 
         [Tooltip("Multiplier for the tumble sensitivity of the rotation.")]
-        public float tumbleSensitivity = 60.0f;
+        public float tumbleSensitivity = 17.0f;
 
         [Tooltip("Multiplier for the dolly sensitivity of the translation.")]
-        public float dollySensitivity = 60.0f;
+        public float dollySensitivity = 30.0f;
 
         [Tooltip("Multiplier for the scroll dolly sensitivity of the translation.")]
-        public float scrollDollySensitivity = 60.0f;
+        public float scrollDollySensitivity = 1.0f;
 
         [Tooltip("X = Change in mouse position.\nY = Multiplicative factor for camera rotation.")]
         public AnimationCurve mouseSensitivityCurve =
