@@ -16,7 +16,6 @@ namespace UnityTemplateProjects.Temp
 
         private void Update()
         {
-            // do euler angles, and apply rotation?
             transform.rotation = Quaternion.Inverse(_camera.transform.rotation);
         }
     }
