@@ -192,6 +192,10 @@ PrefabInstance:
       propertyPath: m_EnableTurnAround
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3127728407712097239, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3127728408163665757, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_ActionAssets.Array.size
       value: 2
@@ -4714,7 +4718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8eba2de35314890ab22b7912bc50848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constantUpperLimitMultiplier: 0.25
   history: {fileID: 1208553282}
   minimumRadius: 0.1
   falloffCurve:
@@ -4741,6 +4744,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  constantUpperLimitMultiplier: 0.25
   sphereCollider: {fileID: 1955250856}
   colliderVisualization: {fileID: 1691129761}
   constantColliderVisualization: {fileID: 1156655960}
