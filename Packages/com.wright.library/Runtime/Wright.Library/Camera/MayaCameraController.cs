@@ -51,8 +51,8 @@ namespace Wright.Library.Camera
 
         private void OnEnable()
         {
-            _targetCameraState.SetFromTransformAndPoint(transform, Vector3.zero);
-            _interpolatingCameraState.SetFromTransformAndPoint(transform, Vector3.zero);
+            _targetCameraState.SetFromTransformAndPoint(transform.position, Vector3.zero);
+            _interpolatingCameraState.SetFromTransformAndPoint(transform.position, Vector3.zero);
         }
 
 #if ENABLE_INPUT_SYSTEM
@@ -256,9 +256,9 @@ namespace Wright.Library.Camera
                 set => _sc.RadialDistance = value;
             }
 
-            public void SetFromTransformAndPoint(Transform t, Vector3 focus)
+            public void SetFromTransformAndPoint(Vector3 cameraPosition, Vector3 focus)
             {
-                _sc = SphericalCoordinates.FromCartesian(t.position);
+                _sc = SphericalCoordinates.FromCartesian(cameraPosition);
                 _focus = focus;
             }
 

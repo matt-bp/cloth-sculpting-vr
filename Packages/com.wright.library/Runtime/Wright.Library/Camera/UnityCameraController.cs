@@ -152,6 +152,10 @@ namespace Wright.Library.Camera
 
                 if (result != CameraSystem.RequestResult.Success)
                     return;
+                
+                // We don't want to interpolate, just snap if we're starting this again
+                m_TargetCameraState.SetFromTransform(transform);
+                m_InterpolatingCameraState.SetFromTransform(transform);
             }
 
             // Hide and lock cursor when right mouse button pressed
