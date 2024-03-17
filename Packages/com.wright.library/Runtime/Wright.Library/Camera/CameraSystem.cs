@@ -25,6 +25,7 @@ namespace Wright.Library.Camera
         }
 
         private CameraController _currentExclusiveProvider;
+        private CameraController _previousProvider;
         private float _timeMadeExclusive;
 
         [SerializeField] [Tooltip("The timeout (in seconds) for exclusive access to the XR Origin.")]
@@ -61,6 +62,8 @@ namespace Wright.Library.Camera
 
         public bool HasExclusiveAccess(CameraController provider) => _currentExclusiveProvider == provider;
 
+        public bool WasPrevious(CameraController provider) => _previousProvider == provider;
+
         /// <summary>
         /// Attempt to "lock" access to the camera for the <paramref name="provider"/>.
         /// </summary>
@@ -84,6 +87,7 @@ namespace Wright.Library.Camera
 
         private void ResetExclusivity()
         {
+            _previousProvider = _currentExclusiveProvider;
             _currentExclusiveProvider = null;
             _timeMadeExclusive = 0f;
             

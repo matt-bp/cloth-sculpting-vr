@@ -51,8 +51,8 @@ namespace Wright.Library.Camera
 
         private void OnEnable()
         {
-            _targetCameraState.SetFromTransformAndPoint(transform.position, Vector3.zero);
-            _interpolatingCameraState.SetFromTransformAndPoint(transform.position, Vector3.zero);
+            _targetCameraState.SetFromCameraPositionAndFocus(transform.position, Vector3.zero);
+            _interpolatingCameraState.SetFromCameraPositionAndFocus(transform.position, Vector3.zero);
         }
 
 #if ENABLE_INPUT_SYSTEM
@@ -89,6 +89,22 @@ namespace Wright.Library.Camera
 
                 if (result != CameraSystem.RequestResult.Success)
                     return;
+
+                // We don't want to reinitialize if this provider was just used
+                if (_cameraSystem.WasPrevious(this))
+                    return;
+                
+                // create new focus based on current camera orientation
+                // first, what is the radial distance from camera to focus?
+                
+
+                // next, from the camera, move that far in the forward direction to get the focus
+                var newFocus = transform.position + transform.forward * _targetCameraState.RadialDistance;
+                
+                // initialize spherical coordinates from transform and focus
+                // Match the two states so there isn't interpolation when this camera controller starts.
+                _targetCameraState.SetFromCameraPositionAndFocus(transform.position, newFocus);
+                _interpolatingCameraState.SetFromCameraPositionAndFocus(transform.position, newFocus);
             }
 
             // focusVisualizer.transform.position = _interpolatingCameraState.Focus;
@@ -253,12 +269,13 @@ namespace Wright.Library.Camera
 
             public float RadialDistance
             {
+                get => _sc.RadialDistance;
                 set => _sc.RadialDistance = value;
             }
 
-            public void SetFromTransformAndPoint(Vector3 cameraPosition, Vector3 focus)
+            public void SetFromCameraPositionAndFocus(Vector3 position, Vector3 focus)
             {
-                _sc = SphericalCoordinates.FromCartesian(cameraPosition);
+                _sc = SphericalCoordinates.FromCartesian(position - focus);
                 _focus = focus;
             }
 
