@@ -23,20 +23,13 @@ namespace Wright.Library.VR
         {
             var currentRadius = transform.lossyScale.x / 2.0f;
             
-            Debug.Log(currentRadius);
-
             if (Vector3.Distance(_camera.transform.position, transform.position) > currentRadius)
             {
-                Debug.Log("Outside");
                 _meshRenderer.material = outside;
             }
             else
             {
-                Debug.Log("Inside");
                 _meshRenderer.material = inside;
-            }
-            {
-                
             }
         }
     }
