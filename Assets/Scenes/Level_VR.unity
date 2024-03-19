@@ -2402,6 +2402,7 @@ GameObject:
   - component: {fileID: 1156655964}
   - component: {fileID: 1156655963}
   - component: {fileID: 1156655962}
+  - component: {fileID: 1156655965}
   m_Layer: 30
   m_Name: Constant Collider Visualization
   m_TagString: Untagged
@@ -2417,7 +2418,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156655960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.712, y: 1.93, z: 2.8329}
+  m_LocalPosition: {x: 5.98, y: 1.93, z: 2.8329}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2487,6 +2488,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156655960}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1156655965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156655960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad10cbb646e46e794ba56bf04fc215c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outside: {fileID: 2100000, guid: 91820d674cea83b46b4bca68c4389dc8, type: 2}
+  inside: {fileID: 2100000, guid: c480b85b75ba24863a70eaa7680d6ff9, type: 2}
 --- !u!1 &1167144652
 GameObject:
   m_ObjectHideFlags: 0
@@ -3973,6 +3988,7 @@ GameObject:
   - component: {fileID: 1691129765}
   - component: {fileID: 1691129764}
   - component: {fileID: 1691129766}
+  - component: {fileID: 1691129767}
   m_Layer: 30
   m_Name: Collider Visualization
   m_TagString: Untagged
@@ -3988,7 +4004,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691129761}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.712, y: 1.93, z: 3.041}
+  m_LocalPosition: {x: 7.51, y: 1.93, z: 3.041}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4058,6 +4074,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transformToFollow: {fileID: 1195011063}
+--- !u!114 &1691129767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691129761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad10cbb646e46e794ba56bf04fc215c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outside: {fileID: 2100000, guid: adbdb4abb82bdf14cb24341203bbe9d7, type: 2}
+  inside: {fileID: 2100000, guid: 58f7fdcd7318b42868aa8b214fe79f30, type: 2}
 --- !u!1 &1699436473
 GameObject:
   m_ObjectHideFlags: 0

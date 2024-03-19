@@ -1,4 +1,4 @@
-Shader "Wright/Transparent Shader No Cull"
+Shader "Wright/Transparent Shader Flip Cull"
 {
     Properties
     {
