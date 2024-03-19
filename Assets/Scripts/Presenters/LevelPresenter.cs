@@ -145,7 +145,7 @@ namespace Presenters
             // Also save out goal mesh (just in case)
             taskResultModel.AddUserGeneratedMesh(taskRunner.CurrentKeyframe, copy, distanceError, normalError);
 
-            MDebug.Log("Added to task result model! (still things to do here, like analysis)");
+            MDebug.Log("Added to task result model!");
 
             NextGoalMesh();
         }

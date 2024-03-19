@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Wright.Library.Logging;
 
 namespace Presenters.KM
 {
@@ -58,10 +59,13 @@ namespace Presenters.KM
             {
                 dropdown.value = (int)GrabTool.Mesh.MouseMeshDragger.OnClickDrag.VectorCamera;;
             }
+            
+            MDebug.Log($"Changed on dragging value (brush movement type) to {dropdown.value}");
 
             if (Keyboard.current.xKey.wasPressedThisFrame)
             {
                 toggle.isOn = !toggle.isOn;
+                MDebug.Log($"Toggled brush orientation setting to {toggle.isOn}");
             }
         }
     }
