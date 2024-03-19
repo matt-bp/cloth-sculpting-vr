@@ -14,6 +14,8 @@ namespace Presenters.KM
         
         public void Update()
         {
+            var previous = dropdown.value;
+            
             if (Keyboard.current.tabKey.wasPressedThisFrame && !Keyboard.current.shiftKey.isPressed)
             {
                 dropdown.value = (dropdown.value + 1) % dropdown.options.Count;
@@ -59,8 +61,11 @@ namespace Presenters.KM
             {
                 dropdown.value = (int)GrabTool.Mesh.MouseMeshDragger.OnClickDrag.VectorCamera;;
             }
-            
-            MDebug.Log($"Changed on dragging value (brush movement type) to {dropdown.value}");
+
+            if (dropdown.value != previous)
+            {
+                MDebug.Log($"Changed on dragging value (brush movement type) to {dropdown.value}");
+            }
 
             if (Keyboard.current.xKey.wasPressedThisFrame)
             {

@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 #endif
 
 using UnityEngine;
+using Wright.Library.Logging;
 using Wright.Library.Math;
 
 namespace Wright.Library.Camera
@@ -49,6 +50,8 @@ namespace Wright.Library.Camera
         // public GameObject focusVisualizer;
         private CameraSystem _cameraSystem;
 
+        private Vector3 _initialPosition;
+
         private void OnEnable()
         {
             _targetCameraState.SetFromCameraPositionAndFocus(transform.position, Vector3.zero);
@@ -67,8 +70,16 @@ namespace Wright.Library.Camera
             _mouseAction.Enable();
 
             _cameraSystem = GetComponent<CameraSystem>();
+
+            _initialPosition = transform.position;
         }
 #endif
+
+        public override void DoCameraReset()
+        {
+            _targetCameraState.SetFromCameraPositionAndFocus(transform.position, Vector3.zero);
+            _interpolatingCameraState.SetFromCameraPositionAndFocus(transform.position, Vector3.zero);
+        }
 
         private void Update()
         {
@@ -93,6 +104,8 @@ namespace Wright.Library.Camera
                 // We don't want to reinitialize if this provider was just used
                 if (_cameraSystem.WasPrevious(this))
                     return;
+                
+                MDebug.Log($"Started using {nameof(MayaCameraController)}");
                 
                 // create new focus based on current camera orientation
                 // first, what is the radial distance from camera to focus?

@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 #endif
 
 using UnityEngine;
+using Wright.Library.Logging;
 
 namespace Wright.Library.Camera
 {
@@ -11,8 +12,8 @@ namespace Wright.Library.Camera
     {
         const float k_MouseSensitivityMultiplier = 0.01f;
 
-        CameraState m_TargetCameraState = new CameraState();
-        CameraState m_InterpolatingCameraState = new CameraState();
+        private readonly CameraState _targetCameraState = new();
+        private readonly CameraState _interpolatingCameraState = new();
 
         [Header("Movement Settings")] [Tooltip("Exponential boost factor on translation.")]
         public float boost = 3.5f;
@@ -81,8 +82,8 @@ namespace Wright.Library.Camera
 
         void OnEnable()
         {
-            m_TargetCameraState.SetFromTransform(transform);
-            m_InterpolatingCameraState.SetFromTransform(transform);
+            _targetCameraState.SetFromTransform(transform);
+            _interpolatingCameraState.SetFromTransform(transform);
         }
 
         Vector3 GetInputTranslationDirection()
@@ -121,8 +122,14 @@ namespace Wright.Library.Camera
 #endif
             return direction;
         }
+        
+        public override void DoCameraReset()
+        {
+            _targetCameraState.SetFromTransform(transform);
+            _interpolatingCameraState.SetFromTransform(transform);
+        }
 
-        void Update()
+        private void Update()
         {
             // Exit Sample
 
@@ -153,9 +160,15 @@ namespace Wright.Library.Camera
                 if (result != CameraSystem.RequestResult.Success)
                     return;
                 
+                // We don't want to reinitialize if this provider was just used
+                if (_cameraSystem.WasPrevious(this))
+                    return;
+                
+                MDebug.Log($"Started using {nameof(UnityCameraController)}");
+                
                 // We don't want to interpolate, just snap if we're starting this again
-                m_TargetCameraState.SetFromTransform(transform);
-                m_InterpolatingCameraState.SetFromTransform(transform);
+                _targetCameraState.SetFromTransform(transform);
+                _interpolatingCameraState.SetFromTransform(transform);
             }
 
             // Hide and lock cursor when right mouse button pressed
@@ -170,8 +183,8 @@ namespace Wright.Library.Camera
 
                 var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
 
-                m_TargetCameraState.yaw += mouseMovement.x * mouseSensitivityFactor;
-                m_TargetCameraState.pitch += mouseMovement.y * mouseSensitivityFactor;
+                _targetCameraState.yaw += mouseMovement.x * mouseSensitivityFactor;
+                _targetCameraState.pitch += mouseMovement.y * mouseSensitivityFactor;
             }
 
             // Translation
@@ -186,15 +199,15 @@ namespace Wright.Library.Camera
             // Modify movement by a boost factor (defined in Inspector and modified in play mode through the mouse scroll wheel)
             translation *= Mathf.Pow(2.0f, boost);
 
-            m_TargetCameraState.Translate(translation);
+            _targetCameraState.Translate(translation);
 
             // Framerate-independent interpolation
             // Calculate the lerp amount, such that we get 99% of the way to our target in the specified time
             var positionLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / positionLerpTime) * Time.deltaTime);
             var rotationLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / rotationLerpTime) * Time.deltaTime);
-            m_InterpolatingCameraState.LerpTowards(m_TargetCameraState, positionLerpPct, rotationLerpPct);
+            _interpolatingCameraState.LerpTowards(_targetCameraState, positionLerpPct, rotationLerpPct);
 
-            m_InterpolatingCameraState.UpdateTransform(transform);
+            _interpolatingCameraState.UpdateTransform(transform);
         }
 
         Vector2 GetInputLookRotation()

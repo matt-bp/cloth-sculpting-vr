@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using Wright.Library.Logging;
 
 namespace Wright.Library.Camera
 {
@@ -47,7 +49,24 @@ namespace Wright.Library.Camera
 
         public UnityEvent onCameraControlStarted;
         public UnityEvent onCameraControlStopped;
+
+        private Vector3 _initialPosition;
         
+        private void Start()
+        {
+            _initialPosition = transform.position;
+        }
+
+        public void OnCameraReset()
+        {
+            transform.position = _initialPosition;
+            transform.LookAt(Vector3.zero);
+
+            foreach (var provider in GetComponentsInChildren<CameraController>())
+            {
+                provider.DoCameraReset();    
+            }
+        }
 
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
