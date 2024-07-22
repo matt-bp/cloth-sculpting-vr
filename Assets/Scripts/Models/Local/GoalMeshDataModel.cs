@@ -8,7 +8,6 @@ using Wright.Library.File.SaveClasses;
 
 namespace Models.Local
 {
-    [RequireComponent(typeof(GoalMeshModel))]
     public class GoalMeshDataModel : MonoBehaviour
     {
         public event Action OnMeshesMissing;
